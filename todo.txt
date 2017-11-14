@@ -1,0 +1,301 @@
+--- needs ----------------------------------
+
+deploy site/group
+expand friends/groups
+    targeting
+post
+find smmers in linkedin and ask
+
+
+
+
+
+--- features ---------------------------------------------------
+
+
+quality trailers (games, movies, serials, anime, animation)
+interesting ads channel (japanese)
+get form reddit, reupload on channel
+fast cinema site generator
+youtube channel with film fragments aggregating to full film
+    there are full films, anime and animation on youtube already
+full auto
+    generate channel with some thematics
+    maintain
+    traction
+disk space management
+is it needed to post sme video in different loctions
+shuffling - post from several location and take posts with random delay for no exact mirror of location
+comment on fresh video of popular channel helper (earlier comment needs less likes, good comment - fits in discource of channel, maybe relates to video)
+    comment related to content with 100 likes can lead to 200k views
+        comments on related channels
+        comments under popular videos - generate likes
+related channels
+friendify
+    check for russian friendliness
+ability to compose content - music + image with same tags into video
+	8 hours version
+post about post
+
+
+--- analogues -------------------------------------------------------
+
+https://vkmix.com/landing - its not, its trading of real user actions
+https://publbox.com/ - some funky stuff, not same again
+
+
+
+
+
+--- from bottom to top --------------------------
+
+concrete which are exists, used and time proven
+    account
+    post
+    group
+    content
+
+
+
+
+
+--- lander concepts -----------------------------------
+
+Account
+Content
+Location
+
+
+
+
+
+--- postamatik concepts -------------------------------
+
+top level
+    Content - Picture/Audio/Video
+    ContentTagger - tags content with Tags
+    TaggedContent - Content with Tags
+
+    Tag - just word to categorize (same as, for example, in youtube)
+
+    Locations - Group/Page/Channel
+    LocationTagger - tags location with Tags
+    TaggedLocation - Location with Tags
+
+    Solver - gets locations, matches content and pushes Post (with assigned time) into scheduler
+    Scheduler - checks for Posts with time and posts them, simplest possible, general as possible
+    ContentStreamer - copies content from Source to Location
+
+
+
+Account
+Post
+    when
+    where
+    what
+Solver
+    decides Post
+    has Config
+Config
+    can be variable precision (from concrete to high level)
+    params
+        content precision level
+        content volume
+Poster
+    posts Posts on schedule (implements where of Post)
+
+
+
+
+
+--- friendify concepts -------------------------------
+
+Account
+
+
+
+
+
+--- commons --------------------------------------
+
+Email
+    properties
+        email
+        password
+        accounts
+Account
+    properties
+        tags
+        login
+        password
+        email
+Content - some array of bytes laying somewhere
+    properties
+        tags
+    methods
+        transfer
+Source -
+    video
+        youtube channel
+        youtube search
+        youtube video
+Location - place where already Posted
+
+
+
+
+
+--- implementation ------------------------
+
+isolate pages layout handling from all other
+Post
+    attributes
+        when - see Java Time
+        where - account.group
+        what - link/text/image/audio/video
+    storage
+
+Solver
+    periodic from queue
+Poster
+queue to interact
+all actors is created in Postamatik
+
+
+
+
+--- first version -------------------------------------------
+
+Post daily into Account from Sources
+
+
+
+
+
+--- name ----------------------------------------------------
+
+postamatik
+poster
+
+
+
+
+
+--- ContentStreamer -----------------------------------------
+
+file location
+file cleanup
+
+
+
+
+
+--- ContentRepositoryStore --------------------------------------
+
+persisted in file
+    on isOn = false
+in memory store
+way to add content
+    refresh from file periodically
+
+
+
+
+--- todo ------------------------------------------
+vk porn group
+test electronic music using videos, relax music using channel
+    test hibernate/start
+create more channels, add configs for them
+build jar - first version
+----------------------------
+test run relax music
+add other channels
+-----------------------------
+review video after upload (if it downed from channel)
+download view count threshold
+download time threshold
+contentsearch
+    roundrobin,...
+tags
+    union
+backup of channel
+    for bans, ...
+headless/notheadless parameter
+oauth2
+    selenide login than use api
+uploader may be separate - can upload all that can than only post
+duplicate uploads3
+stream through memory, no disc usage
+ContentSearch
+    user likes
+    playlist
+    randomize date/only-fresh
+add logging
+    PostsTimeline is log
+upload all that goes into channel
+    implement through ContentSearch or some other way
+deploy/run model
+    use docker
+duplicate uploads because of not same name
+        after duplicated uploaded it stays on channel
+        when posts timeline is readed it get its name and no more posts with such name
+reschedule with upload error
+way to reupload all
+way to specify way to upload
+    from newewst
+    from oldes
+    from most popular
+    shuffle
+postamatik - merge multiple videos into one
+	https://www.youtube.com/watch?v=j-8QUBeTEiU
+	https://www.youtube.com/watch?v=LzSLhFM9g9w
+	https://www.youtube.com/watch?v=YJjLxRkqksw
+	https://www.youtube.com/watch?v=JUiFp-_BK-I
+	https://www.youtube.com/watch?v=KAjCKOBD-xM
+	https://www.youtube.com/watch?v=i6MQ1iRTwC4
+	https://www.youtube.com/watch?v=UkyV_Ip5vzA
+	https://www.youtube.com/watch?v=4RlvJKdyLzs
+	https://www.youtube.com/watch?v=kv-WIjmZlKk&index=2&list=RDMwfdlu44oaE
+	https://www.youtube.com/watch?v=mOnKadkixfM
+	https://www.youtube.com/watch?v=HwOlYtyJflQ
+	https://www.youtube.com/watch?v=8bWYUbRoAbc
+	https://www.youtube.com/watch?v=LWk7Fizlq4I
+	https://www.youtube.com/watch?v=DAleE9JDQKE
+	https://www.youtube.com/watch?v=4LDP45X5mcw
+	https://www.youtube.com/watch?v=jYBGxYRnF50
+	https://www.youtube.com/watch?v=9-_xqjVLxvs
+	https://www.youtube.com/watch?v=FptokW4IUQo
+	https://www.youtube.com/watch?v=eoAVns8jTkI
+	https://www.youtube.com/watch?v=7I2YHwvQtbs
+	https://www.youtube.com/watch?v=c80uDZPQK1k
+	https://www.youtube.com/watch?v=p6jo_QFCmu8
+	https://www.youtube.com/watch?v=Hfq1feizFE4
+	https://www.youtube.com/watch?v=gVqK5AADLU8
+	https://www.youtube.com/watch?v=lVqoDq-_wfI
+	https://www.youtube.com/watch?v=OX3-ZvSBtEk
+	https://www.youtube.com/watch?v=ryHcYvBxEqk
+	https://www.youtube.com/watch?v=1jLCAIsRQhc
+	https://www.youtube.com/watch?v=1XOODTqVvdU
+	https://www.youtube.com/watch?v=NXQlaevASgY - programming
+	https://www.youtube.com/watch?v=TRweVdeyvaE
+	https://www.youtube.com/watch?v=S3WyEGxjR_c
+	https://www.youtube.com/watch?v=zi9PjRDnxxs
+
+
+
+
+friendify
+maybe too much scroll thats why bug with go to messages instead contacts
+soft to get friends with desired segment for social marketing
+service to hasten features development on github projects by fake accounts and "+1"
+friendify logo like 'friends' tv series
+	flattened
+
+
+
+libs
+    https://github.com/ecthros/uncaptcha
+
+
+
+
