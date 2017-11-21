@@ -1,7 +1,4 @@
-import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.ElementsCollection;
-import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.SelenideElement;
+import com.codeborne.selenide.*;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
@@ -29,12 +26,14 @@ public class Friendify {
     private static final long MAIL_RECEIVE_INTERVAL = MINUTES.convert(4, NANOSECONDS);
     private static final String PIN_MAIL_SUBJECT = ", here's your PIN";
     private static final Pattern PIN_PATTERN = Pattern.compile("Please use this verification code to complete your sign in: (\\d+)");
-
+    private static final String CONTACT_BUTTON_SELECTOR = "button.search-result__actions--primary";
 
     //    @Test
     public static void main(String[] args) throws Exception {
-        int startPage = 1;
+        int startPage = 7;
         int endPage = 200;
+
+        Configuration.timeout = 60000;
 
         System.setProperty("webdriver.gecko.driver", "D:\\buffer\\geckodriver-v0.17.0-win64\\geckodriver.exe");
 
@@ -50,7 +49,7 @@ public class Friendify {
 
         FirefoxOptions firefoxOptions = new FirefoxOptions();
         firefoxOptions.setProfile(profile);
-//        firefoxOptions.addArguments("-headless");
+        firefoxOptions.addArguments("-headless");
         firefoxOptions.addCapabilities(capabilities);
 
         setWebDriver(new FirefoxDriver(firefoxOptions));
@@ -59,41 +58,37 @@ public class Friendify {
         if (!login()) {
             throw new Exception();
         }
-        Selenide.sleep(20000);
+//        Selenide.sleep(20000);
 
         for (int i = startPage; i < endPage; i++) {
             try {
                 System.out.println(i);
                 open("https://www.linkedin.com/search/results/people/?facetGeoRegion=%5B%22us%3A0%22%5D&facetNetwork=%5B%22S%22%5D&origin=FACETED_SEARCH&page=" + i);
-                JavascriptExecutor jse = (JavascriptExecutor) getWebDriver();
+//                JavascriptExecutor jse = (JavascriptExecutor) getWebDriver();
 
+
+//                Selenide.sleep(15000);
 //
-//            new WebDriverWait(driver, 10).until((ExpectedCondition<Boolean>) wd ->
-//                    ((JavascriptExecutor) wd).executeScript("return document.readyState").equals("complete"));
+//                jse.executeScript("window.scrollBy(0,500)", "");
+//
+//                Selenide.sleep(5000);
+                while (!$("li.page-list").is(Condition.visible)) {
+                    $$(CONTACT_BUTTON_SELECTOR).last().scrollTo();
+                }
 
-                Selenide.sleep(15000);
-
-                jse.executeScript("window.scrollBy(0,500)", "");
-
-                Selenide.sleep(5000);
-
-
-                ElementsCollection buttons = $$(".search-result__actions--primary");
+                ElementsCollection buttons = $$(CONTACT_BUTTON_SELECTOR);
 
 
                 for (int j = 0; j < buttons.size(); j++) {
-                    jse.executeScript("window.scrollBy(0,1000)", "");
+//                    jse.executeScript("window.scrollBy(0,1000)", "");
                     SelenideElement button = $$("button.search-result__actions--primary").get(j);
                     if (button != null) {
-                        System.out.println(button.getText());
                         if ("Connect".equals(button.getText())) {
                             try {
                                 button.should(Condition.visible).click();
-
                                 SelenideElement sendButton =
                                         $("div.modal-wormhole-content div.send-invite__actions button.button-primary-large");
                                 sendButton.should(Condition.visible).click();
-//                                Selenide.sleep(5000);
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
@@ -121,6 +116,7 @@ public class Friendify {
                 return false;
             }
         }
+        $("li#profile-nav-item").should(Condition.visible);
         return true;
     }
 
