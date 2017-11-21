@@ -5,7 +5,10 @@ expand friends/groups
     targeting
 post
 find smmers in linkedin and ask
-
+reasearch deman
+    upwork
+        youtube
+            content needed
 
 
 
@@ -36,13 +39,15 @@ friendify
 ability to compose content - music + image with same tags into video
 	8 hours version
 post about post
-
+caching of videos
 
 --- analogues -------------------------------------------------------
 
+https://www.postplanner.com/
+https://hootsuite.com/
 https://vkmix.com/landing - its not, its trading of real user actions
 https://publbox.com/ - some funky stuff, not same again
-
+https://sproutsocial.com/
 
 
 
@@ -207,6 +212,7 @@ test electronic music using videos, relax music using channel
     test hibernate/start
 create more channels, add configs for them
 build jar - first version
+go friendify
 ----------------------------
 test run relax music
 add other channels
@@ -214,6 +220,12 @@ add other channels
 review video after upload (if it downed from channel)
 download view count threshold
 download time threshold
+cache content
+    donwload videos from channel
+        https://www.youtube.com/channel/UCCyVdaaZshSQoNLFz06oc3A/videos
+        https://www.youtube.com/channel/UC_awduXfdWQmB-6rNri4lQw/videos
+        https://www.youtube.com/channel/UC_awduXfdWQmB-6rNri4lQw/videos
+        https://www.youtube.com/channel/UCFbczEzyARNkqV0wWCeYarQ/videos
 contentsearch
     roundrobin,...
 tags
@@ -282,7 +294,7 @@ postamatik - merge multiple videos into one
 	https://www.youtube.com/watch?v=zi9PjRDnxxs
 
 
-
+http://youtubemarketing.pro/
 
 friendify
 maybe too much scroll thats why bug with go to messages instead contacts
@@ -290,7 +302,7 @@ soft to get friends with desired segment for social marketing
 service to hasten features development on github projects by fake accounts and "+1"
 friendify logo like 'friends' tv series
 	flattened
-
+    way to send petition to all friends
 
 
 libs

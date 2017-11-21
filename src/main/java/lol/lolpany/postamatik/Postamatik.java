@@ -1,5 +1,6 @@
 package lol.lolpany.postamatik;
 
+import com.codeborne.selenide.Configuration;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -16,6 +17,8 @@ import static java.util.Comparator.comparing;
 public class Postamatik {
 
     public static void main(String[] args) throws Exception {
+
+        Configuration.timeout = 30000;
 
 
         Gson gson = new GsonBuilder()

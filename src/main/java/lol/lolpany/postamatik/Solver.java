@@ -1,11 +1,5 @@
 package lol.lolpany.postamatik;
 
-import com.google.gson.Gson;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.net.MalformedURLException;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.Period;
@@ -15,7 +9,6 @@ import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.stream.Collectors;
 
 import static java.lang.Math.round;
 import static java.lang.Thread.sleep;
@@ -23,7 +16,7 @@ import static java.lang.Thread.sleep;
 public class Solver implements Runnable {
 
     private final static Duration POST_TIME = Duration.ofHours(10);
-    private final static Period UPLOAD_THRESHOLD = Period.ofDays(5);
+    private final static Period UPLOAD_THRESHOLD = Period.ofDays(0);
     private final ComponentConnection<AccountsConfig> accountsConfigsQueue;
     private AtomicBoolean on;
     private final PriorityComponentConnection<Post> contentStreamerQueue;

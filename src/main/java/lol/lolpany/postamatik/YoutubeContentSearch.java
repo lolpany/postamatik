@@ -1,6 +1,7 @@
 package lol.lolpany.postamatik;
 
 import com.codeborne.selenide.*;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
@@ -20,8 +21,8 @@ import static lol.lolpany.postamatik.SelenideUtils.getText;
 class YoutubeContentSearch implements ContentSearch {
 
     private static final Set<String> LIVE_TEXTS = new HashSet<String>() {{
-       add("LIVE NOW");
-       add("СЕЙЧАС В ПРЯМОМ ЭФИРЕ");
+        add("LIVE NOW");
+        add("СЕЙЧАС В ПРЯМОМ ЭФИРЕ");
     }};
 
     private final String url;
@@ -30,7 +31,6 @@ class YoutubeContentSearch implements ContentSearch {
     YoutubeContentSearch(String url, Set<String> tags) {
         this.url = url;
         this.tags = tags;
-        Configuration.timeout = 20000;
     }
 
     public Content findContent(double precision, Set<String> tags, PostsTimeline postsTimeline, Location location)
@@ -56,25 +56,36 @@ class YoutubeContentSearch implements ContentSearch {
                                          Location location) {
         open(url + "?view=0");
         SelenideElement items = $("div#items");
-        items.should(Condition.exist);
-        ElementsCollection thumbnails = items.findAll("ytd-grid-video-renderer");
-        Integer prevThumbnailsNumber = 0;
-        thumbnails.shouldBe(CollectionCondition.sizeGreaterThan(0));
-        while (prevThumbnailsNumber < thumbnails.size()) {
-            prevThumbnailsNumber = thumbnails.size();
-            for (SelenideElement thumbnail : thumbnails) {
-                if (thumbnail.findAll("div#details span").stream().noneMatch(e -> LIVE_TEXTS.contains(e.text()))) {
-                    String source = thumbnail.find("a#thumbnail").attr("href");
-                    String name = getText(thumbnail.find("a#video-title"));
-                    Content content =new Content(tags, singletonList(source), emptyList());
-                    content.name = name;
-                    if (!postsTimeline.isAlreadyScheduledOrUploadedOrPosted(location.url.toString(), content)) {
-                        return content;
+        boolean commonLayout = false;
+        try {
+            items.should(Condition.exist);
+            commonLayout = true;
+        } catch (Throwable e) {
+
+        }
+        if (commonLayout) {
+            ElementsCollection thumbnails = items.findAll(commonLayout ? "ytd-grid-video-renderer"
+                    : "ul#channels-browse-content-grid div.yt-lockup-dismissable");
+            Integer prevThumbnailsNumber = 0;
+            thumbnails.shouldBe(CollectionCondition.sizeGreaterThan(0));
+            while (prevThumbnailsNumber < thumbnails.size()) {
+                prevThumbnailsNumber = thumbnails.size();
+                for (SelenideElement thumbnail : thumbnails) {
+                    if (thumbnail.findAll(commonLayout ? "div#details span" : "div.yt-lockup-content").stream().noneMatch(e -> LIVE_TEXTS.contains(e.text()))) {
+                        String source = thumbnail.find(commonLayout ? "a#thumbnail" : "a.yt-uix-sessionlink").attr("href");
+
+                        String name = getText(thumbnail.find(commonLayout ? "a#video-title" : "div.yt-lockup-content a"));
+
+                        Content content = new Content(tags, singletonList(source), emptyList());
+                        content.name = name;
+                        if (!postsTimeline.isAlreadyScheduledOrUploadedOrPosted(location.url.toString(), content)) {
+                            return content;
+                        }
                     }
                 }
+                thumbnails.get(prevThumbnailsNumber - 1).scrollTo();
+                thumbnails = $$("a#thumbnail");
             }
-            thumbnails.get(prevThumbnailsNumber - 1).scrollTo();
-            thumbnails = $$("a#thumbnail");
         }
         return null;
     }

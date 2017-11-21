@@ -1,5 +1,6 @@
 package lol.lolpany.postamatik;
 
+import java.time.Instant;
 import java.util.concurrent.Semaphore;
 
 import static java.nio.file.Files.deleteIfExists;
@@ -35,8 +36,10 @@ public class ContentStreamer implements Runnable {
             if (!postsTimeline.isAlreadyUploadedOrPosted(locationUrl, content)) {
                 post.setAction(locationOutputStream.write(content));
                 posterQueue.put(post);
-                postsTimeline.setUploaded(post);
+            } else {
+                post.time = Instant.MIN;
             }
+            postsTimeline.setUploaded(post);
             deleteIfExists(content.file.toPath());
             streamsLimitingSemaphore.release();
         } catch (Exception e) {

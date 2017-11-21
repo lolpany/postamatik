@@ -28,6 +28,12 @@ https://www.youtube.com/watch?v=WzoG16FOyA8 - remove speec somehow
 
 
 	channel
+		https://www.youtube.com/channel/UClen3Y4hPpq1Wtg6laWITog
+	    https://www.youtube.com/channel/UCJ3C_aunCEXCDUGB16XWY3g/videos
+	https://www.youtube.com/user/9EricCN3/videos
+		https://www.youtube.com/channel/UCsTeltUH6mBTKtALKPQWKEA/videos
+		https://www.youtube.com/user/psySWATunit/videos
+		https://www.youtube.com/user/microcosmosrec/videos
 		https://www.youtube.com/channel/UCKPJfyi-Jh85Ix4_eqegymw
 		https://www.youtube.com/channel/UCj5PmkYxqXxkuqEjvxMAYuA
 		https://www.youtube.com/channel/UCxbv0nvZwm0WT6zouZbGSWA

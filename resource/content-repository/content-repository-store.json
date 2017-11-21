@@ -4,7 +4,15 @@
 
 
     // programming music
-    {"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=Dj1JK_BWAlw"],"notActualSources" : []}
+    {"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=nelaQMxQ0DA"],"notActualSources" : []}
+  ,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=aDa-UKdKeQs"],"notActualSources" : []}
+  ,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=nnJYLgaxm6U"],"notActualSources" : []}
+  ,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=HE8vnsH8_K8"],"notActualSources" : []}
+  ,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=cW-ZtQy5aPw"],"notActualSources" : []}
+  ,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=BIRYYQ4Xpss"],"notActualSources" : []}
+  ,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=VldtSlnqIuo"],"notActualSources" : []}
+  ,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=Dj1JK_BWAlw"],"notActualSources" : []}
+  ,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=nnJYLgaxm6U"],"notActualSources" : []}
     ,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=ybghlkxm5Ts"],"notActualSources" : []}
 ,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=nm8dECiEx0k"],"notActualSources" : []}
 ,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=NEPW9U7xUtY"],"notActualSources" : []}
@@ -161,6 +169,7 @@
     // electronic music
     {"tags": ["music", "electronic music"], "url" : "https://www.youtube.com/user/Pulse8Music/videos"}
     ,{"tags": ["music", "electronic music"], "url" : "https://www.youtube.com/user/sheepsempire/videos"}
+    ,{"tags": ["music", "electronic music"], "url" : "https://www.youtube.com/user/9EricCN3/videos"}
 
     // relax music
     ,{"tags": ["music", "relax music"], "url" : "https://www.youtube.com/user/EdgelessJA/videos"}
@@ -199,6 +208,7 @@
   ,  {"tags": ["game trailer"], "url" : "https://www.youtube.com/user/DyingLightGame/videos"}
   ,  {"tags": ["game trailer"], "url" : "https://www.youtube.com/user/SEGAEurope/videos"}
   ,  {"tags": ["game trailer"], "url" : "https://www.youtube.com/user/2KGames/videos"}
+  ,  {"tags": ["game trailer"], "url" : "https://www.youtube.com/user/EAMobileGames/videos"}
 
 
 
@@ -208,10 +218,23 @@
 
     // movie clips
   ,  {"tags": ["movie clip"], "url" : "https://www.youtube.com/channel/UClVbhSLxwws-KSsPKz135bw/videos"}
+  ,  {"tags": ["movie clip"], "url" : "https://www.youtube.com/channel/UCziXARv_BiHZdT7tBVbQXPw/videos"}
 
    // movie clips - watermarked
-  ,  {"tags": ["movie clip"], "url" : "https://www.youtube.com/user/movieclips/videos"}
-  ,  {"tags": ["movie clip"], "url" : "https://www.youtube.com/channel/UC6BAQLqymtpI8azcVOL70sw/videos"}
-  ,  {"tags": ["movie clip"], "url" : "https://www.youtube.com/channel/UCF2DedNpo5ht4cEHXk1WVgg/videos"}
+//  ,  {"tags": ["movie clip"], "url" : "https://www.youtube.com/user/movieclips/videos"}
+//  ,  {"tags": ["movie clip"], "url" : "https://www.youtube.com/channel/UC6BAQLqymtpI8azcVOL70sw/videos"}
+//  ,  {"tags": ["movie clip"], "url" : "https://www.youtube.com/channel/UCF2DedNpo5ht4cEHXk1WVgg/videos"}
+
+
+    // movie trailers
+  ,  {"tags": ["movie trailer"], "url" : "https://www.youtube.com/user/starwars/videos"}
+  ,  {"tags": ["movie trailer"], "url" : "https://www.youtube.com/user/SonyPictures/videos"}
+  ,  {"tags": ["movie trailer"], "url" : "https://www.youtube.com/user/WarnerBrosPictures/videos"}
+  ,  {"tags": ["movie trailer"], "url" : "https://www.youtube.com/user/FoxMovies/videos"}
+  ,  {"tags": ["movie trailer"], "url" : "https://www.youtube.com/user/Paramount/videos"}
+  ,  {"tags": ["movie trailer"], "url" : "https://www.youtube.com/user/UniversalPictures/videos"}
+  ,  {"tags": ["movie trailer"], "url" : "https://www.youtube.com/user/disneyanimation/videos"}
+  ,  {"tags": ["movie trailer"], "url" : "https://www.youtube.com/user/LionsgateLIVE/videos"}
+
   ]
 }

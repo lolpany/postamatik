@@ -28,7 +28,7 @@ public class YoutubeOutputStream implements LocationOutputStream {
         this.chromeDriverLocation = chromeDriverLocation;
         this.account = account;
         this.location = location;
-        Configuration.timeout = 10000;
+
     }
 
     @Override

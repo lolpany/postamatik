@@ -21,7 +21,6 @@ public class YoutubePostAction implements PostAction {
         this.account = account;
         this.location = location;
         this.videoId = videoId;
-        Configuration.timeout = 30000;
     }
 
     @Override

@@ -35,7 +35,7 @@ public class ContentRepository {
 
         if (contentRepositoryStore != null) {
             for (Content content : contentRepositoryStore.contentList) {
-                if (!timeline.isAlreadyUploadedOrPosted(location.url.toString(), content)
+                if (!timeline.isAlreadyScheduledOrUploadedOrPosted(location.url.toString(), content)
                         && Utils.match(tags, content.tags) >= precision) {
                     return content;
                 }
@@ -45,8 +45,8 @@ public class ContentRepository {
                 Content content = contentSearch.findContent(precision, tags, postsTimeline, location);
                 if (content != null) {
 //                    addContent(content);
-                    if (!timeline.isAlreadyUploadedOrPosted(location.url.toString(), content)
-                            && Utils.match(tags, content.tags) > precision) {
+                    if (!timeline.isAlreadyScheduledOrUploadedOrPosted(location.url.toString(), content)
+                            && Utils.match(tags, content.tags) >= precision) {
                         return content;
                     }
                 }

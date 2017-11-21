@@ -27,7 +27,6 @@ public class OnlinevideoconverterInputStream implements SourceInputStream {
         this.source = source;
         this.content = content;
         this.videoCache = videoCache;
-        Configuration.timeout = 10000;
     }
 
     @Override
@@ -39,7 +38,7 @@ public class OnlinevideoconverterInputStream implements SourceInputStream {
         open("https://www.onlinevideoconverter.com/ru/video-converter");
         $("#texturl").sendKeys(source);
         $("div#select_main").click();
-        $("div#select_main a[data-value=\"mp4\"]").click();
+        $("div#select_main a[data-value=\"mp4\"]").should(Condition.exist).click();
         $("#convert1").click();
         SelenideElement downloadButton = $("#downloadq");
         downloadButton.should(Condition.visible).should(Condition.attribute("href"));
