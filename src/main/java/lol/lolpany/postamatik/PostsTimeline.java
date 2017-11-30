@@ -1,10 +1,7 @@
 package lol.lolpany.postamatik;
 
-import com.google.gson.Gson;
+import lol.lolpany.postamatik.youtube.YoutubeTimelineReaderFactory;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.time.Instant;
 import java.time.Period;
 import java.util.*;
@@ -25,7 +22,7 @@ public class PostsTimeline {
 
     private ConcurrentHashMap<String, ConcurrentLinkedQueue<Post>> timeline;
 
-    PostsTimeline(AccountsConfig accountsConfig) {
+    public PostsTimeline(AccountsConfig accountsConfig) {
         this.timeline = new ConcurrentHashMap<>();
         for (Account account : accountsConfig.accountsConfig) {
             for (Location location : account.locations) {

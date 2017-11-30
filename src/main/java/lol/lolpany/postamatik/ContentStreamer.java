@@ -37,13 +37,14 @@ public class ContentStreamer implements Runnable {
                 post.setAction(locationOutputStream.write(content));
                 posterQueue.put(post);
             } else {
-                post.time = Instant.MIN;
+                post.setPosted();
+                streamerErrorQueue.offer(post);
             }
             postsTimeline.setUploaded(post);
             deleteIfExists(content.file.toPath());
             streamsLimitingSemaphore.release();
         } catch (Exception e) {
-            streamerErrorQueue.offer(post);
+
         }
     }
 }

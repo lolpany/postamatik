@@ -11,10 +11,10 @@ import java.util.Set;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
 public class Content {
-    String name;
-    Set<String> tags;
-    List<String> actualSources;
-    List<String> notActualSources;
+    public String name;
+    public Set<String> tags;
+    public List<String> actualSources;
+    public List<String> notActualSources;
     public File file;
 
     public Content(Set<String> tags, List<String> actualSources, List<String> notActualSources) {

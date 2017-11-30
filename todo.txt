@@ -211,12 +211,22 @@ vk porn group
 test electronic music using videos, relax music using channel
     test hibernate/start
 create more channels, add configs for them
+fix for upload of same
 build jar - first version
 go friendify
 ----------------------------
 test run relax music
 add other channels
 -----------------------------
+https://github.com/tokland/youtube-upload
+    or https://github.com/porjo/youtubeuploader
+    or write yourself
+        best, can write fast timelinereader, using
+slow uploads
+youtube-dl
+    youtube:playlist
+    youtube:channel feautures
+https://www.change.org/p/google-%D0%BF%D1%80%D0%BE%D1%82%D0%B8%D0%B2-%D0%BF%D0%BE%D0%BB%D0%B8%D1%82%D0%B8%D0%BA%D0%B8-google-%D0%BD%D0%B0-youtube-%D0%BF%D0%BE-%D1%83%D0%B4%D0%B0%D0%BB%D0%B5%D0%BD%D0%B8%D1%8E-%D0%BA%D0%B0%D0%BD%D0%B0%D0%BB%D0%BE%D0%B2-%D0%B8-%D0%B2%D0%B8%D0%B4%D0%B5%D0%BE-%D0%B1%D0%B5%D0%B7-%D0%BE%D0%B1%D1%8A%D1%8F%D1%81%D0%BD%D0%B5%D0%BD%D0%B8%D1%8F-%D0%BF%D1%80%D0%B8%D1%87%D0%B8%D0%BD
 review video after upload (if it downed from channel)
 download view count threshold
 download time threshold
@@ -295,18 +305,6 @@ postamatik - merge multiple videos into one
 
 
 http://youtubemarketing.pro/
-
-friendify
-maybe too much scroll thats why bug with go to messages instead contacts
-soft to get friends with desired segment for social marketing
-service to hasten features development on github projects by fake accounts and "+1"
-friendify logo like 'friends' tv series
-	flattened
-    way to send petition to all friends
-
-
-libs
-    https://github.com/ecthros/uncaptcha
 
 
 

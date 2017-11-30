@@ -3,8 +3,8 @@ package lol.lolpany.postamatik;
 import java.net.URL;
 
 public class Location {
-    URL url;
-    LocationConfig locationConfig;
+    public URL url;
+    public LocationConfig locationConfig;
 
     public Location(URL url, LocationConfig locationConfig) {
         this.url = url;

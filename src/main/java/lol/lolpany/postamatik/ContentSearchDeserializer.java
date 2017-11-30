@@ -1,10 +1,11 @@
 package lol.lolpany.postamatik;
 
 import com.google.gson.*;
+import lol.lolpany.postamatik.youtube.YoutubeContentSearch;
 
 import java.lang.reflect.Type;
 
-final class ContentSearchDeserializer implements JsonDeserializer<ContentSearch> {
+public final class ContentSearchDeserializer implements JsonDeserializer<ContentSearch> {
 
     public ContentSearch deserialize(JsonElement elem, Type interfaceType, JsonDeserializationContext context)
             throws JsonParseException {

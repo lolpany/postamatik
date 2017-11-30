@@ -1,5 +1,7 @@
 package lol.lolpany.postamatik;
 
+import lol.lolpany.postamatik.youtube.YoutubeOutputStreamFactory;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -15,7 +17,7 @@ import static java.lang.Thread.sleep;
 public class ContentStreamerDispatcher implements Runnable {
 
     public final static String CHROME_DRIVER_LOCATION = "D:\\buffer\\chromedriver\\chromedriver.exe";
-    public final static String VIDEO_CACHE = "D:\\buffer\\postamatik-cache\\";
+    public final static String VIDEO_CACHE = "R:\\";
     private final static int STREAMER_BUFFER_SIZE = 10240;
     private final static int CORE_POOL_SIZE = 10240;
     private final static int MAXIMUM_POOL_SIZE = 10240;

@@ -3,12 +3,12 @@ package lol.lolpany.postamatik;
 import java.time.Instant;
 
 public class Post {
-    Instant time;
-    final Content content;
-    final Account account;
-    final Location location;
-    PostState postState;
-    PostAction action;
+    public Instant time;
+    public Content content;
+    public final Account account;
+    public final Location location;
+    public PostState postState;
+    public PostAction action;
 
     public Post(Instant time, Content content, Account account, Location location) {
         this.time = time;
@@ -18,7 +18,7 @@ public class Post {
         this.postState = PostState.SCHEDULED;
     }
 
-    void setAction(PostAction action) {
+    public void setAction(PostAction action) {
         this.action = action;
     }
 

@@ -30,7 +30,7 @@ public class Friendify {
 
     //    @Test
     public static void main(String[] args) throws Exception {
-        int startPage = 7;
+        int startPage = 1;
         int endPage = 200;
 
         Configuration.timeout = 60000;
@@ -85,7 +85,7 @@ public class Friendify {
                     if (button != null) {
                         if ("Connect".equals(button.getText())) {
                             try {
-                                button.should(Condition.visible).click();
+                                button.should(Condition.exist).click();
                                 SelenideElement sendButton =
                                         $("div.modal-wormhole-content div.send-invite__actions button.button-primary-large");
                                 sendButton.should(Condition.visible).click();

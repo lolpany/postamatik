@@ -1,10 +1,11 @@
 package lol.lolpany.postamatik;
 
 import com.google.gson.*;
+import lol.lolpany.postamatik.youtube.YoutubePostAction;
 
 import java.lang.reflect.Type;
 
-final class PostActionDeserializer implements JsonDeserializer<PostAction> {
+public final class PostActionDeserializer implements JsonDeserializer<PostAction> {
 
     public PostAction deserialize(JsonElement elem, Type interfaceType, JsonDeserializationContext context)
             throws JsonParseException {

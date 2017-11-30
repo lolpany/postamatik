@@ -5,10 +5,10 @@ import java.time.Duration;
 import java.util.Set;
 
 public class LocationConfig {
-    String url;
-    Set<String> tags;
-    double precision;
-    double frequency;
+    public String url;
+    public Set<String> tags;
+    public double precision;
+    public double frequency;
 
     public LocationConfig(String url, Set<String> tags, double precision, double frequency) {
         this.url = url;

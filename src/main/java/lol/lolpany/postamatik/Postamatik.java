@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.io.FileReader;
+import java.time.Instant;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -35,6 +36,8 @@ public class Postamatik {
         ComponentConnection<ContentRepositoryStore> contentRepositoryStoreQueue = new ComponentConnection<>(1);
 //        PriorityBlockingQueue<Post> contentStreamerQueue = new PriorityBlockingQueue<>(1000,
 //                comparing(firstPost -> firstPost.time));
+
+
         PriorityComponentConnection<Post> contentStreamerQueue = new PriorityComponentConnection<>(1000,
                 comparing(firstPost -> firstPost.time));
 
@@ -84,7 +87,7 @@ public class Postamatik {
         ContentRepository contentRepository = new ContentRepository(contentRepositoryStoreQueue, postsTimeline);
 
         executorService.execute(new Solver(accountsConfigsQueue, contentStreamerQueue,
-                contentRepository, postsTimeline, isOn));
+                contentRepository, postsTimeline, streamerErrorQueue, isOn));
 
         executorService.execute(new ContentStreamerDispatcher(isOn, contentStreamerQueue, posterQueue,
                 streamerErrorQueue, postsTimeline));

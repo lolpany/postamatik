@@ -1,10 +1,11 @@
 package lol.lolpany.postamatik;
 
 import com.google.gson.*;
+import lol.lolpany.postamatik.youtube.YoutubeLocation;
 
 import java.lang.reflect.Type;
 
-final class LocationDeserializer implements JsonDeserializer<Location> {
+public final class LocationDeserializer implements JsonDeserializer<Location> {
 
     public Location deserialize(JsonElement elem, Type interfaceType, JsonDeserializationContext context)
             throws JsonParseException {

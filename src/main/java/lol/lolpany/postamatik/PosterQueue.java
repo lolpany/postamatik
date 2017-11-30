@@ -15,7 +15,7 @@ public class PosterQueue {
 
     PriorityComponentConnection<Post> queue;
 
-    PosterQueue(int initialCapacity) {
+    public PosterQueue(int initialCapacity) {
         queue = new PriorityComponentConnection<>(initialCapacity, Comparator.comparing(post -> post.time));
     }
 

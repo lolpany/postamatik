@@ -22,14 +22,16 @@ public class Solver implements Runnable {
     private final PriorityComponentConnection<Post> contentStreamerQueue;
     private final ContentRepository contentRepository;
     private final PostsTimeline postsTimeline;
+    private final ComponentConnection<Post> streamerErrorQueue;
 
     public Solver(ComponentConnection<AccountsConfig> accountsConfigsQueue,
                   PriorityComponentConnection<Post> contentStreamerQueue, ContentRepository contentRepository,
-                  PostsTimeline postsTimeline, AtomicBoolean on) {
+                  PostsTimeline postsTimeline, ComponentConnection<Post> streamerErrorQueue, AtomicBoolean on) {
         this.accountsConfigsQueue = accountsConfigsQueue;
         this.contentStreamerQueue = contentStreamerQueue;
         this.contentRepository = contentRepository;
         this.postsTimeline = postsTimeline;
+        this.streamerErrorQueue = streamerErrorQueue;
         this.on = on;
     }
 
@@ -60,6 +62,18 @@ public class Solver implements Runnable {
                             }
                         }
                     }
+                }
+                Post postWithAlreadyPostedContent = streamerErrorQueue.poll();
+                while (postWithAlreadyPostedContent != null) {
+                    Content content = contentRepository.getContent(
+                            postWithAlreadyPostedContent.location.locationConfig.precision,
+                            postWithAlreadyPostedContent.location.locationConfig.tags,
+                            postWithAlreadyPostedContent.location, postsTimeline);
+                    if (content != null) {
+                        postWithAlreadyPostedContent.content = content;
+                        contentStreamerQueue.offer(postWithAlreadyPostedContent);
+                    }
+                    postWithAlreadyPostedContent = streamerErrorQueue.poll();
                 }
                 sleep(1000);
             } catch (Exception e) {
