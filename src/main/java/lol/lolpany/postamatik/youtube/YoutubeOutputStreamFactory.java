@@ -11,7 +11,7 @@ public class YoutubeOutputStreamFactory implements LocationOutputStreamFactory<Y
 
     private final String chromeDriverLocation;
 
-    YoutubeOutputStreamFactory(String chromeDriverLocation) throws GeneralSecurityException, IOException {
+    public YoutubeOutputStreamFactory(String chromeDriverLocation) throws GeneralSecurityException, IOException {
         this.chromeDriverLocation = chromeDriverLocation;
     }
 

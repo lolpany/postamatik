@@ -21,7 +21,7 @@ public class YoutubeDlInputStream implements SourceInputStream {
 
     @Override
     public Content read() throws Exception {
-        String filePath = "\"" + videoCache + "\\" + UUID.randomUUID().toString() + ".mp4" + "\"";
+        String filePath = videoCache + "\\" + UUID.randomUUID().toString() + ".mp4";
 
         content.name = new ProcessExecutor().readOutput(true).command(
                 "D:\\storage\\Dropbox\\projects\\postamatik\\resource\\youtube-dl.exe",

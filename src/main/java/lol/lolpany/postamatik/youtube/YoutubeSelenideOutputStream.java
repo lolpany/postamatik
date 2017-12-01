@@ -9,6 +9,7 @@ import lol.lolpany.postamatik.PostAction;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
+import java.io.File;
 import java.io.IOException;
 
 import static com.codeborne.selenide.Selenide.*;

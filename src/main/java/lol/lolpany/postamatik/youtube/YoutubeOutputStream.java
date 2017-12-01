@@ -31,7 +31,7 @@ public class YoutubeOutputStream implements LocationOutputStream {
     @Override
     public PostAction write(Content content) throws IOException, GeneralSecurityException {
 
-        YouTube youTube = YoutubeUtils.fetchYouTube(account);
+        YouTube youTube = YoutubeUtils.fetchYouTube(account, location);
 
 
 
@@ -49,7 +49,7 @@ public class YoutubeOutputStream implements LocationOutputStream {
         videoObjectDefiningMetadata.setSnippet(snippet);
 
         InputStreamContent mediaContent = new InputStreamContent("video/*",
-                new FileInputStream("D:\\buffer\\go.mp4"));
+                new FileInputStream(content.file));
 
         YouTube.Videos.Insert videoInsert = youTube.videos()
                 .insert("snippet,statistics,status", videoObjectDefiningMetadata, mediaContent);
@@ -59,7 +59,7 @@ public class YoutubeOutputStream implements LocationOutputStream {
         uploader.setDirectUploadEnabled(false);
         com.google.api.services.youtube.model.Video returnedVideo = videoInsert.execute();
 
-        return new YoutubePostAction(chromeDriverLocation, account, location, returnedVideo.getId(), youTube);
+        return new YoutubePostAction(returnedVideo.getId(), youTube);
     }
 
 

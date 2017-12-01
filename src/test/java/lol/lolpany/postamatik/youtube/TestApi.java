@@ -1,4 +1,4 @@
-package lol.lolpany.postamatik;
+package lol.lolpany.postamatik.youtube;
 
 import com.google.api.client.auth.oauth2.*;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
@@ -11,6 +11,7 @@ import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.Video;
 import com.google.api.services.youtube.model.VideoSnippet;
 import com.google.api.services.youtube.model.VideoStatus;
+import lol.lolpany.postamatik.Account;
 import org.junit.Test;
 
 import java.io.FileInputStream;
@@ -52,7 +53,8 @@ public class TestApi {
                 add("https://www.googleapis.com/auth/youtube.upload");
             }});
             authorizationCodeRequestUrl.setRedirectUri("http://www.example.com");
-            String authorizationCode = fetchAuthorizationCode(authorizationCodeRequestUrl);
+            String authorizationCode = fetchAuthorizationCode(authorizationCodeRequestUrl,
+                    new Account(null,null,null,null), new YoutubeLocation(null, null, "supergame"));
             AuthorizationCodeTokenRequest tokenRequest = authorizationCodeFlow.newTokenRequest(authorizationCode);
             tokenRequest.setRedirectUri("http://www.example.com");
             credential = authorizationCodeFlow.createAndStoreCredential(tokenRequest.execute(), USER_ID);

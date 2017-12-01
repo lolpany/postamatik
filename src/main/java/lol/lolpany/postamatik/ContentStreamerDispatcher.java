@@ -1,5 +1,6 @@
 package lol.lolpany.postamatik;
 
+import lol.lolpany.postamatik.youtube.YoutubeDlInputStreamFactory;
 import lol.lolpany.postamatik.youtube.YoutubeOutputStreamFactory;
 
 import java.io.FileNotFoundException;
@@ -25,7 +26,7 @@ public class ContentStreamerDispatcher implements Runnable {
     private final static Map<String, SourceInputStreamFactory> SOURCE_INPUT_STREAM_FACTORIES =
             new HashMap<String, SourceInputStreamFactory>() {{
                 put("www.youtube.com",
-                        new OnlinevideoconverterInputStreamFactory(CHROME_DRIVER_LOCATION, VIDEO_CACHE));
+                        new YoutubeDlInputStreamFactory(VIDEO_CACHE));
             }};
     private final static Map<String, LocationOutputStreamFactory> LOCATION_OUTPUT_STREAM_FACTORIES =
             new HashMap<String, LocationOutputStreamFactory>() {{

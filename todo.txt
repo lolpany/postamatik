@@ -218,11 +218,16 @@ go friendify
 test run relax music
 add other channels
 -----------------------------
+description
+languageg
+category
+auto avatar and background
 https://github.com/tokland/youtube-upload
     or https://github.com/porjo/youtubeuploader
     or write yourself
         best, can write fast timelinereader, using
 slow uploads
+etag - maybe can use as hash
 youtube-dl
     youtube:playlist
     youtube:channel feautures

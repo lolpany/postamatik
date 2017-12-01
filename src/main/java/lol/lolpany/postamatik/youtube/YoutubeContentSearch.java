@@ -11,6 +11,7 @@ import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
 
+import static com.codeborne.selenide.CollectionCondition.sizeGreaterThan;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverRunner.closeWebDriver;
 import static com.codeborne.selenide.WebDriverRunner.setWebDriver;
@@ -19,7 +20,7 @@ import static java.util.Collections.singletonList;
 import static lol.lolpany.postamatik.ContentStreamerDispatcher.CHROME_DRIVER_LOCATION;
 import static lol.lolpany.postamatik.SelenideUtils.getText;
 
-class YoutubeContentSearch implements ContentSearch {
+public class YoutubeContentSearch implements ContentSearch {
 
     private static final Set<String> LIVE_TEXTS = new HashSet<String>() {{
         add("LIVE NOW");
@@ -68,11 +69,12 @@ class YoutubeContentSearch implements ContentSearch {
             ElementsCollection thumbnails = items.findAll(commonLayout ? "ytd-grid-video-renderer"
                     : "ul#channels-browse-content-grid div.yt-lockup-dismissable");
             Integer prevThumbnailsNumber = 0;
-            thumbnails.shouldBe(CollectionCondition.sizeGreaterThan(0));
+            thumbnails.shouldBe(sizeGreaterThan(0));
             while (prevThumbnailsNumber < thumbnails.size()) {
                 prevThumbnailsNumber = thumbnails.size();
                 for (SelenideElement thumbnail : thumbnails) {
-                    if (thumbnail.findAll(commonLayout ? "div#details span" : "div.yt-lockup-content").stream().noneMatch(e -> LIVE_TEXTS.contains(e.text()))) {
+                    if (thumbnail.findAll(commonLayout ? "div#details span" : "div.yt-lockup-content").stream()
+                            .noneMatch(e -> LIVE_TEXTS.contains(e.text()))) {
                         String source = thumbnail.find(commonLayout ? "a#thumbnail" : "a.yt-uix-sessionlink").attr("href");
 
                         String name = getText(thumbnail.find(commonLayout ? "a#video-title" : "div.yt-lockup-content a"));

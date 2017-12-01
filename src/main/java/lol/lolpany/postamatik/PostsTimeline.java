@@ -16,7 +16,7 @@ public class PostsTimeline {
 
     private final static Map<String, LocationTimelineReaderFactory> LOCATION_TIMELINES_FACTORIES =
             new HashMap<String, LocationTimelineReaderFactory>() {{
-                put("www.youtube.com", new YoutubeTimelineReaderFactory(CHROME_DRIVER_LOCATION));
+                put("www.youtube.com", new YoutubeTimelineReaderFactory());
             }};
 
 
@@ -94,8 +94,8 @@ public class PostsTimeline {
                         .filter(post -> post.postState == PostState.UPLOADED).collect(Collectors.toList());
                 List<Instant> instants = generateNewPostInstants(location.locationConfig,
                         this.getPosts(location.url.toString()),
-                        Period.ofDays((int) (1 + Math.round(1.0/ location.locationConfig.frequency)) * posts.size()
-                                + 10));
+                        (int) (1 + Math.round(1.0/ location.locationConfig.frequency)) * posts.size()
+                                + 10);
                 int i = 0;
                 for (Post post : posts) {
                     post.time = instants.get(i);

@@ -2,7 +2,6 @@ package lol.lolpany.postamatik;
 
 import java.time.Duration;
 import java.time.Instant;
-import java.time.Period;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,11 +11,12 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import static java.lang.Math.round;
 import static java.lang.Thread.sleep;
+import static java.time.temporal.ChronoUnit.DAYS;
 
 public class Solver implements Runnable {
 
     private final static Duration POST_TIME = Duration.ofHours(10);
-    private final static Period UPLOAD_THRESHOLD = Period.ofDays(0);
+    private final static int UPLOAD_THRESHOLD = 0;
     private final ComponentConnection<AccountsConfig> accountsConfigsQueue;
     private AtomicBoolean on;
     private final PriorityComponentConnection<Post> contentStreamerQueue;
@@ -84,7 +84,7 @@ public class Solver implements Runnable {
 
     public static List<Instant> generateNewPostInstants(LocationConfig locationConfig,
                                                         ConcurrentLinkedQueue<Post> posts,
-                                                        Period uploadThresholdFromNow) {
+                                                        int uploadThresholdFromNow) {
         List<Instant> result = new ArrayList<>();
         Instant lastPostTime = Instant.ofEpochMilli(0);
         if (posts != null) {
@@ -100,10 +100,10 @@ public class Solver implements Runnable {
         }*/
         long period = round(1 / locationConfig.frequency * TimeUnit.DAYS.toSeconds(1));
         if (Instant.now().plus(-period, ChronoUnit.SECONDS).isAfter(lastPostTime)) {
-            lastPostTime = Instant.now().truncatedTo(ChronoUnit.DAYS).plus(POST_TIME).plus(-period, ChronoUnit.SECONDS);
+            lastPostTime = Instant.now().truncatedTo(DAYS).plus(POST_TIME).plus(-period, ChronoUnit.SECONDS);
         }
         Instant instant = lastPostTime.plus(period, ChronoUnit.SECONDS);
-        Instant uploadThreshold = Instant.now().plus(uploadThresholdFromNow);
+        Instant uploadThreshold = Instant.now().plus(uploadThresholdFromNow, DAYS);
         while (instant.isBefore(uploadThreshold)) {
             result.add(instant);
             instant = instant.plus(period, ChronoUnit.SECONDS);

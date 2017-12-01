@@ -58,7 +58,7 @@ public class YoutubeSelenideTimelineReader implements LocationTimelineReader<You
 
         YouTube youTube = null;
         try {
-            youTube = YoutubeUtils.fetchYouTube(account);
+            youTube = YoutubeUtils.fetchYouTube(account, location);
         } catch (IOException | GeneralSecurityException e) {
             e.printStackTrace();
         }
@@ -92,7 +92,7 @@ public class YoutubeSelenideTimelineReader implements LocationTimelineReader<You
                     post.postState = isPublishButton ? PostState.UPLOADED : PostState.POSTED;
                     if (isPublishButton) {
                         post.postState = PostState.UPLOADED;
-                        post.setAction(new YoutubePostAction(chromeDriverLocation, account, location,
+                        post.setAction(new YoutubePostAction(
                                 videoTitle.attr("href").split("video_id=")[1], youTube));
                     } else {
                         post.postState = PostState.POSTED;
