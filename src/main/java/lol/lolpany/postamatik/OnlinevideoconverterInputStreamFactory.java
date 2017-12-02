@@ -13,7 +13,7 @@ public class OnlinevideoconverterInputStreamFactory implements SourceInputStream
     }
 
     @Override
-    public SourceInputStream create(String source, Content content) throws FileNotFoundException, InterruptedException {
+    public SourceInputStream create(String source, Content content, PostsTimeline postsTimeline, String locationUrl) throws FileNotFoundException, InterruptedException {
         return new OnlinevideoconverterInputStream(chromeDriverLocation, source, content, videoCache);
     }
 }

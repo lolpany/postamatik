@@ -22,7 +22,7 @@ public class ContentStreamerDispatcher implements Runnable {
     private final static int STREAMER_BUFFER_SIZE = 10240;
     private final static int CORE_POOL_SIZE = 10240;
     private final static int MAXIMUM_POOL_SIZE = 10240;
-    private final static int MAXIMUM_PARALLER_STREAMS = 2;
+    private final static int MAXIMUM_PARALLER_STREAMS = 5;
     private final static Map<String, SourceInputStreamFactory> SOURCE_INPUT_STREAM_FACTORIES =
             new HashMap<String, SourceInputStreamFactory>() {{
                 put("www.youtube.com",
@@ -75,7 +75,8 @@ public class ContentStreamerDispatcher implements Runnable {
                                 while (isOn.get() && !streamsLimitingSemaphore.tryAcquire()) {
                                     sleep(1000);
                                 }
-                                executorService.submit(new ContentStreamer(identifySourceInputStream(post),
+                                executorService.submit(new ContentStreamer(identifySourceInputStream(post,
+                                        post.location.url.toString()),
                                         identifyLocationOutputStream(post), posterQueue, streamerErrorQueue,
                                         postsTimeline, streamsLimitingSemaphore, post, post.location.url.toString()));
 
@@ -96,10 +97,10 @@ public class ContentStreamerDispatcher implements Runnable {
         }
     }
 
-    private SourceInputStream identifySourceInputStream(Post post) throws MalformedURLException, FileNotFoundException,
+    private SourceInputStream identifySourceInputStream(Post post, String locationUrl) throws MalformedURLException, FileNotFoundException,
             InterruptedException {
         return SOURCE_INPUT_STREAM_FACTORIES.get(new URL(post.content.getActualSource()).getHost())
-                .create(post.content.getActualSource(), post.content);
+                .create(post.content.getActualSource(), post.content, postsTimeline, locationUrl);
     }
 
     private LocationOutputStream identifyLocationOutputStream(Post post) {

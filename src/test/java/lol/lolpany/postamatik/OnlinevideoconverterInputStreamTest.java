@@ -14,7 +14,8 @@ public class OnlinevideoconverterInputStreamTest {
         Configuration.timeout = 60000;
         FileUtils.copyFile(new OnlinevideoconverterInputStreamFactory("D:\\buffer\\chromedriver\\chromedriver.exe",
                         VIDEO_CACHE).
-                        create("https://www.youtube.com/watch?v=utuxLmZyvzA", new Content(null, null, null)).read().file,
+                        create("https://www.youtube.com/watch?v=utuxLmZyvzA", new Content(null, null, null), null, "")
+                        .read().file,
                 new File("D:\\buffer\\go.go"));
     }
 }

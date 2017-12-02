@@ -33,19 +33,21 @@ public class ContentStreamer implements Runnable {
     @Override
     public void run() {
         try {
-            Content content = sourceInputStream.read();
-            if (!postsTimeline.isAlreadyUploadedOrPosted(locationUrl, content)) {
-                post.setAction(locationOutputStream.write(content));
+            post.content = sourceInputStream.read();
+            if (!postsTimeline.isAlreadyUploadedOrPosted(locationUrl, post.content)) {
+                post.setAction(locationOutputStream.write(post.content));
                 posterQueue.put(post);
             } else {
                 post.setPosted();
                 streamerErrorQueue.offer(post);
             }
             postsTimeline.setUploaded(post);
-            deleteIfExists(content.file.toPath());
+            if (post.content.file != null) {
+                deleteIfExists(post.content.file.toPath());
+            }
             streamsLimitingSemaphore.release();
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
     }
 }

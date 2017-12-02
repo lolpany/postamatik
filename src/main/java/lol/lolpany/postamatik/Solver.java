@@ -16,7 +16,7 @@ import static java.time.temporal.ChronoUnit.DAYS;
 public class Solver implements Runnable {
 
     private final static Duration POST_TIME = Duration.ofHours(10);
-    private final static int UPLOAD_THRESHOLD = 0;
+    private final static int UPLOAD_THRESHOLD = 1;
     private final ComponentConnection<AccountsConfig> accountsConfigsQueue;
     private AtomicBoolean on;
     private final PriorityComponentConnection<Post> contentStreamerQueue;
@@ -70,8 +70,11 @@ public class Solver implements Runnable {
                             postWithAlreadyPostedContent.location.locationConfig.tags,
                             postWithAlreadyPostedContent.location, postsTimeline);
                     if (content != null) {
-                        postWithAlreadyPostedContent.content = content;
-                        contentStreamerQueue.offer(postWithAlreadyPostedContent);
+                        Post post = new Post(postWithAlreadyPostedContent.time, content,
+                                postWithAlreadyPostedContent.account, postWithAlreadyPostedContent.location);
+//                        postWithAlreadyPostedContent.content = content;
+                        contentStreamerQueue.offer(post);
+                        postsTimeline.addPost(postWithAlreadyPostedContent.location.url.toString(), post);
                     }
                     postWithAlreadyPostedContent = streamerErrorQueue.poll();
                 }

@@ -43,8 +43,10 @@ public class YoutubeTimelineReader implements LocationTimelineReader<YoutubeLoca
                 Post post = new Post(Instant.ofEpochMilli(video.getSnippet().getPublishedAt().getValue()), content,
                         account, location);
                 if (!video.getStatus().getUploadStatus().equals("failed")
-                        && !video.getStatus().getUploadStatus().equals("rejected")) {
-                    if (video.getStatus().getPrivacyStatus().equals("private")) {
+                        && (!video.getStatus().getUploadStatus().equals("rejected")
+                         || "duplicate".equals(video.getStatus().getRejectionReason()))) {
+                    if (video.getStatus().getPrivacyStatus().equals("private")
+                            && !"duplicate".equals(video.getStatus().getRejectionReason())) {
                         post.postState = PostState.UPLOADED;
                         post.setAction(new YoutubePostAction(video.getId(), youTube));
                     } else {

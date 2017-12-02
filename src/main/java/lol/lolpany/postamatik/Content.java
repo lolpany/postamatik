@@ -9,6 +9,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import static org.apache.commons.lang3.StringUtils.isBlank;
+import static org.apache.commons.lang3.StringUtils.trim;
 
 public class Content {
     public String name;
@@ -44,10 +45,9 @@ public class Content {
     @Override
     public boolean equals(Object content) {
         Content otherContent = (Content) content;
-        return !isBlank(name) && !isBlank(otherContent.name) && name.equals(otherContent.name)
+        return !isBlank(name) && !isBlank(otherContent.name) && trim(name).equals(trim(otherContent.name))
                 || isCommonSource(this.actualSources, otherContent.actualSources)
-                || isCommonSource(this.notActualSources, otherContent.notActualSources)
-                ;
+                || isCommonSource(this.notActualSources, otherContent.notActualSources);
     }
 
     @Override

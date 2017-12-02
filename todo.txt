@@ -214,6 +214,7 @@ create more channels, add configs for them
 fix for upload of same
 build jar - first version
 go friendify
+content search using youtube data api
 ----------------------------
 test run relax music
 add other channels
