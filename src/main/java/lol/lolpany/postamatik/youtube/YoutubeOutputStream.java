@@ -59,7 +59,7 @@ public class YoutubeOutputStream implements LocationOutputStream {
         uploader.setDirectUploadEnabled(false);
         com.google.api.services.youtube.model.Video returnedVideo = videoInsert.execute();
 
-        return new YoutubePostAction(returnedVideo.getId(), youTube);
+        return new YoutubePostAction(returnedVideo.getId(), youTube, account, location);
     }
 
 

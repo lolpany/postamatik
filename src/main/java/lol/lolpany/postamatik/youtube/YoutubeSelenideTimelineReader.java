@@ -93,7 +93,7 @@ public class YoutubeSelenideTimelineReader implements LocationTimelineReader<You
                     if (isPublishButton) {
                         post.postState = PostState.UPLOADED;
                         post.setAction(new YoutubePostAction(
-                                videoTitle.attr("href").split("video_id=")[1], youTube));
+                                videoTitle.attr("href").split("video_id=")[1], youTube, account, location));
                     } else {
                         post.postState = PostState.POSTED;
                     }
