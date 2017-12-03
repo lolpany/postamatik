@@ -207,18 +207,28 @@ way to add content
 
 
 --- todo ------------------------------------------
-vk porn group
-test electronic music using videos, relax music using channel
-    test hibernate/start
-create more channels, add configs for them
-fix for upload of same
-build jar - first version
-go friendify
+unauthorized error
+add channels and configs for them
+    animatiion
+    comix animation
+    simpsons/griffiths/futurama/rickandmorty
+    anime
+    cool moments
+        auto
+    cool things
+    see youtube.txt, programming.txt
+    game films
+    game clips
+    street food
+    music
 content search using youtube data api
+friendify
+down from playlist to channel
 ----------------------------
 test run relax music
 add other channels
 -----------------------------
+vk porn group
 description
 languageg
 category
