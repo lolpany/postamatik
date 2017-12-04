@@ -49,7 +49,7 @@ public class Friendify {
 
         FirefoxOptions firefoxOptions = new FirefoxOptions();
         firefoxOptions.setProfile(profile);
-        firefoxOptions.addArguments("-headless");
+//        firefoxOptions.addArguments("-headless");
         firefoxOptions.addCapabilities(capabilities);
 
         setWebDriver(new FirefoxDriver(firefoxOptions));

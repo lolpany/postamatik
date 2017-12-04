@@ -6,6 +6,7 @@ import lol.lolpany.postamatik.SourceInputStream;
 import org.zeroturnaround.exec.ProcessExecutor;
 
 import java.io.File;
+import java.io.FilenameFilter;
 import java.util.UUID;
 
 public class YoutubeDlInputStream implements SourceInputStream {
@@ -26,19 +27,29 @@ public class YoutubeDlInputStream implements SourceInputStream {
 
     @Override
     public Content read() throws Exception {
-        String filePath = videoCache + "\\" + UUID.randomUUID().toString() + ".mp4";
+        String fileName = UUID.randomUUID().toString();
 
         content.name = new ProcessExecutor().readOutput(true).command(
                 "D:\\storage\\Dropbox\\projects\\postamatik\\resource\\youtube-dl.exe",
-                "--no-check-certificate", "-e", source).execute().outputString("windows-1251");
+                "--no-check-certificate", "-e", source)
+                .execute().outputString("windows-1251");
 
         if (postsTimeline.isAlreadyUploadedOrPosted(locationUrl, content)) {
             return content;
         }
 
         new ProcessExecutor().command("D:\\storage\\Dropbox\\projects\\postamatik\\resource\\youtube-dl.exe",
-                "--no-check-certificate", "-o", filePath, source).execute();
-        content.file = new File(filePath);
+                "--no-check-certificate", "-f", "\"bestvideo+bestaudio/best\"", "-o", videoCache + "\\" + fileName,
+                source).execute();
+
+        File root = new File(videoCache);
+        FilenameFilter beginswithm = new FilenameFilter() {
+            public boolean accept(File directory, String filename) {
+                return filename.startsWith(fileName);
+            }
+        };
+
+        content.file = root.listFiles(beginswithm)[0];
 
         return content;
     }

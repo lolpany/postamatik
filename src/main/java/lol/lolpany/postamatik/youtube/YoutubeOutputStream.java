@@ -35,7 +35,8 @@ public class YoutubeOutputStream implements LocationOutputStream {
 
 
 
-        com.google.api.services.youtube.model.Video videoObjectDefiningMetadata = new com.google.api.services.youtube.model.Video();
+        com.google.api.services.youtube.model.Video videoObjectDefiningMetadata
+                = new com.google.api.services.youtube.model.Video();
 
         VideoStatus status = new VideoStatus();
         status.setPrivacyStatus("private");
@@ -61,8 +62,5 @@ public class YoutubeOutputStream implements LocationOutputStream {
 
         return new YoutubePostAction(returnedVideo.getId(), youTube, account, location);
     }
-
-
-
 
 }

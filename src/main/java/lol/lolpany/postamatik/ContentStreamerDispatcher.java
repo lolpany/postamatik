@@ -22,7 +22,7 @@ public class ContentStreamerDispatcher implements Runnable {
     private final static int STREAMER_BUFFER_SIZE = 10240;
     private final static int CORE_POOL_SIZE = 10240;
     private final static int MAXIMUM_POOL_SIZE = 10240;
-    private final static int MAXIMUM_PARALLER_STREAMS = 5;
+    private final static int MAXIMUM_PARALLER_STREAMS = 2;
     private final static Map<String, SourceInputStreamFactory> SOURCE_INPUT_STREAM_FACTORIES =
             new HashMap<String, SourceInputStreamFactory>() {{
                 put("www.youtube.com",
