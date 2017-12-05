@@ -45,9 +45,10 @@ public class ContentStreamer implements Runnable {
             if (post.content.file != null) {
                 deleteIfExists(post.content.file.toPath());
             }
-            streamsLimitingSemaphore.release();
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            streamsLimitingSemaphore.release();
         }
     }
 }

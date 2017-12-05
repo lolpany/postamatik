@@ -17,6 +17,6 @@ public class YoutubeOutputStreamFactory implements LocationOutputStreamFactory<Y
 
     @Override
     public LocationOutputStream create(Account account, YoutubeLocation location) {
-        return new YoutubeOutputStream(chromeDriverLocation, account, location);
+        return new YoutubeOutputStream(account, location);
     }
 }

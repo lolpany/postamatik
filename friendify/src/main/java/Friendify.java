@@ -30,10 +30,10 @@ public class Friendify {
 
     //    @Test
     public static void main(String[] args) throws Exception {
-        int startPage = 1;
+        int startPage = 21;
         int endPage = 200;
 
-        Configuration.timeout = 60000;
+        Configuration.timeout = 120000;
 
         System.setProperty("webdriver.gecko.driver", "D:\\buffer\\geckodriver-v0.17.0-win64\\geckodriver.exe");
 
@@ -85,10 +85,11 @@ public class Friendify {
                     if (button != null) {
                         if ("Connect".equals(button.getText())) {
                             try {
+                                $$("span.name-and-icon").get(j).scrollTo();
                                 button.should(Condition.exist).click();
                                 SelenideElement sendButton =
                                         $("div.modal-wormhole-content div.send-invite__actions button.button-primary-large");
-                                sendButton.should(Condition.visible).click();
+                                sendButton.should(Condition.visible).submit();
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }

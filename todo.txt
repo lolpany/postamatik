@@ -1,4 +1,4 @@
---- needs ----------------------------------
+--- needs ------------------------------------------------------
 
 deploy site/group
 expand friends/groups
@@ -207,7 +207,6 @@ way to add content
 
 
 --- todo ------------------------------------------
-unauthorized error
 add channels and configs for them
     animatiion
     comix animation
@@ -228,6 +227,7 @@ down from playlist to channel
 test run relax music
 add other channels
 -----------------------------
+dont reupload banned videos
 vk porn group
 description
 languageg
@@ -325,3 +325,8 @@ http://youtubemarketing.pro/
 
 search in youtube for some queries returns channels only on not first page, maybe good opportunity if videos on first page have many views
 
+
+
+
+https://www.socialbakers.com/
+https://socialblade.com/

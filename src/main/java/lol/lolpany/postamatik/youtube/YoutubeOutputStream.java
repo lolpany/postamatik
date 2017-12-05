@@ -15,14 +15,14 @@ import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 
+import static com.google.api.client.googleapis.media.MediaHttpUploader.MINIMUM_CHUNK_SIZE;
+
 public class YoutubeOutputStream implements LocationOutputStream {
 
-    private final String chromeDriverLocation;
     private final Account account;
     private final YoutubeLocation location;
 
-    public YoutubeOutputStream(String chromeDriverLocation, Account account, YoutubeLocation location) {
-        this.chromeDriverLocation = chromeDriverLocation;
+    public YoutubeOutputStream(Account account, YoutubeLocation location) {
         this.account = account;
         this.location = location;
 
@@ -45,7 +45,8 @@ public class YoutubeOutputStream implements LocationOutputStream {
         VideoSnippet snippet = new VideoSnippet();
         snippet.setTitle(content.name);
 //        snippet.setDescription("");
-        snippet.setTags(new ArrayList<>(location.locationConfig.tags));
+        // no tags for no bans
+//        snippet.setTags(new ArrayList<>(location.locationConfig.tags));
 
         videoObjectDefiningMetadata.setSnippet(snippet);
 
@@ -56,7 +57,7 @@ public class YoutubeOutputStream implements LocationOutputStream {
                 .insert("snippet,statistics,status", videoObjectDefiningMetadata, mediaContent);
 
         MediaHttpUploader uploader = videoInsert.getMediaHttpUploader();
-        uploader.setDisableGZipContent(true);
+        uploader.setDisableGZipContent(false);
         uploader.setDirectUploadEnabled(false);
         com.google.api.services.youtube.model.Video returnedVideo = videoInsert.execute();
 
