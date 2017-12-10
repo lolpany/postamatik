@@ -32,7 +32,7 @@ public class Friendify {
 
     //    @Test
     public static void main(String[] args) throws Exception {
-        int startPage = 1;
+        int startPage = 95;
         int endPage = 200;
 
         Configuration.timeout = 180000;

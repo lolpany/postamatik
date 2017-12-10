@@ -90,12 +90,6 @@ public class YoutubeUtils {
             }
             $("button#identity-prompt-confirm-button").click();
         }
-        if ( $("input#identifierId").exists()) {
-            $("input#identifierId").sendKeys(account.login);
-            $("div#identifierNext").click();
-            $("div#password input[type=\"password\"]").sendKeys(account.password);
-            $("div#passwordNext").click();
-        }
         $(UPLOAD_BUTTON_SELECTOR).should(Condition.exist);
     }
 
@@ -104,13 +98,12 @@ public class YoutubeUtils {
             throws MalformedURLException {
         System.setProperty("webdriver.chrome.driver", "D:\\buffer\\chromedriver\\chromedriver.exe");
         ChromeOptions chromeOpts = new ChromeOptions();
-//        chromeOpts.addArguments("headless");
+        chromeOpts.addArguments("headless");
         setWebDriver(new ChromeDriver(chromeOpts));
         authorize(account, location);
         open(authorizationCodeRequestUrl.build().toString());
 
         while (!url().contains("/signin/oauth/oauthchooseaccount")
-                && !url().contains("/signin/oauth/delegation")
                 && !url().contains("DelegateAccountSelector")
                 && !url().startsWith("http://www.example.com")
                 && !$("form #submit_approve_access").is(Condition.visible)) {
