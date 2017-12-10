@@ -18,6 +18,8 @@ import java.util.regex.Pattern;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static com.codeborne.selenide.WebDriverRunner.setWebDriver;
+import static java.lang.Math.max;
+import static java.lang.Math.min;
 import static java.util.concurrent.TimeUnit.MINUTES;
 import static java.util.concurrent.TimeUnit.NANOSECONDS;
 
@@ -30,10 +32,10 @@ public class Friendify {
 
     //    @Test
     public static void main(String[] args) throws Exception {
-        int startPage = 21;
+        int startPage = 1;
         int endPage = 200;
 
-        Configuration.timeout = 120000;
+        Configuration.timeout = 180000;
 
         System.setProperty("webdriver.gecko.driver", "D:\\buffer\\geckodriver-v0.17.0-win64\\geckodriver.exe");
 
@@ -49,7 +51,7 @@ public class Friendify {
 
         FirefoxOptions firefoxOptions = new FirefoxOptions();
         firefoxOptions.setProfile(profile);
-//        firefoxOptions.addArguments("-headless");
+        firefoxOptions.addArguments("-headless");
         firefoxOptions.addCapabilities(capabilities);
 
         setWebDriver(new FirefoxDriver(firefoxOptions));
@@ -81,21 +83,32 @@ public class Friendify {
 
                 for (int j = 0; j < buttons.size(); j++) {
 //                    jse.executeScript("window.scrollBy(0,1000)", "");
-                    SelenideElement button = $$("button.search-result__actions--primary").get(j);
+                    SelenideElement button = buttons.get(j);
                     if (button != null) {
                         if ("Connect".equals(button.getText())) {
                             try {
-                                $$("span.name-and-icon").get(j).scrollTo();
-                                button.should(Condition.exist).click();
+                                if (j > 0) {
+                                    buttons.get(j - 1).scrollTo();
+                                }
                                 SelenideElement sendButton =
                                         $("div.modal-wormhole-content div.send-invite__actions button.button-primary-large");
-                                sendButton.should(Condition.visible).submit();
+                                if (!sendButton.exists()) {
+                                    button.should(Condition.visible).click();
+                                }
+                                if (!$("input#email").exists()) {
+                                    $("div.modal-wormhole-content div.send-invite__actions button.button-primary-large")
+                                            .should(Condition.visible).click();
+                                } else {
+                                    $("button.send-invite__cancel-btn").click();
+                                }
+                                $("div.modal-wormhole-content div.send-invite__actions button.button-primary-large")
+                                        .should(Condition.not(Condition.visible));
+                                $("button.send-invite__cancel-btn").should(Condition.not(Condition.visible));
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
                         }
                     }
-
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -117,7 +130,7 @@ public class Friendify {
                 return false;
             }
         }
-        $("li#profile-nav-item").should(Condition.visible);
+        $("div.left-rail-container").should(Condition.visible);
         return true;
     }
 
