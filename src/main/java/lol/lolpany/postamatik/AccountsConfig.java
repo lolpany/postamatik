@@ -8,5 +8,5 @@ import java.util.concurrent.locks.ReadWriteLock;
  * Also wrapper for gson.
  */
 public class AccountsConfig {
-     List<Account> accountsConfig;
+     public List<Account> accountsConfig;
 }

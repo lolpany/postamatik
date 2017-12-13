@@ -91,8 +91,12 @@ facebook - invite friends to group
 --- architecture ----------------------------------
 
 same as postamatic
+    Component
+    ComponentConnection
 config
     accounts config
+flat tags
+    no social group to content tag mapping, just use social group tags explicitly
 
 
 
@@ -102,7 +106,7 @@ config
 
 just get many people
 any targeting
-
+remove those who didnt accept for some time
 
 
 
@@ -116,3 +120,9 @@ facebook
             page can have multiple groups
         mark friends
         post
+
+
+
+--- todo -----------------
+
+vk - add 3 then wait ~5 mins then add again - not bot

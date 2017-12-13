@@ -32,7 +32,7 @@ public class Friendify {
 
     //    @Test
     public static void main(String[] args) throws Exception {
-        int startPage = 95;
+        int startPage = 1;
         int endPage = 200;
 
         Configuration.timeout = 180000;
@@ -81,11 +81,14 @@ public class Friendify {
                 ElementsCollection buttons = $$(CONTACT_BUTTON_SELECTOR);
 
 
+                int count = 0;
                 for (int j = 0; j < buttons.size(); j++) {
 //                    jse.executeScript("window.scrollBy(0,1000)", "");
                     SelenideElement button = buttons.get(j);
                     if (button != null) {
                         if ("Connect".equals(button.getText())) {
+                            System.out.println("Connect");
+                            count++;
                             try {
                                 if (j > 0) {
                                     buttons.get(j - 1).scrollTo();
