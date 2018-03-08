@@ -22,7 +22,7 @@ import static java.lang.Math.round;
 
 public class Vk {
 
-    private static final int PEOPLE_ADDITION_BATCH_SIZE = 3;
+    private static final int PEOPLE_ADDITION_BATCH_SIZE = 2;
     private static final int PEOPLE_ADDITION_TIMEOUT = 5000;
     private static final int PEOPLE_BATCH_ADDITION_TIMEOUT = 200000;
 

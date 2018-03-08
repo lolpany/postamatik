@@ -9,6 +9,8 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.util.UUID;
 
+import static lol.lolpany.postamatik.Postamatik.POSTAMATIK_HOME;
+
 public class YoutubeDlInputStream implements SourceInputStream {
 
     private final String source;
@@ -30,7 +32,7 @@ public class YoutubeDlInputStream implements SourceInputStream {
         String fileName = UUID.randomUUID().toString();
 
         content.name = new ProcessExecutor().readOutput(true).command(
-                "D:\\storage\\Dropbox\\projects\\postamatik\\resource\\youtube-dl.exe",
+                POSTAMATIK_HOME + "resource\\youtube-dl.exe",
                 "--no-check-certificate", "-e", source)
                 .execute().outputString("windows-1251");
 
@@ -38,16 +40,12 @@ public class YoutubeDlInputStream implements SourceInputStream {
             return content;
         }
 
-        new ProcessExecutor().command("D:\\storage\\Dropbox\\projects\\postamatik\\resource\\youtube-dl.exe",
+        new ProcessExecutor().command(POSTAMATIK_HOME + "resource\\youtube-dl.exe",
                 "--no-check-certificate", "-f", "\"bestvideo+bestaudio/best\"", "-o", videoCache + "\\" + fileName,
                 source).execute();
 
         File root = new File(videoCache);
-        FilenameFilter beginswithm = new FilenameFilter() {
-            public boolean accept(File directory, String filename) {
-                return filename.startsWith(fileName);
-            }
-        };
+        FilenameFilter beginswithm = (directory, filename) -> filename.startsWith(fileName);
 
         content.file = root.listFiles(beginswithm)[0];
 

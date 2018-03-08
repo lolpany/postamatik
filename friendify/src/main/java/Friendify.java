@@ -37,7 +37,7 @@ public class Friendify {
 
         Configuration.timeout = 180000;
 
-        System.setProperty("webdriver.gecko.driver", "D:\\buffer\\geckodriver-v0.17.0-win64\\geckodriver.exe");
+        System.setProperty("webdriver.gecko.driver", "D:\\buffer\\geckodriver-v0.19.1-win64\\geckodriver.exe");
 
         DesiredCapabilities capabilities = DesiredCapabilities.firefox();
         capabilities.setCapability("marionette", true);

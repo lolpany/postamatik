@@ -15,7 +15,8 @@ reasearch deman
 
 --- features ---------------------------------------------------
 
-
+souncloud to youtube aggregator
+    youtube aggregator
 quality trailers (games, movies, serials, anime, animation)
 interesting ads channel (japanese)
 get form reddit, reupload on channel
@@ -207,6 +208,7 @@ way to add content
 
 
 --- todo ------------------------------------------
+exclusions to config
 add channels and configs for them
     animatiion
     comix animation
@@ -325,8 +327,43 @@ http://youtubemarketing.pro/
 
 search in youtube for some queries returns channels only on not first page, maybe good opportunity if videos on first page have many views
 
-
+try selenideuploader for fast
 
 
 https://www.socialbakers.com/
 https://socialblade.com/
+
+
+
+channels
+    music - very large number of channels in top 500
+    toys - very large number of channels in top 500
+        open
+    minecraft
+    lets plays
+    shows
+    movie clips
+    rap
+    fails
+    top
+    lullabies
+    mems (pureshka, chetki nnnada)
+    https://www.youtube.com/watch?v=EETTJ3o_904
+
+
+need time
+    food eat competitions with hobos
+        https://www.youtube.com/channel/UCjm6XUTNSz8Q68WqJIMJ0eQ/videos
+    food preparing
+    compare food from pyatyorochka or like that
+
+for youtube-dl.exe required
+    https://www.microsoft.com/ru-ru/download/confirmation.aspx?id=5555
+    ffmpeg
+
+ street food channel
+
+
+
+ comments under old videos work too (oblomoff get more views on old)
+ comments on adverstiment videos

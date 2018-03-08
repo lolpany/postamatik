@@ -17,6 +17,8 @@ import static java.util.Comparator.comparing;
 
 public class Postamatik {
 
+    public static final String POSTAMATIK_HOME = "D:\\storage\\Dropbox\\Dropbox\\projects\\postamatik\\";
+
     public static void main(String[] args) throws Exception {
 
         Configuration.timeout = 30000;
@@ -81,7 +83,7 @@ public class Postamatik {
                 accountsConfigsQueue, "accounts-config.json", gson, isOn));
 
         executorService.execute(new JsonConfigWatcher<>(ContentRepositoryStore.class,
-                "D:\\storage\\Dropbox\\projects\\postamatik\\resource\\content-repository",
+                POSTAMATIK_HOME + "resource\\content-repository",
                 contentRepositoryStoreQueue, "content-repository-store.json", gson, isOn));
 
         ContentRepository contentRepository = new ContentRepository(contentRepositoryStoreQueue, postsTimeline);

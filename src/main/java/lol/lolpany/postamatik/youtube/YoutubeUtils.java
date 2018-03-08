@@ -71,10 +71,18 @@ public class YoutubeUtils {
 
     public static void authorize(Account account, YoutubeLocation location) {
         open("https://accounts.google.com/ServiceLogin/identifier?service=youtube&flowName=GlifWebSignIn&flowEntry=AddSession");
-        $("input#identifierId").sendKeys(account.login);
-        $("div#identifierNext").click();
-        $("div#password input[type=\"password\"]").sendKeys(account.password);
-        $("div#passwordNext").click();
+        if ($("input#identifierId").is(Condition.exist)) {
+            $("input#identifierId").sendKeys(account.login);
+            $("div#identifierNext").click();
+            $("div#password input[type=\"password\"]").sendKeys(account.password);
+            $("div#passwordNext").click();
+        } else if ($("input#Email").exists()) {
+            $("input#Email").sendKeys(account.login);
+            $("input#next").click();
+            $("input#Passwd").sendKeys(account.password);
+            $("input#signIn").click();
+        }
+
         waitTill(() -> url().startsWith("https://myaccount.google.com/")
                 || $("li.identity-prompt-account-list-item").exists());
 
@@ -104,6 +112,7 @@ public class YoutubeUtils {
         open(authorizationCodeRequestUrl.build().toString());
 
         while (!url().contains("/signin/oauth/oauthchooseaccount")
+                && !url().contains("/signin/oauth/delegation")
                 && !url().contains("DelegateAccountSelector")
                 && !url().startsWith("http://www.example.com")
                 && !$("form #submit_approve_access").is(Condition.visible)) {

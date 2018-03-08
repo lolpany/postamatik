@@ -19,10 +19,11 @@ https://www.youtube.com/watch?v=WzoG16FOyA8 - remove speec somehow
 	https://www.youtube.com/watch?v=UCkGFILuo7w - some voices (~2)
 
 	https://www.youtube.com/results?search_query=Unusual+Cosmic+Process
-
+https://www.youtube.com/channel/UCMXHtrkazQjeCOteE4sof8g/videos
+https://www.youtube.com/user/warren010h/videos
 	https://www.youtube.com/watch?v=9VfFdaxdP5o - small
 	https://www.youtube.com/watch?v=NdhgzKaFrDw - end is bad (! 45 minutes)
-
+https://soundcloud.com/akshanmusik - programming music
 
 https://www.youtube.com/watch?v=HNT2mjDf18g minus Party Droid
 
@@ -30,6 +31,7 @@ https://www.youtube.com/watch?v=ZK3U92URi_c
 https://www.youtube.com/watch?v=pSrVyADZ3xc
 
 	channel
+		https://www.youtube.com/channel/UCmI8papuDEByn9gsSaSHbeA/videos
 	    https://www.youtube.com/user/warren010h/videos
 	    https://www.youtube.com/channel/UCMXHtrkazQjeCOteE4sof8g/videos
 	    https://www.youtube.com/user/ThePsychedelicMuse
