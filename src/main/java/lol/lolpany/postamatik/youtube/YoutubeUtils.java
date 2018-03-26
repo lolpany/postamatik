@@ -23,12 +23,12 @@ import java.util.ArrayList;
 
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverRunner.*;
+import static lol.lolpany.postamatik.ContentStreamerDispatcher.CHROME_DRIVER_LOCATION;
 import static lol.lolpany.postamatik.SelenideUtils.waitTill;
 
 public class YoutubeUtils {
 
     private final static String UPLOAD_BUTTON_SELECTOR = "div#upload-prompt-box input[type=\"file\"]";
-
 
     public static YouTube fetchYouTube(Account account, YoutubeLocation location) throws IOException, GeneralSecurityException {
 
@@ -81,6 +81,11 @@ public class YoutubeUtils {
             $("input#next").click();
             $("input#Passwd").sendKeys(account.password);
             $("input#signIn").click();
+        } else if ($("input[type=email]").exists()) {
+            $("input[type=email]").sendKeys(account.login);
+            $("div#identifierNext").click();
+            $("input[type=password]").sendKeys(account.password);
+            $("div#passwordNext").click();
         }
 
         waitTill(() -> url().startsWith("https://myaccount.google.com/")
@@ -104,7 +109,7 @@ public class YoutubeUtils {
     public static String fetchAuthorizationCode(AuthorizationCodeRequestUrl authorizationCodeRequestUrl,
                                                 Account account, YoutubeLocation location)
             throws MalformedURLException {
-        System.setProperty("webdriver.chrome.driver", "D:\\buffer\\chromedriver\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", CHROME_DRIVER_LOCATION);
         ChromeOptions chromeOpts = new ChromeOptions();
         chromeOpts.addArguments("headless");
         setWebDriver(new ChromeDriver(chromeOpts));

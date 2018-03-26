@@ -6,13 +6,14 @@ import org.junit.Test;
 
 import java.io.File;
 
+import static lol.lolpany.postamatik.ContentStreamerDispatcher.CHROME_DRIVER_LOCATION;
 import static lol.lolpany.postamatik.ContentStreamerDispatcher.VIDEO_CACHE;
 
 public class OnlinevideoconverterInputStreamTest {
     @Test
     public void go() throws Exception {
         Configuration.timeout = 60000;
-        FileUtils.copyFile(new OnlinevideoconverterInputStreamFactory("D:\\buffer\\chromedriver\\chromedriver.exe",
+        FileUtils.copyFile(new OnlinevideoconverterInputStreamFactory(CHROME_DRIVER_LOCATION,
                         VIDEO_CACHE).
                         create("https://www.youtube.com/watch?v=utuxLmZyvzA", new Content(null, null, null), null, "")
                         .read().file,

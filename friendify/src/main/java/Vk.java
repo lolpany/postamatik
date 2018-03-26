@@ -19,6 +19,7 @@ import static com.codeborne.selenide.WebDriverRunner.setWebDriver;
 import static java.lang.Math.floor;
 import static java.lang.Math.max;
 import static java.lang.Math.round;
+import static lol.lolpany.postamatik.ContentStreamerDispatcher.CHROME_DRIVER_LOCATION;
 
 public class Vk {
 
@@ -31,7 +32,7 @@ public class Vk {
 
         Configuration.timeout = 10000;
 
-        System.setProperty("webdriver.chrome.driver", "D:\\buffer\\chromedriver\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", CHROME_DRIVER_LOCATION);
         ChromeOptions chromeOpts = new ChromeOptions();
 //        chromeOpts.addArguments("headless");
         WebDriver driver  = new ChromeDriver(chromeOpts);
