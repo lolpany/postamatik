@@ -29,6 +29,7 @@ public class Friendify {
     private static final String PIN_MAIL_SUBJECT = ", here's your PIN";
     private static final Pattern PIN_PATTERN = Pattern.compile("Please use this verification code to complete your sign in: (\\d+)");
     private static final String CONTACT_BUTTON_SELECTOR = "button.search-result__actions--primary";
+    private static final long RUN_CYCLE = 604800000;
 
     //    @Test
     public static void main(String[] args) throws Exception {
@@ -62,10 +63,12 @@ public class Friendify {
         }
 //        Selenide.sleep(20000);
 
-        for (int i = startPage; i < endPage; i++) {
+        while (true) {
             try {
-                System.out.println(i);
-                open("https://www.linkedin.com/search/results/people/?facetGeoRegion=%5B%22us%3A0%22%5D&facetNetwork=%5B%22S%22%5D&origin=FACETED_SEARCH&page=" + i);
+                for (int i = startPage; i < endPage; i++) {
+                    try {
+                        System.out.println(i);
+                        open("https://www.linkedin.com/search/results/people/?facetGeoRegion=%5B%22us%3A0%22%5D&facetNetwork=%5B%22S%22%5D&origin=FACETED_SEARCH&page=" + i);
 //                JavascriptExecutor jse = (JavascriptExecutor) getWebDriver();
 
 
@@ -74,48 +77,53 @@ public class Friendify {
 //                jse.executeScript("window.scrollBy(0,500)", "");
 //
 //                Selenide.sleep(5000);
-                while (!$("li.page-list").is(Condition.visible)) {
-                    $$(CONTACT_BUTTON_SELECTOR).last().scrollTo();
-                }
+                        while (!$("li.page-list").is(Condition.visible)) {
+                            $$(CONTACT_BUTTON_SELECTOR).last().scrollTo();
+                        }
 
-                ElementsCollection buttons = $$(CONTACT_BUTTON_SELECTOR);
+                        ElementsCollection buttons = $$(CONTACT_BUTTON_SELECTOR);
 
 
-                int count = 0;
-                for (int j = 0; j < buttons.size(); j++) {
+                        int count = 0;
+                        for (int j = 0; j < buttons.size(); j++) {
 //                    jse.executeScript("window.scrollBy(0,1000)", "");
-                    SelenideElement button = buttons.get(j);
-                    if (button != null) {
-                        if ("Connect".equals(button.getText())) {
-                            System.out.println("Connect");
-                            count++;
-                            try {
-                                if (j > 0) {
-                                    buttons.get(j - 1).scrollTo();
+                            SelenideElement button = buttons.get(j);
+                            if (button != null) {
+                                if ("Connect".equals(button.getText())) {
+                                    System.out.println("Connect");
+                                    count++;
+                                    try {
+                                        if (j > 0) {
+                                            buttons.get(j - 1).scrollTo();
+                                        }
+                                        SelenideElement sendButton =
+                                                $("div.modal-wormhole-content div.send-invite__actions button.button-primary-large");
+                                        if (!sendButton.exists()) {
+                                            button.should(Condition.visible).click();
+                                        }
+                                        if (!$("input#email").exists()) {
+                                            $("div.modal-wormhole-content div.send-invite__actions button.button-primary-large")
+                                                    .should(Condition.visible).click();
+                                        } else {
+                                            $("button.send-invite__cancel-btn").click();
+                                        }
+                                        $("div.modal-wormhole-content div.send-invite__actions button.button-primary-large")
+                                                .should(Condition.not(Condition.visible));
+                                        $("button.send-invite__cancel-btn").should(Condition.not(Condition.visible));
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
                                 }
-                                SelenideElement sendButton =
-                                        $("div.modal-wormhole-content div.send-invite__actions button.button-primary-large");
-                                if (!sendButton.exists()) {
-                                    button.should(Condition.visible).click();
-                                }
-                                if (!$("input#email").exists()) {
-                                    $("div.modal-wormhole-content div.send-invite__actions button.button-primary-large")
-                                            .should(Condition.visible).click();
-                                } else {
-                                    $("button.send-invite__cancel-btn").click();
-                                }
-                                $("div.modal-wormhole-content div.send-invite__actions button.button-primary-large")
-                                        .should(Condition.not(Condition.visible));
-                                $("button.send-invite__cancel-btn").should(Condition.not(Condition.visible));
-                            } catch (Exception e) {
-                                e.printStackTrace();
                             }
                         }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
+            } catch (Throwable e) {
+                // ignore
             }
+            Thread.sleep(RUN_CYCLE);
         }
     }
 
