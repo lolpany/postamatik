@@ -8,7 +8,7 @@ import lol.lolpany.postamatik.PostAction;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 
-import static lol.lolpany.postamatik.youtube.YoutubeUtils.fetchYouTube;
+import static lol.lolpany.postamatik.youtube.YoutubeApi.fetchYouTube;
 
 public class YoutubePostAction implements PostAction {
     final String videoId;

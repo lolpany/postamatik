@@ -58,7 +58,7 @@ public class YoutubeSelenideTimelineReader implements LocationTimelineReader<You
 
         YouTube youTube = null;
         try {
-            youTube = YoutubeUtils.fetchYouTube(account, location);
+            youTube = YoutubeApi.fetchYouTube(account, location);
         } catch (IOException | GeneralSecurityException e) {
             e.printStackTrace();
         }

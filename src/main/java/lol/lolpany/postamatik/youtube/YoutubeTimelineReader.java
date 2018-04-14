@@ -28,7 +28,7 @@ public class YoutubeTimelineReader implements LocationTimelineReader<YoutubeLoca
 
 
         try {
-            YouTube youTube = YoutubeUtils.fetchYouTube(account, location);
+            YouTube youTube = YoutubeApi.fetchYouTube(account, location);
             Channel channel = youTube.channels().list("snippet,contentDetails").setMine(true).execute().getItems().stream()
                     .filter(ch -> ch.getSnippet().getTitle().equals(location.channelName)).collect(Collectors.toList())
                     .get(0);

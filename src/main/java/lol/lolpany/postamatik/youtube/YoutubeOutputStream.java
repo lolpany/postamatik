@@ -13,9 +13,6 @@ import lol.lolpany.postamatik.PostAction;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
-import java.util.ArrayList;
-
-import static com.google.api.client.googleapis.media.MediaHttpUploader.MINIMUM_CHUNK_SIZE;
 
 public class YoutubeOutputStream implements LocationOutputStream {
 
@@ -31,7 +28,7 @@ public class YoutubeOutputStream implements LocationOutputStream {
     @Override
     public PostAction write(Content content) throws IOException, GeneralSecurityException {
 
-        YouTube youTube = YoutubeUtils.fetchYouTube(account, location);
+        YouTube youTube = YoutubeApi.fetchYouTube(account, location);
 
 
 

@@ -26,27 +26,7 @@ public class YoutubeApi {
     private YoutubeApi() {
     }
 
-    public <T> T execute(Account account, YoutubeLocation location, YouTubeRequest<T> request) throws IOException, GeneralSecurityException {
-        YouTube youTube = null;
-        if (youTubeByChannelByAccount.get(account.login) != null) {
-            youTube = youTubeByChannelByAccount.get(account.login).get(location.url.toString());
-        }
-        if (youTube == null) {
-            youTube = fetchYouTube(account, location);
-            youTubeByChannelByAccount.computeIfAbsent(account.login, key -> new ConcurrentHashMap<>())
-                    .put(location.url.toString(), youTube);
-        }
-        try {
-            return request.execute();
-        } catch (GoogleJsonResponseException e) {
-            if (e.getStatusCode() == 401) {
-//                youTube = ;
-            }
-        }
-        return null;
-    }
-
-    private static YouTube fetchYouTube(Account account, YoutubeLocation location) throws IOException, GeneralSecurityException {
+    public static YouTube fetchYouTube(Account account, YoutubeLocation location) throws IOException, GeneralSecurityException {
 
         AuthorizationCodeFlow authorizationCodeFlow = new AuthorizationCodeFlow.Builder(
                 BearerToken.authorizationHeaderAccessMethod(),
@@ -83,6 +63,26 @@ public class YoutubeApi {
                 GoogleNetHttpTransport.newTrustedTransport(), JacksonFactory.getDefaultInstance(), credential)
                 .setApplicationName("postamatik")
                 .build();
+    }
+
+    public <T> T execute(Account account, YoutubeLocation location, YouTubeRequest<T> request) throws IOException, GeneralSecurityException {
+        YouTube youTube = null;
+        if (youTubeByChannelByAccount.get(account.login) != null) {
+            youTube = youTubeByChannelByAccount.get(account.login).get(location.url.toString());
+        }
+        if (youTube == null) {
+            youTube = fetchYouTube(account, location);
+            youTubeByChannelByAccount.computeIfAbsent(account.login, key -> new ConcurrentHashMap<>())
+                    .put(location.url.toString(), youTube);
+        }
+        try {
+            return request.execute();
+        } catch (GoogleJsonResponseException e) {
+            if (e.getStatusCode() == 401) {
+//                youTube = ;
+            }
+        }
+        return null;
     }
 
 
