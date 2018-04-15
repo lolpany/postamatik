@@ -1,7 +1,10 @@
 package lol.lolpany.postamatik;
 
+import com.google.gson.Gson;
 import lol.lolpany.postamatik.youtube.YoutubeTimelineReaderFactory;
 
+import java.io.File;
+import java.nio.charset.StandardCharsets;
 import java.time.Instant;
 import java.time.Period;
 import java.util.*;
@@ -10,9 +13,11 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.stream.Collectors;
 
 import static lol.lolpany.postamatik.ContentStreamerDispatcher.CHROME_DRIVER_LOCATION;
+import static lol.lolpany.postamatik.Postamatik.POSTS_TIMELINE;
 import static lol.lolpany.postamatik.Solver.generateNewPostInstants;
+import static org.apache.commons.io.FileUtils.writeStringToFile;
 
-public class PostsTimeline {
+public class PostsTimeline implements AutoCloseable {
 
     private final static Map<String, LocationTimelineReaderFactory> LOCATION_TIMELINES_FACTORIES =
             new HashMap<String, LocationTimelineReaderFactory>() {{
@@ -21,6 +26,11 @@ public class PostsTimeline {
 
 
     private ConcurrentHashMap<String, ConcurrentLinkedQueue<Post>> timeline;
+
+      public PostsTimeline() {
+        timeline = new ConcurrentHashMap<>();
+    }
+
 
     public PostsTimeline(AccountsConfig accountsConfig) {
         this.timeline = new ConcurrentHashMap<>();
@@ -75,11 +85,11 @@ public class PostsTimeline {
         return false;
     }
 
-//    @Override
-//    public void close() throws Exception {
-//        writeStringToFile(new File("D:\\storage\\web-go\\resource\\posts-timeline\\posts-timeline.json"),
-//                new Gson().toJson(this), StandardCharsets.UTF_8);
-//    }
+    @Override
+    public void close() throws Exception {
+        writeStringToFile(new File(POSTS_TIMELINE),
+                new Gson().toJson(this), StandardCharsets.UTF_8.toString());
+    }
 
     public void reupload(PriorityComponentConnection<Post> contentStreamerQueue) {
         timeline.values().stream().flatMap(Collection::stream).filter((p) -> p.postState == PostState.SCHEDULED)

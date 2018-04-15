@@ -8,7 +8,7 @@ public class Post {
     public final Account account;
     public final Location location;
     public PostState postState;
-    public PostAction action;
+    transient public PostAction action;
 
     public Post(Instant time, Content content, Account account, Location location) {
         this.time = time;

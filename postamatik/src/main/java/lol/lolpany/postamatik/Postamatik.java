@@ -4,8 +4,8 @@ import com.codeborne.selenide.Configuration;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.io.File;
 import java.io.FileReader;
-import java.time.Instant;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -18,6 +18,8 @@ import static java.util.Comparator.comparing;
 public class Postamatik {
 
     public static final String POSTAMATIK_HOME = "D:\\storage\\Dropbox\\Dropbox\\projects\\postamatik\\";
+    public static final String ACCOUNTS_CONFIG = "D:\\storage\\info\\buffer\\postamatik-test\\accounts-config\\accounts-config.json";
+    public static final String POSTS_TIMELINE = "D:\\storage\\info\\buffer\\postamatik-test\\posts-timeline\\posts-timeline.json";
 
     public static void main(String[] args) throws Exception {
 
@@ -48,24 +50,31 @@ public class Postamatik {
                 PersistedPosts.class)*/);
 
         AccountsConfig accountsConfig = gson.fromJson(
-                new FileReader("D:\\storage\\info\\buffer\\postamatik\\accounts-config\\accounts-config.json"),
+                new FileReader(ACCOUNTS_CONFIG),
                 AccountsConfig.class);
 
-        PostsTimeline postsTimeline = new PostsTimeline(accountsConfig);
-//                gson.fromJson(
-//                        new FileReader("D:\\storage\\web-go\\resource\\posts-timeline\\posts-timeline.json"),
-//                        PostsTimeline.class
-//                );
+//        PostsTimeline postsTimeline = new PostsTimeline(accountsConfig);
 
-//        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-//            try {
-//                postsTimeline.close();
+        PostsTimeline postsTimeline;
+        if (new File(POSTS_TIMELINE).exists()) {
+            postsTimeline =
+                    gson.fromJson(
+                            new FileReader(POSTS_TIMELINE),
+                            PostsTimeline.class
+                    );
+        } else {
+            postsTimeline = new PostsTimeline();
+        }
+
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            try {
+                postsTimeline.close();
 //                    posterQueue.close();
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//        }
-//        ));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        ));
 
 //        postsTimeline.reupload(contentStreamerQueue);
         postsTimeline.repost(posterQueue, accountsConfig);
