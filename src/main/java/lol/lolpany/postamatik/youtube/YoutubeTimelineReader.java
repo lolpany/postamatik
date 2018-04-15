@@ -29,7 +29,8 @@ public class YoutubeTimelineReader implements LocationTimelineReader<YoutubeLoca
 
         try {
             YouTube youTube = YoutubeApi.fetchYouTube(account, location);
-            Channel channel = youTube.channels().list("snippet,contentDetails").setMine(true).execute().getItems().stream()
+
+            Channel channel = youTube.channels().list("snippet,contentDetails").setId(location.url.getPath().substring(9)).execute().getItems().stream()
                     .filter(ch -> ch.getSnippet().getTitle().equals(location.channelName)).collect(Collectors.toList())
                     .get(0);
             String uploadsId = channel.getContentDetails().getRelatedPlaylists().getUploads();
@@ -44,7 +45,7 @@ public class YoutubeTimelineReader implements LocationTimelineReader<YoutubeLoca
                         account, location);
                 if (!video.getStatus().getUploadStatus().equals("failed")
                         && (!video.getStatus().getUploadStatus().equals("rejected")
-                         || "duplicate".equals(video.getStatus().getRejectionReason()))) {
+                        || "duplicate".equals(video.getStatus().getRejectionReason()))) {
                     if (video.getStatus().getPrivacyStatus().equals("private")
                             && !"duplicate".equals(video.getStatus().getRejectionReason())) {
                         post.postState = PostState.UPLOADED;

@@ -1,18 +1,17 @@
 package lol.lolpany.postamatik.youtube;
 
-import com.google.api.client.auth.oauth2.*;
+import com.google.api.client.auth.oauth2.AuthorizationCodeTokenRequest;
+import com.google.api.client.auth.oauth2.Credential;
+import com.google.api.client.auth.oauth2.StoredCredential;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeRequestUrl;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
-import com.google.api.client.googleapis.json.GoogleJsonResponseException;
-import com.google.api.client.http.GenericUrl;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.youtube.YouTube;
-import com.google.api.services.youtube.YouTubeRequest;
 import lol.lolpany.postamatik.Account;
-import lol.lolpany.postamatik.Location;
+import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -28,21 +27,20 @@ public class YoutubeApi {
     private static final String CREDENTIAL_STORAGE = "D:\\storage\\info\\buffer\\postamatik\\access-token";
     private static final String CLIENT_ID = "917439087874-rc9q2c1mb5mv8c2p5fe69errjeqmskvt.apps.googleusercontent.com";
     private static final String AUTHORIZATION_SERVER_ENCODED_URL = "https://accounts.google.com/o/oauth2/v2/auth";
-    private static final String CLIENT_SECRET = "CCO7zqjHXl67GU1HhH4QDeip";
+    private static final File CLIENT_SECRET = new File("D:\\storage\\info\\buffer\\postamatik\\clientSecret.txt");
 
-    private Map<String, Map<String, YouTube>> youTubeByChannelByAccount;
+    private static Map<String, Map<String, YouTube>> youTubeByChannelByAccount = new ConcurrentHashMap<>();
 
     private YoutubeApi() {
     }
 
-    public static YouTube fetchYouTube(Account account, YoutubeLocation location) throws IOException, GeneralSecurityException {
+    private static YouTube initYouTube(Account account, YoutubeLocation location) throws IOException, GeneralSecurityException {
 
         GoogleAuthorizationCodeFlow authorizationCodeFlow = new GoogleAuthorizationCodeFlow.Builder(
 //                BearerToken.authorizationHeaderAccessMethod(),
                 new NetHttpTransport(),
                 new JacksonFactory(),
-                CLIENT_ID, CLIENT_SECRET, new ArrayList<String>() {
-            {
+                CLIENT_ID, FileUtils.readFileToString(CLIENT_SECRET), new ArrayList<String>() {{
                 add("https://www.googleapis.com/auth/youtube");
                 add("https://www.googleapis.com/auth/youtube.upload");
             }
@@ -87,6 +85,19 @@ public class YoutubeApi {
                 GoogleNetHttpTransport.newTrustedTransport(), JacksonFactory.getDefaultInstance(), credential)
                 .setApplicationName("postamatik")
                 .build();
+    }
+
+    public static YouTube fetchYouTube(Account account, YoutubeLocation location) throws IOException, GeneralSecurityException {
+        YouTube youTube = null;
+        if (youTubeByChannelByAccount.get(account.login) != null) {
+            youTube = youTubeByChannelByAccount.get(account.login).get(location.url.toString());
+        }
+        if (youTube == null) {
+            youTube = initYouTube(account, location);
+            youTubeByChannelByAccount.computeIfAbsent(account.login, key -> new ConcurrentHashMap<>())
+                    .put(location.url.toString(), youTube);
+        }
+        return youTube;
     }
 
 //    public <T> T execute(Account account, YoutubeLocation location, YouTubeRequest<T> request) throws IOException, GeneralSecurityException {
