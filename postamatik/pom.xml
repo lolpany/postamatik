@@ -1,7 +1,7 @@
 <project>
     <modelVersion>4.0.0</modelVersion>
     <groupId>lol.lolpany</groupId>
-    <artifactId>web-go</artifactId>
+    <artifactId>postamatik</artifactId>
     <packaging>jar</packaging>
     <version>1.0</version>
     <dependencies>
