@@ -18,7 +18,7 @@ import static java.util.Comparator.comparing;
 public class Postamatik {
 
     public static final String POSTAMATIK_HOME = "D:\\storage\\Dropbox\\Dropbox\\projects\\postamatik\\";
-    public static final String ACCOUNTS_CONFIG = "D:\\storage\\info\\buffer\\postamatik-test\\accounts-config\\accounts-config.json";
+    public static final String ACCOUNTS_CONFIG = "D:\\storage\\info\\buffer\\postamatik-test\\accounts-config.json";
     public static final String POSTS_TIMELINE = "D:\\storage\\info\\buffer\\postamatik-test\\posts-timeline\\posts-timeline.json";
 
     public static void main(String[] args) throws Exception {
