@@ -1,6 +1,8 @@
 package lol.lolpany.postamatik;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
+import java.security.GeneralSecurityException;
 import java.util.Collections;
 import java.util.Set;
 
@@ -24,8 +26,8 @@ public class ContentRepository {
 //        contentList.add(content);
 //    }
 
-    Content getContent(double precision, Set<String> tags, Location location, PostsTimeline timeline)
-            throws InterruptedException, MalformedURLException {
+    Content getContent(double precision, Set<String> tags, Account account, Location location, PostsTimeline timeline)
+            throws InterruptedException, IOException, GeneralSecurityException {
 
 
         ContentRepositoryStore newContentRepositoryStore = contentRepositoryStoreQueue.poll();
@@ -42,7 +44,7 @@ public class ContentRepository {
             }
             Collections.shuffle(contentRepositoryStore.contentSearchList);
             for (ContentSearch contentSearch : contentRepositoryStore.contentSearchList) {
-                Content content = contentSearch.findContent(precision, tags, postsTimeline, location);
+                Content content = contentSearch.findContent(precision, tags, postsTimeline, account, location);
                 if (content != null) {
 //                    addContent(content);
                     if (!timeline.isAlreadyScheduledOrUploadedOrPosted(location.url.toString(), content)

@@ -51,7 +51,7 @@ public class Solver implements Runnable {
                             for (Instant instant : generateNewPostInstants(location.locationConfig, posts,
                                     UPLOAD_THRESHOLD)) {
                                 Content content = contentRepository.getContent(location.locationConfig.precision,
-                                        location.locationConfig.tags, location, postsTimeline);
+                                        location.locationConfig.tags, account, location, postsTimeline);
                                 if (content != null) {
                                     Post post = new Post(instant, content, account, location);
                                     contentStreamerQueue.offer(post);
@@ -68,7 +68,7 @@ public class Solver implements Runnable {
                     Content content = contentRepository.getContent(
                             postWithAlreadyPostedContent.location.locationConfig.precision,
                             postWithAlreadyPostedContent.location.locationConfig.tags,
-                            postWithAlreadyPostedContent.location, postsTimeline);
+                            postWithAlreadyPostedContent.account, postWithAlreadyPostedContent.location, postsTimeline);
                     if (content != null) {
                         Post post = new Post(postWithAlreadyPostedContent.time, content,
                                 postWithAlreadyPostedContent.account, postWithAlreadyPostedContent.location);

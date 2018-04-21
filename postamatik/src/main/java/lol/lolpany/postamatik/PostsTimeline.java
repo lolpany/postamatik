@@ -100,19 +100,20 @@ public class PostsTimeline implements AutoCloseable {
 
         for (Account account : accountsConfig.accountsConfig) {
             for (Location location : account.locations) {
-                List<Post> posts = this.getPosts(location.url.toString()).stream()
-                        .filter(post -> post.postState == PostState.UPLOADED).collect(Collectors.toList());
-                List<Instant> instants = generateNewPostInstants(location.locationConfig,
-                        this.getPosts(location.url.toString()),
-                        (int) (1 + Math.round(1.0/ location.locationConfig.frequency)) * posts.size()
-                                + 10);
-                int i = 0;
-                for (Post post : posts) {
-                    post.time = instants.get(i);
-                    i++;
-                    posterQueue.put(post);
+                if (this.getPosts(location.url.toString()) != null) {
+                    List<Post> posts = this.getPosts(location.url.toString()).stream()
+                            .filter(post -> post.postState == PostState.UPLOADED).collect(Collectors.toList());
+                    List<Instant> instants = generateNewPostInstants(location.locationConfig,
+                            this.getPosts(location.url.toString()),
+                            (int) (1 + Math.round(1.0 / location.locationConfig.frequency)) * posts.size()
+                                    + 10);
+                    int i = 0;
+                    for (Post post : posts) {
+                        post.time = instants.get(i);
+                        i++;
+                        posterQueue.put(post);
+                    }
                 }
-
             }
         }
 

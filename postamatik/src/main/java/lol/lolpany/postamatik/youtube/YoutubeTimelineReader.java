@@ -15,10 +15,9 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.stream.Collectors;
 
 import static java.lang.Math.min;
+import static lol.lolpany.postamatik.youtube.YoutubeUtils.FETCH_SIZE;
 
 public class YoutubeTimelineReader implements LocationTimelineReader<YoutubeLocation> {
-
-    private static final int FETCH_SIZE = 50;
 
 
     @Override
@@ -109,5 +108,25 @@ public class YoutubeTimelineReader implements LocationTimelineReader<YoutubeLoca
 
         return result;
     }
+
+//    private List<Video> fetchUploadedVideos(YouTube youTube, List<String> videosIds) throws IOException {
+//        List<Video> result = new ArrayList<>();
+//        String nextPageToken = "";
+//        while (nextPageToken != null) {
+//            YouTube.Videos.List videoListRequest = youTube.search().list("snippet,status")
+//                    .setMaxResults((long) FETCH_SIZE)
+//                    .setPageToken(nextPageToken);
+//            VideoListResponse videoListResponse = videoListRequest.execute();
+//            result.addAll(videoListResponse.getItems());
+//
+//            while (videoListResponse.getNextPageToken() != null) {
+//                videoListResponse = videoListRequest.setPageToken(videoListResponse.getNextPageToken())
+//                        .execute();
+//                result.addAll(videoListResponse.getItems());
+//            }
+//            nextPageToken = videoListResponse.getNextPageToken();
+//        }
+//        return result;
+//    }
 
 }

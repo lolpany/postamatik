@@ -1,31 +1,25 @@
 package lol.lolpany.postamatik.youtube;
 
-import com.codeborne.selenide.*;
+import com.google.api.services.youtube.YouTube;
+import com.google.api.services.youtube.model.PlaylistItem;
+import com.google.api.services.youtube.model.PlaylistItemListResponse;
 import lol.lolpany.postamatik.*;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 
-import java.net.MalformedURLException;
+import java.io.IOException;
 import java.net.URL;
-import java.util.HashSet;
+import java.security.GeneralSecurityException;
 import java.util.Set;
 
-import static com.codeborne.selenide.CollectionCondition.sizeGreaterThan;
-import static com.codeborne.selenide.Selenide.*;
-import static com.codeborne.selenide.WebDriverRunner.closeWebDriver;
-import static com.codeborne.selenide.WebDriverRunner.setWebDriver;
 import static java.util.Collections.emptyList;
 import static java.util.Collections.singletonList;
-import static lol.lolpany.postamatik.ContentStreamerDispatcher.CHROME_DRIVER_LOCATION;
-import static lol.lolpany.postamatik.SelenideUtils.getText;
+import static lol.lolpany.postamatik.youtube.YoutubeUtils.FETCH_SIZE;
 
 public class YoutubeContentSearch implements ContentSearch {
 
-    private static final Set<String> LIVE_TEXTS = new HashSet<String>() {{
-        add("LIVE NOW");
-        add("СЕЙЧАС В ПРЯМОМ ЭФИРЕ");
-    }};
+    private static final String CHANNEL = "/channel";
+    private static final String USER = "/user";
+    private static final String PLAYLIST = "/playlist";
+    private static final String VIDEO_PREFIX = "https://www.youtube.com/watch?v=";
 
     private final String url;
     private final Set<String> tags;
@@ -35,59 +29,41 @@ public class YoutubeContentSearch implements ContentSearch {
         this.tags = tags;
     }
 
-    public Content findContent(double precision, Set<String> tags, PostsTimeline postsTimeline, Location location)
-            throws MalformedURLException {
+    @Override
+    public Content findContent(double precision, Set<String> tags, PostsTimeline postsTimeline, Account account, Location location)
+            throws IOException, GeneralSecurityException {
         Content result = null;
         if (Utils.match(this.tags, tags) >= precision) {
-            System.setProperty("webdriver.chrome.driver", CHROME_DRIVER_LOCATION);
-            ChromeOptions chromeOpts = new ChromeOptions();
-            chromeOpts.addArguments("headless");
-            setWebDriver(new ChromeDriver(chromeOpts));
-//        authorize(account, location);
-            open(url + "?sort=p");
-            if (new URL(url).getFile().endsWith("/videos")) {
-                result = findContentOnChannel(url, tags, postsTimeline, location);
-            }
-            close();
-            closeWebDriver();
+            result = findContent(account, url, tags, postsTimeline, (YoutubeLocation) location);
         }
         return result;
     }
 
-    private Content findContentOnChannel(String url, Set<String> tags, PostsTimeline postsTimeline,
-                                         Location location) {
-        open(url + "?view=0");
-        SelenideElement items = $("div#items");
-        boolean commonLayout = false;
-        try {
-            items.should(Condition.exist);
-            commonLayout = true;
-        } catch (Throwable e) {
-
+    private Content findContent(Account account, String url, Set<String> tags, PostsTimeline postsTimeline,
+                                YoutubeLocation location) throws IOException, GeneralSecurityException {
+        YouTube youTube = YoutubeApi.fetchYouTube(account, location);
+        String uploadsPlaylistId = "";
+        URL contentSourceUrl = new URL(url);
+        if (contentSourceUrl.getPath().startsWith(CHANNEL)) {
+            uploadsPlaylistId = youTube.channels().list("contentDetails").setId(contentSourceUrl.getPath().split("/")[2])
+                    .execute().getItems().get(0).getContentDetails().getRelatedPlaylists().getUploads();
+        } else if (contentSourceUrl.getPath().startsWith(USER)) {
+            uploadsPlaylistId = youTube.channels().list("contentDetails").setForUsername(contentSourceUrl.getPath().split("/")[2])
+                    .execute().getItems().get(0).getContentDetails().getRelatedPlaylists().getUploads();
+        } else if (contentSourceUrl.getPath().startsWith(PLAYLIST)) {
+            uploadsPlaylistId = contentSourceUrl.getQuery().substring(5);
         }
-        if (commonLayout) {
-            ElementsCollection thumbnails = items.findAll(commonLayout ? "ytd-grid-video-renderer"
-                    : "ul#channels-browse-content-grid div.yt-lockup-dismissable");
-            Integer prevThumbnailsNumber = 0;
-            thumbnails.shouldBe(sizeGreaterThan(0));
-            while (prevThumbnailsNumber < thumbnails.size()) {
-                prevThumbnailsNumber = thumbnails.size();
-                for (SelenideElement thumbnail : thumbnails) {
-                    if (thumbnail.findAll(commonLayout ? "div#details span" : "div.yt-lockup-content").stream()
-                            .noneMatch(e -> LIVE_TEXTS.contains(e.text()))) {
-                        String source = thumbnail.find(commonLayout ? "a#thumbnail" : "a.yt-uix-sessionlink").attr("href");
-
-                        String name = getText(thumbnail.find(commonLayout ? "a#video-title" : "div.yt-lockup-content a"));
-
-                        Content content = new Content(tags, singletonList(source), emptyList());
-                        content.name = name;
-                        if (!postsTimeline.isAlreadyScheduledOrUploadedOrPosted(location.url.toString(), content)) {
-                            return content;
-                        }
-                    }
+        String nextPageToken = "";
+        while (nextPageToken != null) {
+            PlaylistItemListResponse response = youTube.playlistItems().list("snippet,contentDetails")
+                    .setPlaylistId(uploadsPlaylistId).setMaxResults((long) FETCH_SIZE).setPageToken(nextPageToken).execute();
+            for (PlaylistItem playlistItem : response.getItems()) {
+                Content content = new Content(tags, singletonList(VIDEO_PREFIX + playlistItem.getContentDetails().getVideoId()), emptyList());
+                content.name = playlistItem.getSnippet().getTitle();
+                if (!postsTimeline.isAlreadyScheduledOrUploadedOrPosted(location.url.toString(), content)) {
+                    return content;
                 }
-                thumbnails.get(prevThumbnailsNumber - 1).scrollTo();
-                thumbnails = $$("a#thumbnail");
+                nextPageToken = response.getNextPageToken();
             }
         }
         return null;

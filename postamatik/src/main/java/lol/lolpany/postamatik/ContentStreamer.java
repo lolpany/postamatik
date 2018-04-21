@@ -1,5 +1,6 @@
 package lol.lolpany.postamatik;
 
+import java.io.IOException;
 import java.nio.file.Paths;
 import java.time.Instant;
 import java.util.concurrent.Semaphore;
@@ -42,13 +43,18 @@ public class ContentStreamer implements Runnable {
                 streamerErrorQueue.offer(post);
             }
             postsTimeline.setUploaded(post);
-            if (post.content.file != null) {
-                deleteIfExists(post.content.file.toPath());
-            }
+
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             streamsLimitingSemaphore.release();
+            if (post.content.file != null) {
+                try {
+                    deleteIfExists(post.content.file.toPath());
+                } catch (IOException e) {
+                    // ignore
+                }
+            }
         }
     }
 }

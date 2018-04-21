@@ -28,6 +28,7 @@ import static lol.lolpany.postamatik.SelenideUtils.waitTill;
 
 public class YoutubeUtils {
 
+    public static final int FETCH_SIZE = 50;
     private final static String UPLOAD_BUTTON_SELECTOR = "div#upload-prompt-box input[type=\"file\"]";
 
     public static void authorize(Account account, YoutubeLocation location) {
