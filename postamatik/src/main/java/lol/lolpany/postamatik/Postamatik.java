@@ -53,8 +53,6 @@ public class Postamatik {
                 new FileReader(ACCOUNTS_CONFIG),
                 AccountsConfig.class);
 
-//        PostsTimeline postsTimeline = new PostsTimeline(accountsConfig);
-
         PostsTimeline postsTimeline;
         if (new File(POSTS_TIMELINE).exists()) {
             postsTimeline =
@@ -63,7 +61,7 @@ public class Postamatik {
                             PostsTimeline.class
                     );
         } else {
-            postsTimeline = new PostsTimeline();
+            postsTimeline = new PostsTimeline(accountsConfig);
         }
 
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
