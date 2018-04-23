@@ -19,7 +19,7 @@ public class YoutubeContentSearch implements ContentSearch {
     private static final String CHANNEL = "/channel";
     private static final String USER = "/user";
     private static final String PLAYLIST = "/playlist";
-    private static final String VIDEO_PREFIX = "https://www.youtube.com/watch?v=";
+    public static final String VIDEO_PREFIX = "https://www.youtube.com/watch?v=";
 
     private final String url;
     private final Set<String> tags;
