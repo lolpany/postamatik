@@ -8,6 +8,8 @@ import lol.lolpany.postamatik.*;
 import java.io.IOException;
 import java.net.URL;
 import java.security.GeneralSecurityException;
+import java.time.Duration;
+import java.time.format.DateTimeFormatter;
 import java.util.Set;
 
 import static java.util.Collections.emptyList;
@@ -58,14 +60,21 @@ public class YoutubeContentSearch implements ContentSearch {
             PlaylistItemListResponse response = youTube.playlistItems().list("snippet,contentDetails")
                     .setPlaylistId(uploadsPlaylistId).setMaxResults((long) FETCH_SIZE).setPageToken(nextPageToken).execute();
             for (PlaylistItem playlistItem : response.getItems()) {
-                Content content = new Content(tags, singletonList(VIDEO_PREFIX + playlistItem.getContentDetails().getVideoId()), emptyList());
-                content.name = playlistItem.getSnippet().getTitle();
-                if (!postsTimeline.isAlreadyScheduledOrUploadedOrPosted(location.url.toString(), content)) {
-                    return content;
+                if (isContentLengthSuitable(youTube, playlistItem.getContentDetails().getVideoId(), location.locationConfig.contentLength)) {
+                    Content content = new Content(tags, singletonList(VIDEO_PREFIX + playlistItem.getContentDetails().getVideoId()), emptyList());
+                    content.name = playlistItem.getSnippet().getTitle();
+                    if (!postsTimeline.isAlreadyScheduledOrUploadedOrPosted(location.url.toString(), content)) {
+                        return content;
+                    }
                 }
-                nextPageToken = response.getNextPageToken();
             }
+            nextPageToken = response.getNextPageToken();
         }
         return null;
+    }
+
+    private boolean isContentLengthSuitable(YouTube youTube, String videoId, ContentLength locationContentLength) throws IOException {
+        return ContentLength.fromMinutes(Duration.parse(youTube.videos().list("contentDetails").setId(videoId).execute().getItems().get(0).getContentDetails().getDuration()).toMinutes()) ==
+                locationContentLength;
     }
 }

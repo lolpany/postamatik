@@ -64,6 +64,8 @@ public class YoutubeUtils {
                 }
             }
             $("button#identity-prompt-confirm-button").click();
+        } else if ($("#identity-prompt-dialog").exists()) {
+            $(".specialized-identity-prompt-account-item page main").click();
         }
         $(UPLOAD_BUTTON_SELECTOR).should(Condition.exist);
     }

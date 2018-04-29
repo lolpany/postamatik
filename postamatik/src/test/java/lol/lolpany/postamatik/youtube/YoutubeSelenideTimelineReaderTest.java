@@ -1,6 +1,7 @@
 package lol.lolpany.postamatik.youtube;
 
 import lol.lolpany.postamatik.Account;
+import lol.lolpany.postamatik.ContentLength;
 import lol.lolpany.postamatik.LocationConfig;
 import lol.lolpany.postamatik.Post;
 import lol.lolpany.postamatik.youtube.YoutubeLocation;
@@ -20,7 +21,7 @@ public class YoutubeSelenideTimelineReaderTest {
     public void go() throws MalformedURLException {
         YoutubeLocation location = new YoutubeLocation(
                 new URL("https://www.youtube.com/channel/UCRFPNeA671k2FqXIsk1e1Tg"),
-                new LocationConfig(null, null, 0, 0), "relax music");
+                new LocationConfig(null, null, 0, 0, ContentLength.SHORT), "relax music");
         ConcurrentLinkedQueue<Post> posts = new YoutubeSelenideTimelineReader(CHROME_DRIVER_LOCATION).read(
                 new Account("", "", "",
                         singletonList(location)), location);

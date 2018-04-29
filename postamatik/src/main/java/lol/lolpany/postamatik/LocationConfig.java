@@ -9,11 +9,13 @@ public class LocationConfig {
     public Set<String> tags;
     public double precision;
     public double frequency;
+    public ContentLength contentLength;
 
-    public LocationConfig(String url, Set<String> tags, double precision, double frequency) {
+    public LocationConfig(String url, Set<String> tags, double precision, double frequency, ContentLength contentLength) {
         this.url = url;
         this.tags = tags;
         this.precision = precision;
         this.frequency = frequency;
+        this.contentLength = contentLength;
     }
 }

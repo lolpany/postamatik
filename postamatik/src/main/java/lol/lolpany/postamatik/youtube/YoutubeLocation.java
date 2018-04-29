@@ -6,7 +6,7 @@ import lol.lolpany.postamatik.LocationConfig;
 import java.net.URL;
 
 public class YoutubeLocation extends Location {
-    String channelName;
+    public String channelName;
 
     public YoutubeLocation(URL url, LocationConfig locationConfig, String channelName) {
         super(url, locationConfig);
