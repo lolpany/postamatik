@@ -1,12 +1,12 @@
-package lol.lolpany.postamatik;
+package lol.lolpany;
 
 import java.net.URL;
 
-public class Location {
+public class Location<T> {
     public URL url;
-    public LocationConfig locationConfig;
+    public T locationConfig;
 
-    public Location(URL url, LocationConfig locationConfig) {
+    public Location(URL url, T locationConfig) {
         this.url = url;
         this.locationConfig = locationConfig;
     }

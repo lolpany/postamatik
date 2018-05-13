@@ -1,5 +1,6 @@
 package lol.lolpany.postamatik;
 
+import lol.lolpany.Account;
 import lol.lolpany.postamatik.youtube.YoutubeLocation;
 
 import java.net.MalformedURLException;

@@ -3,6 +3,7 @@ package lol.lolpany.postamatik.youtube;
 import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.*;
 import com.google.api.services.youtube.model.Video;
+import lol.lolpany.Account;
 import lol.lolpany.postamatik.*;
 import org.apache.commons.lang3.StringUtils;
 

@@ -2,14 +2,13 @@ package lol.lolpany.postamatik.youtube;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import lol.lolpany.AccountsConfig;
+import lol.lolpany.Location;
 import lol.lolpany.postamatik.*;
 import org.junit.Test;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.security.GeneralSecurityException;
 
 import static java.util.Collections.singleton;

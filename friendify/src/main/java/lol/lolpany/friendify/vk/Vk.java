@@ -1,3 +1,5 @@
+package lol.lolpany.friendify.vk;
+
 import com.codeborne.selenide.Configuration;
 import org.junit.Test;
 
@@ -29,9 +31,9 @@ public class Vk {
 //                .setPrettyPrinting()
 //                .create();
 //
-//        AccountsConfig accountsConfig = gson.fromJson(
+//        lol.lolpany.friendify.AccountsConfig accountsConfig = gson.fromJson(
 //                new FileReader("D:\\storage\\info\\buffer\\postamatik\\accounts-config\\accounts-config.json"),
-//                AccountsConfig.class);
+//                lol.lolpany.friendify.AccountsConfig.class);
 //
 //        authorize(accountsConfig.accountsConfig.get(accountsConfig.accountsConfig.size() - 1));
 //

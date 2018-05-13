@@ -1,5 +1,6 @@
 package lol.lolpany.postamatik;
 
+import lol.lolpany.ComponentConnection;
 import lol.lolpany.postamatik.youtube.YoutubeDlInputStreamFactory;
 import lol.lolpany.postamatik.youtube.YoutubeOutputStreamFactory;
 

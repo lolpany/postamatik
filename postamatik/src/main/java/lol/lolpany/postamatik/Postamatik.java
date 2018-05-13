@@ -3,8 +3,11 @@ package lol.lolpany.postamatik;
 import com.codeborne.selenide.Configuration;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import lol.lolpany.AccountsConfig;
+import lol.lolpany.ComponentConnection;
+import lol.lolpany.JsonConfigWatcher;
+import lol.lolpany.Location;
 
-import java.io.File;
 import java.io.FileReader;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ExecutorService;
@@ -18,7 +21,8 @@ import static java.util.Comparator.comparing;
 public class Postamatik {
 
     public static final String POSTAMATIK_HOME = "D:\\storage\\Dropbox\\Dropbox\\projects\\postamatik\\";
-    public static final String ACCOUNTS_CONFIG = "D:\\storage\\info\\buffer\\postamatik\\accounts-config\\accounts-config.json";
+    public static final String CONFIG_DIR = "D:\\storage\\info\\buffer\\postamatik\\accounts-config";
+    public static final String ACCOUNTS_CONFIG = CONFIG_DIR + "\\accounts-config.json";
     public static final String POSTS_TIMELINE = "D:\\storage\\info\\buffer\\postamatik\\posts-timeline\\posts-timeline.json";
 
     public static void main(String[] args) throws Exception {
@@ -49,7 +53,7 @@ public class Postamatik {
                 new FileReader("D:\\storage\\web-go\\resource\\poster-queue\\poster-queue.json"),
                 PersistedPosts.class)*/);
 
-        AccountsConfig accountsConfig = gson.fromJson(
+        AccountsConfig<LocationConfig> accountsConfig = gson.fromJson(
                 new FileReader(ACCOUNTS_CONFIG),
                 AccountsConfig.class);
 
@@ -80,13 +84,13 @@ public class Postamatik {
 
         ComponentConnection<Post> streamerErrorQueue = new ComponentConnection<>(1000);
 
-        int numberOfRunnables = 20;
+        int numberOfRunnables = accountsConfig.accountsConfig.size() * 2;
 
         ExecutorService executorService = new ThreadPoolExecutor(numberOfRunnables, numberOfRunnables, 5,
                 TimeUnit.MINUTES, new ArrayBlockingQueue<>(numberOfRunnables));
 
         executorService.execute(new JsonConfigWatcher<>(AccountsConfig.class,
-                "D:\\storage\\info\\buffer\\postamatik\\accounts-config",
+                CONFIG_DIR,
                 accountsConfigsQueue, "accounts-config.json", gson, isOn));
 
         executorService.execute(new JsonConfigWatcher<>(ContentRepositoryStore.class,

@@ -2,6 +2,8 @@ package lol.lolpany.postamatik;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import lol.lolpany.AccountsConfig;
+import lol.lolpany.Location;
 import org.junit.Test;
 
 import java.io.FileReader;

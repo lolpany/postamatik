@@ -1,8 +1,8 @@
 package lol.lolpany.postamatik;
 
+import lol.lolpany.ComponentConnection;
+
 import java.io.IOException;
-import java.nio.file.Paths;
-import java.time.Instant;
 import java.util.concurrent.Semaphore;
 
 import static java.nio.file.Files.deleteIfExists;

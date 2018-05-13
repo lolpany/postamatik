@@ -1,7 +1,7 @@
 package lol.lolpany.postamatik.youtube;
 
 import com.codeborne.selenide.Condition;
-import lol.lolpany.postamatik.Account;
+import lol.lolpany.Account;
 import lol.lolpany.postamatik.PostAction;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;

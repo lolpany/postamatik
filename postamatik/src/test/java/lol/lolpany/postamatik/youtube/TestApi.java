@@ -11,7 +11,7 @@ import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.Video;
 import com.google.api.services.youtube.model.VideoSnippet;
 import com.google.api.services.youtube.model.VideoStatus;
-import lol.lolpany.postamatik.Account;
+import lol.lolpany.Account;
 import org.junit.Test;
 
 import java.io.FileInputStream;

@@ -10,7 +10,7 @@ import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.youtube.YouTube;
-import lol.lolpany.postamatik.Account;
+import lol.lolpany.Account;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;

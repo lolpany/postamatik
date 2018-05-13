@@ -1,8 +1,9 @@
-package lol.lolpany.postamatik;
+package lol.lolpany;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
+import lol.lolpany.ComponentConnection;
 
 import java.io.File;
 import java.io.FileReader;

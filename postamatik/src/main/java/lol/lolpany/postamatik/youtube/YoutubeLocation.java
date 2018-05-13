@@ -1,11 +1,11 @@
 package lol.lolpany.postamatik.youtube;
 
-import lol.lolpany.postamatik.Location;
+import lol.lolpany.Location;
 import lol.lolpany.postamatik.LocationConfig;
 
 import java.net.URL;
 
-public class YoutubeLocation extends Location {
+public class YoutubeLocation extends Location<LocationConfig> {
     public String channelName;
 
     public YoutubeLocation(URL url, LocationConfig locationConfig, String channelName) {

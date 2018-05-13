@@ -1,11 +1,9 @@
 package lol.lolpany.postamatik.youtube;
 
-import lol.lolpany.postamatik.Account;
+import lol.lolpany.Account;
 import lol.lolpany.postamatik.Content;
 import lol.lolpany.postamatik.ContentLength;
 import lol.lolpany.postamatik.LocationConfig;
-import lol.lolpany.postamatik.youtube.YoutubeLocation;
-import lol.lolpany.postamatik.youtube.YoutubeSelenideOutputStream;
 import org.junit.Test;
 
 import java.io.File;

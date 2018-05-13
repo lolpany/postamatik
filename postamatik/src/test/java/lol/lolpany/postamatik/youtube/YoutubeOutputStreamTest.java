@@ -1,6 +1,6 @@
 package lol.lolpany.postamatik.youtube;
 
-import lol.lolpany.postamatik.Account;
+import lol.lolpany.Account;
 import lol.lolpany.postamatik.Content;
 import lol.lolpany.postamatik.ContentLength;
 import lol.lolpany.postamatik.LocationConfig;

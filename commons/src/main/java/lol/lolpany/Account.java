@@ -1,14 +1,14 @@
-package lol.lolpany.postamatik;
+package lol.lolpany;
 
 import java.util.List;
 
-public class Account {
+public class Account<T> {
     public String email;
     public String login;
     public String password;
-    public List<Location> locations;
+    public List<Location<T>> locations;
 
-    public Account(String email, String login, String password, List<Location> locations) {
+    public Account(String email, String login, String password, List<Location<T>> locations) {
         this.email = email;
         this.login = login;
         this.password = password;

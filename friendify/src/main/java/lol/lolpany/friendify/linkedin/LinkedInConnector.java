@@ -1,38 +1,51 @@
-import com.codeborne.selenide.*;
-import org.openqa.selenium.JavascriptExecutor;
+package lol.lolpany.friendify.linkedin;
+
+import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.ElementsCollection;
+import com.codeborne.selenide.SelenideElement;
+import lol.lolpany.Account;
+import lol.lolpany.Location;
+import lol.lolpany.friendify.Connector;
+import lol.lolpany.friendify.LocationConfig;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
-import javax.mail.Folder;
-import javax.mail.Message;
-import javax.mail.Session;
-import javax.mail.Store;
+import javax.mail.*;
 import java.io.IOException;
 import java.util.Date;
 import java.util.Properties;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static com.codeborne.selenide.Selenide.*;
-import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static com.codeborne.selenide.WebDriverRunner.setWebDriver;
-import static java.lang.Math.max;
-import static java.lang.Math.min;
 import static java.util.concurrent.TimeUnit.MINUTES;
 import static java.util.concurrent.TimeUnit.NANOSECONDS;
 
-public class Friendify {
+public class LinkedInConnector implements Connector {
 
     private static final long MAIL_RECEIVE_INTERVAL = MINUTES.convert(4, NANOSECONDS);
     private static final String PIN_MAIL_SUBJECT = ", here's your PIN";
     private static final Pattern PIN_PATTERN = Pattern.compile("Please use this verification code to complete your sign in: (\\d+)");
     private static final String CONTACT_BUTTON_SELECTOR = "button.search-result__actions--primary";
-    private static final long RUN_CYCLE = 604800000;
 
-    //    @Test
-    public static void main(String[] args) throws Exception {
+    private final AtomicBoolean isOn;
+    private final Account<LocationConfig> account;
+    private final Location<LocationConfig> location;
+
+    public LinkedInConnector(AtomicBoolean isOn, Account<LocationConfig> account, Location<LocationConfig> location) {
+        this.isOn = isOn;
+        this.account = account;
+        this.location = location;
+    }
+
+    @Override
+    public Void call() {
         int startPage = 1;
         int endPage = 200;
 
@@ -58,17 +71,17 @@ public class Friendify {
         setWebDriver(new FirefoxDriver(firefoxOptions));
 //        Configuration.baseUrl = "https://www.linkedin.com/";
 
-        if (!login()) {
-            throw new Exception();
-        }
+        try {
+            login();
+
 //        Selenide.sleep(20000);
 
-        while (true) {
-            try {
-                for (int i = startPage; i < endPage; i++) {
-                    try {
-                        System.out.println(i);
-                        open("https://www.linkedin.com/search/results/people/?facetGeoRegion=%5B%22us%3A0%22%5D&facetNetwork=%5B%22S%22%5D&origin=FACETED_SEARCH&page=" + i);
+            while (isOn.get()) {
+                try {
+                    for (int i = startPage; i < endPage && isOn.get(); i++) {
+                        try {
+                            System.out.println(i);
+                            open(location.url + "&page=" + i);
 //                JavascriptExecutor jse = (JavascriptExecutor) getWebDriver();
 
 
@@ -77,54 +90,58 @@ public class Friendify {
 //                jse.executeScript("window.scrollBy(0,500)", "");
 //
 //                Selenide.sleep(5000);
-                        while (!$("li.page-list").is(Condition.visible)) {
-                            $$(CONTACT_BUTTON_SELECTOR).last().scrollTo();
-                        }
+                            while (!$("li.page-list").is(Condition.visible)) {
+                                $$(CONTACT_BUTTON_SELECTOR).last().scrollTo();
+                            }
 
-                        ElementsCollection buttons = $$(CONTACT_BUTTON_SELECTOR);
+                            ElementsCollection buttons = $$(CONTACT_BUTTON_SELECTOR);
 
 
-                        int count = 0;
-                        for (int j = 0; j < buttons.size(); j++) {
+                            int count = 0;
+                            for (int j = 0; j < buttons.size(); j++) {
 //                    jse.executeScript("window.scrollBy(0,1000)", "");
-                            SelenideElement button = buttons.get(j);
-                            if (button != null) {
-                                if ("Connect".equals(button.getText())) {
-                                    System.out.println("Connect");
-                                    count++;
-                                    try {
-                                        if (j > 0) {
-                                            buttons.get(j - 1).scrollTo();
-                                        }
-                                        SelenideElement sendButton =
-                                                $("div.modal-wormhole-content div.send-invite__actions button.button-primary-large");
-                                        if (!sendButton.exists()) {
-                                            button.should(Condition.visible).click();
-                                        }
-                                        if (!$("input#email").exists()) {
+                                SelenideElement button = buttons.get(j);
+                                if (button != null) {
+                                    if ("Connect".equals(button.getText())) {
+                                        System.out.println("Connect");
+                                        count++;
+                                        try {
+                                            if (j > 0) {
+                                                buttons.get(j - 1).scrollTo();
+                                            }
+                                            SelenideElement sendButton =
+                                                    $("div.modal-wormhole-content div.send-invite__actions button.button-primary-large");
+                                            if (!sendButton.exists()) {
+                                                button.should(Condition.visible).click();
+                                            }
+                                            if (!$("input#email").exists()) {
+                                                $("div.modal-wormhole-content div.send-invite__actions button.button-primary-large")
+                                                        .should(Condition.visible).click();
+                                            } else {
+                                                $("button.send-invite__cancel-btn").click();
+                                            }
                                             $("div.modal-wormhole-content div.send-invite__actions button.button-primary-large")
-                                                    .should(Condition.visible).click();
-                                        } else {
-                                            $("button.send-invite__cancel-btn").click();
+                                                    .should(Condition.not(Condition.visible));
+                                            $("button.send-invite__cancel-btn").should(Condition.not(Condition.visible));
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
                                         }
-                                        $("div.modal-wormhole-content div.send-invite__actions button.button-primary-large")
-                                                .should(Condition.not(Condition.visible));
-                                        $("button.send-invite__cancel-btn").should(Condition.not(Condition.visible));
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
                                     }
                                 }
                             }
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
-                    } catch (Exception e) {
-                        e.printStackTrace();
                     }
+                } catch (Throwable e) {
+                    // ignore
                 }
-            } catch (Throwable e) {
-                // ignore
+                Thread.sleep(Math.round(location.locationConfig.frequency * TimeUnit.DAYS.toMillis(1)));
             }
-            Thread.sleep(RUN_CYCLE);
+        } catch (MessagingException | IOException | InterruptedException e) {
+            e.printStackTrace();
         }
+        return null;
     }
 
     public static boolean login() throws IOException, javax.mail.MessagingException {

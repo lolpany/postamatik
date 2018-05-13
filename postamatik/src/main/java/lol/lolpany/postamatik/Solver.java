@@ -1,5 +1,10 @@
 package lol.lolpany.postamatik;
 
+import lol.lolpany.Account;
+import lol.lolpany.AccountsConfig;
+import lol.lolpany.ComponentConnection;
+import lol.lolpany.Location;
+
 import java.time.Duration;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -37,16 +42,16 @@ public class Solver implements Runnable {
 
     public void run() {
 
-        AccountsConfig accountsConfig = null;
+        AccountsConfig<LocationConfig> accountsConfig = null;
         while (on.get()) {
             try {
-                AccountsConfig newAccountsConfig = accountsConfigsQueue.poll();
+                AccountsConfig<LocationConfig> newAccountsConfig = accountsConfigsQueue.poll();
                 if (newAccountsConfig != null) {
                     accountsConfig = newAccountsConfig;
                 }
                 if (accountsConfig != null) {
-                    for (Account account : accountsConfig.accountsConfig) {
-                        for (Location location : account.locations) {
+                    for (Account<LocationConfig> account : accountsConfig.accountsConfig) {
+                        for (Location<LocationConfig> location : account.locations) {
                             ConcurrentLinkedQueue<Post> posts = postsTimeline.getPosts(location.url.toString());
                             for (Instant instant : generateNewPostInstants(location.locationConfig, posts,
                                     UPLOAD_THRESHOLD)) {

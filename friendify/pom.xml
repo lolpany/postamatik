@@ -24,6 +24,11 @@
             <artifactId>javax.mail</artifactId>
             <version>1.5.5</version>
         </dependency>
+        <dependency>
+            <groupId>lol.lolpany</groupId>
+            <artifactId>commons</artifactId>
+            <version>1.0</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -43,7 +48,7 @@
                         <manifest>
                             <!--<addClasspath>true</addClasspath>-->
                             <!--<classpathPrefix>lib/</classpathPrefix>-->
-                            <mainClass>Friendify</mainClass>
+                            <mainClass>lol.lolpany.friendify.Friendify</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -57,7 +62,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>Friendify</mainClass>
+                            <mainClass>lol.lolpany.friendify.Friendify</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

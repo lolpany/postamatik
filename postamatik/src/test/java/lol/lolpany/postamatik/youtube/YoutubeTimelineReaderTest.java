@@ -1,6 +1,5 @@
 package lol.lolpany.postamatik.youtube;
 
-import lol.lolpany.postamatik.Account;
 import org.junit.Test;
 
 import static lol.lolpany.postamatik.TestUtils.TEST_ACCOUNT;

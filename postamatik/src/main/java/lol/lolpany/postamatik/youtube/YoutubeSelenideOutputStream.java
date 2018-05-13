@@ -2,14 +2,13 @@ package lol.lolpany.postamatik.youtube;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
-import lol.lolpany.postamatik.Account;
+import lol.lolpany.Account;
 import lol.lolpany.postamatik.Content;
 import lol.lolpany.postamatik.LocationOutputStream;
 import lol.lolpany.postamatik.PostAction;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
-import java.io.File;
 import java.io.IOException;
 
 import static com.codeborne.selenide.Selenide.*;

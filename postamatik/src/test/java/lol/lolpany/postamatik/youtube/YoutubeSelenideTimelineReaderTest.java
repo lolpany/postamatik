@@ -1,11 +1,9 @@
 package lol.lolpany.postamatik.youtube;
 
-import lol.lolpany.postamatik.Account;
+import lol.lolpany.Account;
 import lol.lolpany.postamatik.ContentLength;
 import lol.lolpany.postamatik.LocationConfig;
 import lol.lolpany.postamatik.Post;
-import lol.lolpany.postamatik.youtube.YoutubeLocation;
-import lol.lolpany.postamatik.youtube.YoutubeSelenideTimelineReader;
 import org.junit.Test;
 
 import java.net.MalformedURLException;

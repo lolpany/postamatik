@@ -1,7 +1,10 @@
 package lol.lolpany.postamatik;
 
+import lol.lolpany.Account;
+import lol.lolpany.ComponentConnection;
+import lol.lolpany.Location;
+
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.security.GeneralSecurityException;
 import java.util.Collections;
 import java.util.Set;

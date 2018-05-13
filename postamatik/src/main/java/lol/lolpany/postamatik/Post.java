@@ -1,16 +1,19 @@
 package lol.lolpany.postamatik;
 
+import lol.lolpany.Account;
+import lol.lolpany.Location;
+
 import java.time.Instant;
 
 public class Post {
     public Instant time;
     public Content content;
     public final Account account;
-    public final Location location;
+    public final Location<LocationConfig> location;
     public PostState postState;
     transient public PostAction action;
 
-    public Post(Instant time, Content content, Account account, Location location) {
+    public Post(Instant time, Content content, Account account, Location<LocationConfig> location) {
         this.time = time;
         this.content = content;
         this.account = account;

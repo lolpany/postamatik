@@ -1,14 +1,18 @@
-<project>
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <groupId>lol.lolpany</groupId>
-    <artifactId>postamatik</artifactId>
-    <packaging>jar</packaging>
+    <artifactId>commons</artifactId>
     <version>1.0</version>
+
     <dependencies>
         <dependency>
             <groupId>com.codeborne</groupId>
             <artifactId>selenide</artifactId>
-            <version>4.10</version>
+            <version>4.5.1</version>
         </dependency>
         <dependency>
             <groupId>com.google.code.gson</groupId>
@@ -16,35 +20,15 @@
             <version>2.8.2</version>
         </dependency>
         <dependency>
-            <groupId>lol.lolpany</groupId>
-            <artifactId>commons</artifactId>
-            <version>1.0</version>
+            <groupId>javax.mail</groupId>
+            <artifactId>javax.mail-api</artifactId>
+            <version>1.5.1</version>
         </dependency>
         <dependency>
-            <groupId>com.google.apis</groupId>
-            <artifactId>google-api-services-youtube</artifactId>
-            <version>v3-rev193-1.23.0</version>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>javax.mail</artifactId>
+            <version>1.5.5</version>
         </dependency>
-        <dependency>
-            <groupId>org.zeroturnaround</groupId>
-            <artifactId>zt-exec</artifactId>
-            <version>1.10</version>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
-        </dependency>
-        <dependency>
-            <groupId>com.twilio.sdk</groupId>
-            <artifactId>twilio</artifactId>
-            <version>7.19.0</version>
-        </dependency>
-        <!--<dependency>-->
-        <!--<groupId>com.google.apis</groupId>-->
-        <!--<artifactId>google-api-services-gmail</artifactId>-->
-        <!--<version>v1-rev67-1.22.0</version>-->
-        <!--</dependency>-->
     </dependencies>
     <build>
         <plugins>
@@ -64,7 +48,7 @@
                         <manifest>
                             <!--<addClasspath>true</addClasspath>-->
                             <!--<classpathPrefix>lib/</classpathPrefix>-->
-                            <mainClass>lol.lolpany.postamatik.Postamatik</mainClass>
+                            <mainClass>lol.lolpany.friendify.Friendify</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -76,11 +60,11 @@
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
-                    <archive>
-                        <manifest>
-                            <mainClass>lol.lolpany.postamatik.Postamatik</mainClass>
-                        </manifest>
-                    </archive>
+                    <!--<archive>-->
+                        <!--<manifest>-->
+                            <!--<mainClass>lol.lolpany.friendify.Friendify</mainClass>-->
+                        <!--</manifest>-->
+                    <!--</archive>-->
                 </configuration>
                 <executions>
                     <execution>

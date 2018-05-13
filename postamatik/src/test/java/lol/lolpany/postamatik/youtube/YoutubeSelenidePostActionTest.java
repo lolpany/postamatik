@@ -1,8 +1,7 @@
 package lol.lolpany.postamatik.youtube;
 
+import lol.lolpany.Account;
 import lol.lolpany.postamatik.*;
-import lol.lolpany.postamatik.youtube.YoutubeLocation;
-import lol.lolpany.postamatik.youtube.YoutubeSelenidePostAction;
 import org.junit.Test;
 
 import java.net.URL;
