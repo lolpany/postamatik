@@ -64,7 +64,7 @@ public class YoutubeUtils {
             throws MalformedURLException {
         System.setProperty("webdriver.chrome.driver", CHROME_DRIVER_LOCATION);
         ChromeOptions chromeOpts = new ChromeOptions();
-        chromeOpts.addArguments("headless");
+//        chromeOpts.addArguments("headless");
         setWebDriver(new ChromeDriver(chromeOpts));
         authorize(account, location);
         open(authorizationCodeRequestUrl.build().toString());

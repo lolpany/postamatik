@@ -9,6 +9,7 @@ import java.time.Duration;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.TimeUnit;
@@ -57,13 +58,13 @@ public class Solver implements Runnable {
                                     UPLOAD_THRESHOLD)) {
                                 Content content = contentRepository.getContent(location.locationConfig.precision,
                                         location.locationConfig.tags, account, location, postsTimeline);
+                                Post post = new Post(instant, content, account, location);
                                 if (content != null) {
-                                    Post post = new Post(instant, content, account, location);
                                     contentStreamerQueue.offer(post);
-                                    postsTimeline.addPost(location.url.toString(), post);
                                 } else {
                                     // todo notify content-manager
                                 }
+                                postsTimeline.addPost(location.url.toString(), post);
                             }
                         }
                     }

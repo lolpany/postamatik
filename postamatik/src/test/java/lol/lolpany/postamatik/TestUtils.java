@@ -8,7 +8,7 @@ import java.net.URL;
 import java.util.Collections;
 
 public class TestUtils {
-    public static final String ACCOUNTS_CONFIG = "D:\\storage\\info\\buffer\\postamatik-test\\accounts-config.json";
+    public static final String ACCOUNTS_CONFIG = "D:\\storage\\info\\buffer\\postamatik-test\\accounts-config\\accounts-config.json";
     public static final String POSTS_TIMELINE = "D:\\storage\\info\\buffer\\postamatik-test\\posts-timeline\\posts-timeline.json";
     public static YoutubeLocation testYoutubeLocation = null;
 

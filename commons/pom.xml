@@ -43,15 +43,13 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <!--<addClasspath>true</addClasspath>-->
-                            <!--<classpathPrefix>lib/</classpathPrefix>-->
-                            <mainClass>lol.lolpany.friendify.Friendify</mainClass>
-                        </manifest>
-                    </archive>
-                </configuration>
+                <!--<configuration>-->
+                    <!--<archive>-->
+                        <!--<manifest>-->
+                            <!--<mainClass>lol.lolpany.friendify.Friendify</mainClass>-->
+                        <!--</manifest>-->
+                    <!--</archive>-->
+                <!--</configuration>-->
             </plugin>
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>

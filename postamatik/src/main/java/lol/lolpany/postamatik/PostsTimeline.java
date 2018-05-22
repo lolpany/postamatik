@@ -33,10 +33,10 @@ public class PostsTimeline implements AutoCloseable {
     }
 
 
-    public PostsTimeline(AccountsConfig accountsConfig) {
+    public PostsTimeline(AccountsConfig<LocationConfig> accountsConfig) {
         this.timeline = new ConcurrentHashMap<>();
-        for (Account account : accountsConfig.accountsConfig) {
-            for (Location location : account.locations) {
+        for (Account<LocationConfig> account : accountsConfig.accountsConfig) {
+            for (Location<LocationConfig> location : account.locations) {
                 timeline.put(location.url.toString(), LOCATION_TIMELINES_FACTORIES.get(location.url.getHost()).
                         create().read(account, location));
             }
@@ -97,10 +97,10 @@ public class PostsTimeline implements AutoCloseable {
                 .forEach(contentStreamerQueue::offer);
     }
 
-    public void repost(PosterQueue posterQueue, AccountsConfig accountsConfig) {
+    public void repost(PosterQueue posterQueue, AccountsConfig<LocationConfig> accountsConfig) {
 
-        for (Account account : accountsConfig.accountsConfig) {
-            for (Location location : account.locations) {
+        for (Account<LocationConfig> account : accountsConfig.accountsConfig) {
+            for (Location<LocationConfig> location : account.locations) {
                 if (this.getPosts(location.url.toString()) != null) {
                     List<Post> posts = this.getPosts(location.url.toString()).stream()
                             .filter(post -> post.postState == PostState.UPLOADED).collect(Collectors.toList());

@@ -15,8 +15,10 @@ public enum ContentLength {
             return SHORT;
         } else if (minutes < 45) {
             return MEDIUM;
-        } else {
+        } else if (minutes < 125) {
             return LONG;
+        } else {
+            return null;
         }
     }
 }

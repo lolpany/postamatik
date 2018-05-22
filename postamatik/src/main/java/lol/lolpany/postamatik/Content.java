@@ -45,9 +45,10 @@ public class Content {
     @Override
     public boolean equals(Object content) {
         Content otherContent = (Content) content;
-        return !isBlank(name) && !isBlank(otherContent.name) && trim(name).equals(trim(otherContent.name))
+        return otherContent != null && (!isBlank(name) && !isBlank(otherContent.name)
+                && trim(name).equals(trim(otherContent.name))
                 || isCommonSource(this.actualSources, otherContent.actualSources)
-                || isCommonSource(this.notActualSources, otherContent.notActualSources);
+                || isCommonSource(this.notActualSources, otherContent.notActualSources));
     }
 
     @Override

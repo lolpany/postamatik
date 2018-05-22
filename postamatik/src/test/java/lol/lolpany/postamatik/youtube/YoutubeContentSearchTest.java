@@ -27,7 +27,7 @@ public class YoutubeContentSearchTest {
                 .setPrettyPrinting()
                 .create();
 
-        System.out.println(new YoutubeContentSearch("https://www.youtube.com/channel/UCSJ4gkVC6NrvII8umztf0Ow/videos",
+        System.out.println(new YoutubeContentSearch("https://www.youtube.com/channel/UCc7OZA-Y1zUb_-DV5_Krq2A/videos",
                 singleton("lol"))
                 .findContent(1, singleton("lol"), new PostsTimeline(
                         gson.fromJson(
