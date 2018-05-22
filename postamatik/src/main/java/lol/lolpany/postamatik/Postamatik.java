@@ -84,7 +84,7 @@ public class Postamatik {
 
         ComponentConnection<Post> streamerErrorQueue = new ComponentConnection<>(1000);
 
-        int numberOfRunnables = accountsConfig.accountsConfig.size() * 2;
+        int numberOfRunnables = accountsConfig.accountsConfig.size() * 2 + 10;
 
         ExecutorService executorService = new ThreadPoolExecutor(numberOfRunnables, numberOfRunnables, 5,
                 TimeUnit.MINUTES, new ArrayBlockingQueue<>(numberOfRunnables));
