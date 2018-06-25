@@ -8,6 +8,8 @@ import lol.lolpany.Account;
 import lol.lolpany.Location;
 import lol.lolpany.friendify.Connector;
 import lol.lolpany.friendify.LocationConfig;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.firefox.FirefoxProfile;
@@ -29,6 +31,7 @@ import static java.util.concurrent.TimeUnit.NANOSECONDS;
 
 public class LinkedInConnector implements Connector {
 
+    public final static String CHROME_DRIVER_LOCATION = "D:\\storage\\Dropbox\\Dropbox\\projects\\postamatik\\bin\\chromedriver.exe";
     private static final long MAIL_RECEIVE_INTERVAL = MINUTES.convert(4, NANOSECONDS);
     private static final String PIN_MAIL_SUBJECT = ", here's your PIN";
     private static final Pattern PIN_PATTERN = Pattern.compile("Please use this verification code to complete your sign in: (\\d+)");
@@ -51,25 +54,31 @@ public class LinkedInConnector implements Connector {
 
         Configuration.timeout = 180000;
 
-        System.setProperty("webdriver.gecko.driver", "D:\\buffer\\geckodriver-v0.19.1-win64\\geckodriver.exe");
+//        System.setProperty("webdriver.gecko.driver", "D:\\buffer\\geckodriver-v0.19.1-win64\\geckodriver.exe");
 
-        DesiredCapabilities capabilities = DesiredCapabilities.firefox();
-        capabilities.setCapability("marionette", true);
+//        DesiredCapabilities capabilities = DesiredCapabilities.firefox();
+//        capabilities.setCapability("marionette", true);
 //        capabilities.setCapability(org.openqa.selenium.remote.CapabilityType.PROXY, p);
 
-        FirefoxProfile profile = new FirefoxProfile();
-        profile.setPreference("network.proxy.type", 1);
-        profile.setPreference("network.proxy.socks", "127.0.0.1");
-        profile.setPreference("network.proxy.socks_port", 9050);
+//        FirefoxProfile profile = new FirefoxProfile();
+//        profile.setPreference("network.proxy.type", 1);
+//        profile.setPreference("network.proxy.socks", "127.0.0.1");
+//        profile.setPreference("network.proxy.socks_port", 9050);
 
 
-        FirefoxOptions firefoxOptions = new FirefoxOptions();
-        firefoxOptions.setProfile(profile);
-        firefoxOptions.addArguments("-headless");
-        firefoxOptions.addCapabilities(capabilities);
-
-        setWebDriver(new FirefoxDriver(firefoxOptions));
+//        FirefoxOptions firefoxOptions = new FirefoxOptions();
+//        firefoxOptions.setProfile(profile);
+//        firefoxOptions.addArguments("-headless");
+//        firefoxOptions.addCapabilities(capabilities);
+//
+//        setWebDriver(new FirefoxDriver(firefoxOptions));
 //        Configuration.baseUrl = "https://www.linkedin.com/";
+
+        System.setProperty("webdriver.chrome.driver", CHROME_DRIVER_LOCATION);
+        ChromeOptions chromeOptions = new ChromeOptions();
+        chromeOptions.addArguments("headless");
+        chromeOptions.addArguments("--proxy-server=socks5://127.0.0.1:9050");
+        setWebDriver(new ChromeDriver(chromeOptions));
 
         try {
             login();
@@ -144,10 +153,10 @@ public class LinkedInConnector implements Connector {
         return null;
     }
 
-    public static boolean login() throws IOException, javax.mail.MessagingException {
+    public boolean login() throws IOException, javax.mail.MessagingException {
         open("https://www.linkedin.com/uas/login");
-        $("#session_key-login").sendKeys("gbesergey@gmail.com");
-        $("#session_password-login").sendKeys("!@#$f23$Gfdfs3");
+        $("#session_key-login").sendKeys(this.account.login);
+        $("#session_password-login").sendKeys(this.account.password);
         $("#btn-primary").submit();
         if (!$$("#pagekey-uas-consumer-ato-pin-challenge").isEmpty()) {
             String pin = readVerificationCodeFromMail();
@@ -162,12 +171,12 @@ public class LinkedInConnector implements Connector {
         return true;
     }
 
-    public static String readVerificationCodeFromMail() throws IOException, javax.mail.MessagingException {
+    public String readVerificationCodeFromMail() throws IOException, javax.mail.MessagingException {
         Properties props = System.getProperties();
         props.setProperty("mail.store.protocol", "imaps");
         Session session = Session.getDefaultInstance(props, null);
         Store store = session.getStore("imaps");
-        store.connect("imap.gmail.com", "gbesergey@gmail.com", "seBon-nouveau@($)");
+        store.connect("imap.gmail.com", this.account.login, this.account.password);
 
         Folder inbox = store.getFolder("Inbox");
         try {
