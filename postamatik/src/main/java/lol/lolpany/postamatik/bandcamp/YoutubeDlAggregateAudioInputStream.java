@@ -7,6 +7,10 @@ import org.zeroturnaround.exec.ProcessExecutor;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Objects;
 import java.util.UUID;
 
 import static lol.lolpany.postamatik.Postamatik.POSTAMATIK_HOME;
@@ -29,25 +33,35 @@ public class YoutubeDlAggregateAudioInputStream implements SourceInputStream {
 
     @Override
     public Content read() throws Exception {
-        String fileName = UUID.randomUUID().toString();
+        String folderName = UUID.randomUUID().toString();
 
-        content.name = new ProcessExecutor().readOutput(true).command(
-                POSTAMATIK_HOME + "resource\\youtube-dl.exe",
-                "--no-check-certificate", "-e", source)
-                .execute().outputString("windows-1251");
+        String folder = videoCache + "\\" + folderName;
+        Files.createDirectory(Paths.get(folder));
+
 
         if (postsTimeline.isAlreadyUploadedOrPosted(locationUrl, content)) {
             return content;
         }
 
         new ProcessExecutor().command(POSTAMATIK_HOME + "resource\\youtube-dl.exe",
-                "--no-check-certificate", "-f", "\"bestvideo+bestaudio/best\"", "-o", videoCache + "\\" + fileName,
-                source).execute();
+                "--no-check-certificate", "-f", "\"bestvideo+bestaudio/best\"", "--write-thumbnail", "-o",
+                folder + "\\%(title)s-%(id)s.%(ext)s", source).execute();
 
-        File root = new File(videoCache);
-        FilenameFilter beginswithm = (directory, filename) -> filename.startsWith(fileName);
+        File root = new File(folder);
+        String thumb = Objects.requireNonNull(root.listFiles((dir, name) -> name.endsWith(".jpg")))[0].getName();
+        StringBuilder concatOption = new StringBuilder("\"concat:");
+        for (File audio : root.listFiles((dir, name) -> name.endsWith(".mp3"))) {
+            concatOption.append(audio).append("|");
+        }
+        concatOption.setLength(concatOption.length() - 1);
+        concatOption.append("\"");
 
-        content.file = root.listFiles(beginswithm)[0];
+        String videoFileName = UUID.randomUUID().toString() + ".mp4";
+
+        new ProcessExecutor().command(POSTAMATIK_HOME + "resource\\ffmpeg.exe", "-i", concatOption.toString(), "-i",
+                folder + "\\" + thumb, "-c", "copy", "-vcodec", "mpeg4", folder + "\\" + videoFileName).execute();
+
+        content.file = root.listFiles((directory, filename) -> filename.endsWith(videoFileName))[0];
 
         return content;
     }
