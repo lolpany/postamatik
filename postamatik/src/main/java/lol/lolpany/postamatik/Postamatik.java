@@ -17,6 +17,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import static com.codeborne.selenide.WebDriverRunner.closeWebDriver;
 import static java.util.Comparator.comparing;
+import static lol.lolpany.postamatik.ContentStreamerDispatcher.CHROME_DRIVER_LOCATION;
 
 public class Postamatik {
 
@@ -97,7 +98,8 @@ public class Postamatik {
                 POSTAMATIK_HOME + "resource\\content-repository",
                 contentRepositoryStoreQueue, "content-repository-store.json", gson, isOn));
 
-        ContentRepository contentRepository = new ContentRepository(contentRepositoryStoreQueue, postsTimeline);
+        ContentRepository contentRepository = new ContentRepository(contentRepositoryStoreQueue, postsTimeline,
+                CHROME_DRIVER_LOCATION);
 
         executorService.execute(new Solver(accountsConfigsQueue, contentStreamerQueue,
                 contentRepository, postsTimeline, streamerErrorQueue, isOn));

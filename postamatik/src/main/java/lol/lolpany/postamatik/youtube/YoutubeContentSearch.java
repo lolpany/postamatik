@@ -33,18 +33,20 @@ public class YoutubeContentSearch implements ContentSearch {
     }
 
     @Override
-    public Content findContent(double precision, Set<String> tags, PostsTimeline postsTimeline, Account account, Location location)
+    public Content findContent(double precision, Set<String> tags, PostsTimeline postsTimeline, Account account, Location<LocationConfig> location)
             throws IOException, GeneralSecurityException {
         Content result = null;
         if (Utils.match(this.tags, tags) >= precision) {
-            result = findContent(account, url, tags, postsTimeline, (YoutubeLocation) location);
+            result = findContent(account, url, tags, postsTimeline, location);
         }
         return result;
+
     }
 
     private Content findContent(Account account, String url, Set<String> tags, PostsTimeline postsTimeline,
-                                YoutubeLocation location) throws IOException, GeneralSecurityException {
-        YouTube youTube = YoutubeApi.fetchYouTube(account, location);
+                                Location location) throws IOException, GeneralSecurityException {
+        YoutubeLocation youtubeLocation  = (YoutubeLocation) location;
+        YouTube youTube = YoutubeApi.fetchYouTube(account, youtubeLocation);
         String uploadsPlaylistId = "";
         URL contentSourceUrl = new URL(url);
         if (contentSourceUrl.getPath().startsWith(CHANNEL)) {
@@ -61,10 +63,11 @@ public class YoutubeContentSearch implements ContentSearch {
             PlaylistItemListResponse response = youTube.playlistItems().list("snippet,contentDetails")
                     .setPlaylistId(uploadsPlaylistId).setMaxResults((long) FETCH_SIZE).setPageToken(nextPageToken).execute();
             for (PlaylistItem playlistItem : response.getItems()) {
-                if (isContentLengthSuitable(youTube, playlistItem.getContentDetails().getVideoId(), location.locationConfig.contentLength)) {
+                if (isContentLengthSuitable(youTube, playlistItem.getContentDetails().getVideoId(),
+                        youtubeLocation.locationConfig.contentLength)) {
                     Content content = new Content(tags, singletonList(VIDEO_PREFIX + playlistItem.getContentDetails().getVideoId()), emptyList());
                     content.name = playlistItem.getSnippet().getTitle();
-                    if (!postsTimeline.isAlreadyScheduledOrUploadedOrPosted(location.url.toString(), content)) {
+                    if (!postsTimeline.isAlreadyScheduledOrUploadedOrPosted(youtubeLocation.url.toString(), content)) {
                         return content;
                     }
                 }

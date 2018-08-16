@@ -166,10 +166,23 @@ public class LinkedInConnector implements Connector {
 //                jse.executeScript("window.scrollBy(0,500)", "");
 //
 //                Selenide.sleep(5000);
+                long waitForContactButton = 0;
+                while (waitForContactButton < 3000 && !$(CONTACT_BUTTON_SELECTOR).is(Condition.exist)) {
+                    sleep(100);
+                    waitForContactButton += 100;
+                }
 
+                if (!$(CONTACT_BUTTON_SELECTOR).is(Condition.exist)) {
+                    return;
+                }
 
-                while (!$("li.page-list").is(Condition.visible)) {
+                int k = 0;
+                while (k < 20 && !$("li.page-list").is(Condition.visible)) {
                     $$(CONTACT_BUTTON_SELECTOR).shouldBe(CollectionCondition.sizeGreaterThan(0)).last().scrollTo();
+                    k++;
+                }
+                if (k == 20) {
+                    return;
                 }
 
                 ElementsCollection buttons = $$(CONTACT_BUTTON_SELECTOR);
