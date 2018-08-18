@@ -1,11 +1,13 @@
 package lol.lolpany.postamatik;
 
 import lol.lolpany.ComponentConnection;
+import org.apache.commons.io.FileUtils;
 
 import java.io.IOException;
 import java.util.concurrent.Semaphore;
 
 import static java.nio.file.Files.deleteIfExists;
+import static lol.lolpany.postamatik.ContentStreamerDispatcher.VIDEO_CACHE;
 
 public class ContentStreamer implements Runnable {
 
@@ -48,11 +50,17 @@ public class ContentStreamer implements Runnable {
             e.printStackTrace();
         } finally {
             streamsLimitingSemaphore.release();
-            if (post.content.file != null) {
+            if (post.content.file != null && !post.content.file.getParentFile().getAbsolutePath().equals(VIDEO_CACHE)) {
+                try {
+                    FileUtils.deleteDirectory(post.content.file.getParentFile());
+                } catch (IOException e) {
+                    // ignore
+                }
+            } else if (post.content.file != null) {
                 try {
                     deleteIfExists(post.content.file.toPath());
                 } catch (IOException e) {
-                    // ignore
+
                 }
             }
         }

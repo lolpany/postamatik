@@ -24,7 +24,7 @@ public class BandcampContentSearchTest {
         ChromeOptions chromeOptions = new ChromeOptions();
 //        chromeOptions.addArguments("headless");
         setWebDriver(new ChromeDriver(chromeOptions));
-        Content content = new BandcampContentSearch(singleton("lo-fi")).findContent(1.0, singleton("lo-fi"), new PostsTimeline(),
+        Content content = new BandcampContentSearch("https://bandcamp.com/tag/lo-fi?sort_field=pop", singleton("lo-fi")).findContent(1.0, singleton("lo-fi"), new PostsTimeline(),
                 null, new Location<>(new URL("http://www.lol.lol"), new LocationConfig(null, null, 0.0, 0.0, ContentLength.LONG)));
         int a = 1;
     }

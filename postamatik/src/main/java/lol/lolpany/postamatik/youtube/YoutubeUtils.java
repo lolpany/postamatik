@@ -67,7 +67,7 @@ public class YoutubeUtils {
 //        chromeOpts.addArguments("headless");
         setWebDriver(new ChromeDriver(chromeOpts));
         authorize(account, location);
-        open(authorizationCodeRequestUrl.build().toString());
+        open(authorizationCodeRequestUrl.build());
 
         while (!url().contains("/signin/oauth/oauthchooseaccount")
                 && !url().contains("/signin/oauth/delegation")

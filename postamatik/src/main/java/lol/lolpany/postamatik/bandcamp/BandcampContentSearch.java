@@ -1,32 +1,36 @@
 package lol.lolpany.postamatik.bandcamp;
 
+import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.SelenideElement;
 import lol.lolpany.Account;
 import lol.lolpany.Location;
 import lol.lolpany.postamatik.*;
-import org.openqa.selenium.Keys;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
-import static com.codeborne.selenide.Selenide.*;
-import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
+import static com.codeborne.selenide.Selenide.$$;
+import static com.codeborne.selenide.Selenide.close;
+import static com.codeborne.selenide.Selenide.open;
 import static java.util.Collections.emptyList;
 import static java.util.Collections.singletonList;
 import static org.apache.commons.lang3.StringUtils.trim;
 
 public class BandcampContentSearch implements ContentSearch {
 
+    private final String url;
     private final Set<String> tags;
 
-    BandcampContentSearch(Set<String> tags) {
+    BandcampContentSearch(String url, Set<String> tags) {
+        this.url = url;
         this.tags = tags;
     }
 
     @Override
     public Content findContent(double precision, Set<String> tags, PostsTimeline postsTimeline, Account account, Location<LocationConfig> location) {
         Content result = null;
+        Configuration.baseUrl = "https://bandcamp.com";
         if (Utils.match(this.tags, tags) >= precision) {
             result = findContent(tags, postsTimeline, location);
         }
@@ -34,31 +38,33 @@ public class BandcampContentSearch implements ContentSearch {
     }
 
     private Content findContent(Set<String> tags, PostsTimeline postsTimeline, Location<LocationConfig> location) {
+        Content result = null;
         for (int i = 1; i <= 10; i++) {
-            String pageUrl = "https://bandcamp.com/tag/" + tags.iterator().next() + "?page=" + i + "&sort_field=pop";
+            String pageUrl = this.url + "&page=" + i ;
             open(pageUrl);
-            for (int j = 0; j < 40; j++) {
 
-                SelenideElement albumItem = $$("li.item").get(j);
-                albumItem.scrollTo();
-
-
-                String albumUrl = albumItem.find("a").attr("href");
-                open(albumUrl);
+            Map<String, Pair<String, String>> albums = new HashMap<>();
+            for (SelenideElement albumItem : $$("li.item")) {
+                albums.put(albumItem.find("a").attr("href"),
+                        new ImmutablePair<>(albumItem.find("div.itemsubtext").text(), albumItem.find("div.itemtext").text()));
+            }
+            for (Map.Entry<String, Pair<String, String>> album : albums.entrySet()) {
+                open(album.getKey());
 
 
                 if (isContentLengthSuitable(location.locationConfig.contentLength)) {
-                    Content content = new Content(tags, singletonList(albumUrl), emptyList());
+                    Content content = new Content(tags, singletonList(album.getKey()), emptyList());
                     open(pageUrl);
-                    content.name = albumItem.find("div.itemsubtext").text() + "-" + albumItem.find("div.itemtext").text();
+                    content.name = album.getValue().getLeft() + " - " + album.getValue().getRight();
                     if (!postsTimeline.isAlreadyScheduledOrUploadedOrPosted(location.url.toString(), content)) {
                         return content;
                     }
                 }
-
             }
+
         }
-        return null;
+        close();
+        return result;
     }
 
     private boolean isContentLengthSuitable(ContentLength locationContentLength) {

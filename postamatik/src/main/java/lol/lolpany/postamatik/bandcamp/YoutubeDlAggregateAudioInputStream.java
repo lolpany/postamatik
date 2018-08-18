@@ -58,8 +58,9 @@ public class YoutubeDlAggregateAudioInputStream implements SourceInputStream {
 
         String videoFileName = UUID.randomUUID().toString() + ".mp4";
 
-        new ProcessExecutor().command(POSTAMATIK_HOME + "resource\\ffmpeg.exe", "-i", concatOption.toString(), "-i",
-                folder + "\\" + thumb, "-c", "copy", "-vcodec", "mpeg4", folder + "\\" + videoFileName).execute();
+        new ProcessExecutor().command(POSTAMATIK_HOME + "resource\\ffmpeg.exe", "-i", concatOption.toString(),
+                "-loop", "1", "-r", "1","-i",
+                folder + "\\" + thumb, "-c", "copy", "-shortest", "-vcodec", "libx264", folder + "\\" + videoFileName).execute();
 
         content.file = root.listFiles((directory, filename) -> filename.endsWith(videoFileName))[0];
 

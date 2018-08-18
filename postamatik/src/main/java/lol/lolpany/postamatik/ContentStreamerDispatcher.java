@@ -1,6 +1,7 @@
 package lol.lolpany.postamatik;
 
 import lol.lolpany.ComponentConnection;
+import lol.lolpany.postamatik.bandcamp.YoutubeDlAggregateAudioInputStreamFactory;
 import lol.lolpany.postamatik.youtube.YoutubeDlInputStreamFactory;
 import lol.lolpany.postamatik.youtube.YoutubeOutputStreamFactory;
 
@@ -13,6 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.function.Predicate;
 
 import static java.lang.Thread.sleep;
 
@@ -24,10 +26,10 @@ public class ContentStreamerDispatcher implements Runnable {
     private final static int CORE_POOL_SIZE = 10240;
     private final static int MAXIMUM_POOL_SIZE = 10240;
     private final static int MAXIMUM_PARALLER_STREAMS = 3;
-    private final static Map<String, SourceInputStreamFactory> SOURCE_INPUT_STREAM_FACTORIES =
-            new HashMap<String, SourceInputStreamFactory>() {{
-                put("www.youtube.com",
-                        new YoutubeDlInputStreamFactory(VIDEO_CACHE));
+    private final static Map<Predicate<String>, SourceInputStreamFactory> SOURCE_INPUT_STREAM_FACTORIES =
+            new HashMap<Predicate<String>, SourceInputStreamFactory>() {{
+                put((host) -> host.equals("www.youtube.com"), new YoutubeDlInputStreamFactory(VIDEO_CACHE));
+                put((host) -> host.endsWith("bandcamp.com"), new YoutubeDlAggregateAudioInputStreamFactory(VIDEO_CACHE));
             }};
     private final static Map<String, LocationOutputStreamFactory> LOCATION_OUTPUT_STREAM_FACTORIES =
             new HashMap<String, LocationOutputStreamFactory>() {{
@@ -98,10 +100,16 @@ public class ContentStreamerDispatcher implements Runnable {
         }
     }
 
-    private SourceInputStream identifySourceInputStream(Post post, String locationUrl) throws MalformedURLException, FileNotFoundException,
-            InterruptedException {
-        return SOURCE_INPUT_STREAM_FACTORIES.get(new URL(post.content.getActualSource()).getHost())
-                .create(post.content.getActualSource(), post.content, postsTimeline, locationUrl);
+    private SourceInputStream identifySourceInputStream(Post post, String locationUrl) throws MalformedURLException, FileNotFoundException, InterruptedException {
+        SourceInputStream result = null;
+        String host = new URL(post.content.getActualSource()).getHost();
+        for (Map.Entry<Predicate<String>, SourceInputStreamFactory> factories : SOURCE_INPUT_STREAM_FACTORIES.entrySet()) {
+            if (factories.getKey().test(host)) {
+                result = factories.getValue().create(post.content.getActualSource(), post.content, postsTimeline, locationUrl);
+                break;
+            }
+        }
+        return result;
     }
 
     private LocationOutputStream identifyLocationOutputStream(Post post) {
