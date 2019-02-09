@@ -30,7 +30,7 @@ public class Postamatik {
 
     public static void main(String[] args) throws Exception {
 
-        Configuration.timeout = 30000;
+        Configuration.timeout = 300000;
 
 
         Gson gson = new GsonBuilder()
