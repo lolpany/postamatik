@@ -24,6 +24,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverRunner.closeWebDriver;
 import static com.codeborne.selenide.WebDriverRunner.setWebDriver;
+import static lol.lolpany.postamatik.Postamatik.HEADLESS;
 import static lol.lolpany.postamatik.SelenideUtils.getText;
 
 public class YoutubeSelenideTimelineReader implements LocationTimelineReader<YoutubeLocation> {
@@ -52,7 +53,9 @@ public class YoutubeSelenideTimelineReader implements LocationTimelineReader<You
 
         System.setProperty("webdriver.chrome.driver", chromeDriverLocation);
         ChromeOptions chromeOptions = new ChromeOptions();
-        chromeOptions.addArguments("headless");
+        if (HEADLESS) {
+            chromeOptions.addArguments("headless");
+        }
         setWebDriver(new ChromeDriver(chromeOptions));
 
         YoutubeUtils.authorize(account, location);

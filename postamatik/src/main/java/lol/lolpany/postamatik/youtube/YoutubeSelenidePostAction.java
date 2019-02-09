@@ -9,6 +9,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverRunner.closeWebDriver;
 import static com.codeborne.selenide.WebDriverRunner.setWebDriver;
+import static lol.lolpany.postamatik.Postamatik.HEADLESS;
 
 public class YoutubeSelenidePostAction implements PostAction {
     final String chromeDriverLocation;
@@ -27,7 +28,9 @@ public class YoutubeSelenidePostAction implements PostAction {
     public void run() {
         System.setProperty("webdriver.chrome.driver", chromeDriverLocation);
         ChromeOptions chromeOpts = new ChromeOptions();
-        chromeOpts.addArguments("headless");
+        if (HEADLESS) {
+            chromeOpts.addArguments("headless");
+        }
         setWebDriver(new ChromeDriver(chromeOpts));
         YoutubeUtils.authorize(account, location);
         open("https://www.youtube.com/edit?o=U&video_id=" + videoId);

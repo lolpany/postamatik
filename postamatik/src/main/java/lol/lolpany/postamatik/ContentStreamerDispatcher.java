@@ -20,7 +20,7 @@ import static java.lang.Thread.sleep;
 
 public class ContentStreamerDispatcher implements Runnable {
 
-    public final static String CHROME_DRIVER_LOCATION = "D:\\storage\\Dropbox\\Dropbox\\projects\\postamatik\\bin\\chromedriver.exe";
+    public final static String CHROME_DRIVER_LOCATION = "R:\\postamatik\\bin\\chromedriver.exe";
     public final static String VIDEO_CACHE = "R:\\";
     private final static int STREAMER_BUFFER_SIZE = 10240;
     private final static int CORE_POOL_SIZE = 10240;

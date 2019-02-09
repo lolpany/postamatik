@@ -14,6 +14,7 @@ import java.net.URL;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverRunner.closeWebDriver;
 import static com.codeborne.selenide.WebDriverRunner.setWebDriver;
+import static lol.lolpany.postamatik.Postamatik.HEADLESS;
 
 public class OnlinevideoconverterInputStream implements SourceInputStream {
     private final String chromeDriverLocation;
@@ -33,7 +34,9 @@ public class OnlinevideoconverterInputStream implements SourceInputStream {
     public Content read() throws Exception {
         System.setProperty("webdriver.chrome.driver", chromeDriverLocation);
         ChromeOptions chromeOptions = new ChromeOptions();
-        chromeOptions.addArguments("headless");
+        if (HEADLESS) {
+            chromeOptions.addArguments("headless");
+        }
         setWebDriver(new ChromeDriver(chromeOptions));
         open("https://www.onlinevideoconverter.com/ru/video-converter");
         $("#texturl").sendKeys(source);

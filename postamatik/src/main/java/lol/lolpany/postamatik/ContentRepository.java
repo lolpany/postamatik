@@ -12,6 +12,7 @@ import java.util.Collections;
 import java.util.Set;
 
 import static com.codeborne.selenide.WebDriverRunner.setWebDriver;
+import static lol.lolpany.postamatik.Postamatik.HEADLESS;
 
 public class ContentRepository {
 
@@ -26,7 +27,9 @@ public class ContentRepository {
 
         System.setProperty("webdriver.chrome.driver", chromeDriverLocation);
         ChromeOptions chromeOptions = new ChromeOptions();
-//        chromeOptions.addArguments("headless");
+        if (HEADLESS) {
+            chromeOptions.addArguments("headless");
+        }
         setWebDriver(new ChromeDriver(chromeOptions));
     }
 

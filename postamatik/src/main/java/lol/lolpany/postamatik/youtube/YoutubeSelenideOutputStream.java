@@ -14,6 +14,7 @@ import java.io.IOException;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverRunner.closeWebDriver;
 import static com.codeborne.selenide.WebDriverRunner.setWebDriver;
+import static lol.lolpany.postamatik.Postamatik.HEADLESS;
 import static lol.lolpany.postamatik.SelenideUtils.waitTill;
 
 public class YoutubeSelenideOutputStream implements LocationOutputStream {
@@ -36,7 +37,9 @@ public class YoutubeSelenideOutputStream implements LocationOutputStream {
     public PostAction write(Content content) throws IOException {
         System.setProperty("webdriver.chrome.driver", chromeDriverLocation);
         ChromeOptions chromeOptions = new ChromeOptions();
-        chromeOptions.addArguments("headless");
+        if (HEADLESS) {
+            chromeOptions.addArguments("headless");
+        }
         setWebDriver(new ChromeDriver(chromeOptions));
 
         YoutubeUtils.authorize(account, location);

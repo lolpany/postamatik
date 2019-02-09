@@ -2,7 +2,7 @@ package lol.lolpany.postamatik.youtube;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
-import com.google.api.client.auth.oauth2.*;
+import com.google.api.client.auth.oauth2.AuthorizationCodeRequestUrl;
 import lol.lolpany.Account;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -13,6 +13,7 @@ import java.net.URL;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverRunner.*;
 import static lol.lolpany.postamatik.ContentStreamerDispatcher.CHROME_DRIVER_LOCATION;
+import static lol.lolpany.postamatik.Postamatik.HEADLESS;
 import static lol.lolpany.postamatik.SelenideUtils.waitTill;
 
 public class YoutubeUtils {
@@ -64,7 +65,9 @@ public class YoutubeUtils {
             throws MalformedURLException {
         System.setProperty("webdriver.chrome.driver", CHROME_DRIVER_LOCATION);
         ChromeOptions chromeOpts = new ChromeOptions();
-//        chromeOpts.addArguments("headless");
+        if (HEADLESS) {
+            chromeOpts.addArguments("headless");
+        }
         setWebDriver(new ChromeDriver(chromeOpts));
         authorize(account, location);
         open(authorizationCodeRequestUrl.build());
