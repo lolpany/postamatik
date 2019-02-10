@@ -1,0 +1,417 @@
+{
+  "contentList": [
+
+	// short electronic music
+	  {"tags": ["short electronic music"], "actualSources" : ["https://www.youtube.com/watch?v=bM7SZ5SBzyY"],"notActualSources" : []}
+	  ,{"tags": ["short electronic music"], "actualSources" : ["https://www.youtube.com/watch?v=AOeY-nDp7hI"],"notActualSources" : []}
+	  ,{"tags": ["short electronic music"], "actualSources" : ["https://www.youtube.com/watch?v=YnwsMEabmSo"],"notActualSources" : []}
+	  ,{"tags": ["short electronic music"], "actualSources" : ["https://www.youtube.com/watch?v=K4DyBUG242c"],"notActualSources" : []}
+	  ,{"tags": ["short electronic music"], "actualSources" : ["https://www.youtube.com/watch?v=n8X9_MgEdCg"],"notActualSources" : []}
+	  ,{"tags": ["short electronic music"], "actualSources" : ["https://www.youtube.com/watch?v=y6120QOlsfU"],"notActualSources" : []}
+	  ,{"tags": ["short electronic music"], "actualSources" : ["https://www.youtube.com/watch?v=J2X5mJ3HDYE"],"notActualSources" : []}
+	  ,{"tags": ["short electronic music"], "actualSources" : ["https://www.youtube.com/watch?v=jK2aIUmmdP4"],"notActualSources" : []}
+	  ,{"tags": ["short electronic music"], "actualSources" : ["https://www.youtube.com/watch?v=p7ZsBPK656s"],"notActualSources" : []}
+	  ,{"tags": ["short electronic music"], "actualSources" : ["https://www.youtube.com/watch?v=__CRWE-L45k"],"notActualSources" : []}
+	  ,{"tags": ["short electronic music"], "actualSources" : ["https://www.youtube.com/watch?v=EP625xQIGzs"],"notActualSources" : []}
+	  ,{"tags": ["short electronic music"], "actualSources" : ["https://www.youtube.com/watch?v=3nQNiWdeH2Q"],"notActualSources" : []}
+	  ,{"tags": ["short electronic music"], "actualSources" : ["https://www.youtube.com/watch?v=n4tK7LYFxI0"],"notActualSources" : []}
+	  ,{"tags": ["short electronic music"], "actualSources" : ["https://www.youtube.com/watch?v=TW9d8vYrVFQ"],"notActualSources" : []}
+	  ,{"tags": ["short electronic music"], "actualSources" : ["https://www.youtube.com/watch?v=VtKbiyyVZks"],"notActualSources" : []}
+	  ,{"tags": ["short electronic music"], "actualSources" : ["https://www.youtube.com/watch?v=ux8-EbW6DUI"],"notActualSources" : []}
+	  ,{"tags": ["short electronic music"], "actualSources" : ["https://www.youtube.com/watch?v=q1ULJ92aldE"],"notActualSources" : []}
+	  ,{"tags": ["short electronic music"], "actualSources" : ["https://www.youtube.com/watch?v=1oTUupME0-M"],"notActualSources" : []}
+	  ,{"tags": ["short electronic music"], "actualSources" : ["https://www.youtube.com/watch?v=xshEZzpS4CQ"],"notActualSources" : []}
+	  ,{"tags": ["short electronic music"], "actualSources" : ["https://www.youtube.com/watch?v=zyXmsVwZqX4"],"notActualSources" : []}
+	  
+	  // synthwave
+  ,{"tags": ["synthwave"], "actualSources" : ["https://retrospectrum.bandcamp.com/album/malibu-waves"],"notActualSources" : []}
+	  
+
+
+    // programming music
+    ,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=nelaQMxQ0DA"],"notActualSources" : []}
+//	,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=8wLwxmjrZj8"],"notActualSources" : []}
+  ,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=j2hpsXcvp60"],"notActualSources" : []}
+  ,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=egPv2cg0hS8"],"notActualSources" : []}
+  ,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=PnOGYtPvGsQ"],"notActualSources" : []}
+  ,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=aDa-UKdKeQs"],"notActualSources" : []}
+  ,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=DDEITgkNbUA"],"notActualSources" : []}
+  ,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=nnJYLgaxm6U"],"notActualSources" : []}
+  ,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=x_c40l70vCE"],"notActualSources" : []}
+  ,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=rEiVtxSOmfI"],"notActualSources" : []}
+  ,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=dCMKhB_8Nro"],"notActualSources" : []}
+  ,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=C4v61N-61ZM"],"notActualSources" : []}
+  ,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=HE8vnsH8_K8"],"notActualSources" : []}
+  ,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=-ncmgOYh7SE"],"notActualSources" : []}
+  ,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=cW-ZtQy5aPw"],"notActualSources" : []}
+  ,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=BIRYYQ4Xpss"],"notActualSources" : []}
+  ,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=VldtSlnqIuo"],"notActualSources" : []}
+  ,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=Dj1JK_BWAlw"],"notActualSources" : []}
+    ,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=ybghlkxm5Ts"],"notActualSources" : []}
+,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=nm8dECiEx0k"],"notActualSources" : []}
+,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=NEPW9U7xUtY"],"notActualSources" : []}
+,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=2zil3A20KC4"],"notActualSources" : []}
+,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=mJkaGXFLO7U"],"notActualSources" : []}
+,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=RsgDW1JT_Sg"],"notActualSources" : []}
+,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=wxNITHJd8tI"],"notActualSources" : []}
+    ,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=UBroCkn6TeM"],"notActualSources" : []}
+,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=wW-5qyDUUaw"],"notActualSources" : []}
+,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=wZ7vOANVZ7s"],"notActualSources" : []}
+,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=kHMIWxxQg7M"],"notActualSources" : []}
+,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=Z3GtEVXfKxI"],"notActualSources" : []}
+,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=6AucnbhF2Pw"],"notActualSources" : []}
+,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=OJxXL6qXiZU"],"notActualSources" : []}
+,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=_1fqHyl_Fek"],"notActualSources" : []}
+,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=cuJhTfq1-dc"],"notActualSources" : []}
+,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=moI93Konnl8"],"notActualSources" : []}
+,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=wrF4yFFa0as"],"notActualSources" : []}
+,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=w3X_3qxybE0"],"notActualSources" : []}
+,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=CQYtfqYAbWI"],"notActualSources" : []}
+,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=uOOFHe15xwg"],"notActualSources" : []}
+,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=Oa-qO_6r8kg"],"notActualSources" : []}
+,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=ecQ8Q0kicl0"],"notActualSources" : []}
+,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=RQNx9-liHmc"],"notActualSources" : []}
+,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=7zM7hh5AvHw"],"notActualSources" : []}
+,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=iuWa5wh8lG0"],"notActualSources" : []}
+,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=Jo2zhFyVY-A"],"notActualSources" : []}
+,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=dexIhXQzgYI"],"notActualSources" : []}
+,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=9LW6BbxYyZ8"],"notActualSources" : []}
+,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=jPP6taxuB_M"],"notActualSources" : []}
+,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=O_N4xPflGDY"],"notActualSources" : []}
+,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=8nMAPqgiIyA"],"notActualSources" : []}
+,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=DSu2Kx5M5zk"],"notActualSources" : []}
+,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=LRV-g2hYAR8"],"notActualSources" : []}
+,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=rrcl4Z0iDgU"],"notActualSources" : []}
+,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=Cb0U0QtOL50"],"notActualSources" : []}
+,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=Ee4ZKZW9s78"],"notActualSources" : []}
+,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=_S4VdJ5tjKg"],"notActualSources" : []}
+,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=Q7UTX1y-K64"],"notActualSources" : []}
+,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=sxnmcATs8e4"],"notActualSources" : []}
+,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=utJVjCahVbs"],"notActualSources" : []}
+,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=TFSvNxk_j1c"],"notActualSources" : []}
+,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=d7FK3arH0FY"],"notActualSources" : []}
+,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=WUDlUZPiEn8"],"notActualSources" : []}
+,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=O2q98goEWVE"],"notActualSources" : []}
+,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=8EAvaDf_LTQ"],"notActualSources" : []}
+,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=5_qbyfjRJYA"],"notActualSources" : []}
+   ,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=HsPsyXDe3XI"],"notActualSources" : []}
+,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=ebuYEx336RU"],"notActualSources" : []}
+,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=yQjove0nzss"],"notActualSources" : []}
+,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=Bg4G_AOtc1o"],"notActualSources" : []}
+,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=_WeE65nhrlY"],"notActualSources" : []}
+,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=C_rlD94v6Z4"],"notActualSources" : []}
+,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=RcNuZQQiKEY"],"notActualSources" : []}
+,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=Sqf6BwgJ7QY"],"notActualSources" : []}
+,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=rDjYMTqysTc"],"notActualSources" : []}
+,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=smBda5hbcS0"],"notActualSources" : []}
+,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=eXSNA_tuip4"],"notActualSources" : []}
+,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=0hbqYVxdEi0"],"notActualSources" : []}
+,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=QbhhLhb3zc8"],"notActualSources" : []}
+,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=zJSquKFBPGA"],"notActualSources" : []}
+,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=-JLLZIc7_uQ"],"notActualSources" : []}
+,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=L9uP64511tc"],"notActualSources" : []}
+,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=TRxvQ5LdmLE"],"notActualSources" : []}
+,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=mH3rO8ptYsE"],"notActualSources" : []}
+,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=PDr4OZ98uOY"],"notActualSources" : []}
+,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=rqN9MmY8ZUI"],"notActualSources" : []}
+,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=TTxXXq3T8Pk"],"notActualSources" : []}
+,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=73eQHCycKCI"],"notActualSources" : []}
+,{"tags": ["music", "programming music"], "actualSources" : ["https://www.youtube.com/watch?v=nMdvckRAdes"],"notActualSources" : []}
+
+
+
+
+
+
+// trance
+,{"tags": ["music", "trance"], "actualSources" : ["https://www.youtube.com/watch?v=nTz_C3Mvwu4"],"notActualSources" : []}
+
+
+
+
+
+
+  // movie clip
+  ,{"tags": ["movie clip"], "actualSources" : ["https://www.youtube.com/watch?v=x_LD0Y1kUtw"],"notActualSources" : []}
+  ,{"tags": ["movie clip"], "actualSources" : ["https://www.youtube.com/watch?v=x_LD0Y1kUtw"],"notActualSources" : []}
+  ,{"tags": ["movie clip"], "actualSources" : ["https://www.youtube.com/watch?v=xqlaXylsMwQ"],"notActualSources" : []}
+  ,{"tags": ["movie clip"], "actualSources" : ["https://www.youtube.com/watch?v=C55bAvhEiuY"],"notActualSources" : []}
+  ,{"tags": ["movie clip"], "actualSources" : ["https://www.youtube.com/watch?v=BC0_-alehBg"],"notActualSources" : []}
+  ,{"tags": ["movie clip"], "actualSources" : ["https://www.youtube.com/watch?v=9r-omxChNLs"],"notActualSources" : []}
+  ,{"tags": ["movie clip"], "actualSources" : ["https://www.youtube.com/watch?v=VeRqkh3FA0M"],"notActualSources" : []}
+  ,{"tags": ["movie clip"], "actualSources" : ["https://www.youtube.com/watch?v=xBNT8lMVRno"],"notActualSources" : []}
+  ,{"tags": ["movie clip"], "actualSources" : ["https://www.youtube.com/watch?v=cyL9gKSc8G4"],"notActualSources" : []}
+  ,{"tags": ["movie clip"], "actualSources" : ["https://www.youtube.com/watch?v=hEp1zdgMQho"],"notActualSources" : []}
+  ,{"tags": ["movie clip"], "actualSources" : ["https://www.youtube.com/watch?v=fBR4EOz4Tq4"],"notActualSources" : []}
+  ,{"tags": ["movie clip"], "actualSources" : ["https://www.youtube.com/watch?v=hb1HNnvdrXw"],"notActualSources" : []}
+  ,{"tags": ["movie clip"], "actualSources" : ["https://www.youtube.com/watch?v=BOnEwmX3CSM"],"notActualSources" : []}
+  ,{"tags": ["movie clip"], "actualSources" : ["https://www.youtube.com/watch?v=AgJ8UyAj5CE"],"notActualSources" : []}
+  ,{"tags": ["movie clip"], "actualSources" : ["https://www.youtube.com/watch?v=hfPxGnDm24M"],"notActualSources" : []}
+  ,{"tags": ["movie clip"], "actualSources" : ["https://www.youtube.com/watch?v=43JLTasPPFw"],"notActualSources" : []}
+  ,{"tags": ["movie clip"], "actualSources" : ["https://www.youtube.com/watch?v=BNvUrMA5ClM"],"notActualSources" : []}
+  ,{"tags": ["movie clip"], "actualSources" : ["https://www.youtube.com/watch?v=sWl8uzPYzw4"],"notActualSources" : []}
+  ,{"tags": ["movie clip"], "actualSources" : ["https://www.youtube.com/watch?v=fo8OLR3JDTc"],"notActualSources" : []}
+  ,{"tags": ["movie clip"], "actualSources" : ["https://www.youtube.com/watch?v=FCl8kKXvhxs"],"notActualSources" : []}
+  ,{"tags": ["movie clip"], "actualSources" : ["https://www.youtube.com/watch?v=xiIseMEP3jk"],"notActualSources" : []}
+  ,{"tags": ["movie clip"], "actualSources" : ["https://www.youtube.com/watch?v=uXaGZyzHC14"],"notActualSources" : []}
+  ,{"tags": ["movie clip"], "actualSources" : ["https://www.youtube.com/watch?v=Ireq92-7Kk8"],"notActualSources" : []}
+  ,{"tags": ["movie clip"], "actualSources" : ["https://www.youtube.com/watch?v=ZQNso5Kf_lw"],"notActualSources" : []}
+//  ,{"tags": ["movie clip"], "actualSources" : ["https://www.youtube.com/watch?v=2EH_bQb52B0"],"notActualSources" : []}
+  ,{"tags": ["movie clip"], "actualSources" : ["https://www.youtube.com/watch?v=TMsJKEzUR0k"],"notActualSources" : []}
+  ,{"tags": ["movie clip"], "actualSources" : ["https://www.youtube.com/watch?v=lOFrwimPMZM"],"notActualSources" : []}
+  ,{"tags": ["movie clip"], "actualSources" : ["https://www.youtube.com/watch?v=MxhnXRJQzpU"],"notActualSources" : []}
+  ,{"tags": ["movie clip"], "actualSources" : ["https://www.youtube.com/watch?v=t7jzmW9tYX0"],"notActualSources" : []}
+  ,{"tags": ["movie clip"], "actualSources" : ["https://www.youtube.com/watch?v=aqls1YPyb3k"],"notActualSources" : []}
+  ,{"tags": ["movie clip"], "actualSources" : ["https://www.youtube.com/watch?v=6-BFcds5Wak"],"notActualSources" : []}
+  ,{"tags": ["movie clip"], "actualSources" : ["https://www.youtube.com/watch?v=6vI3kohLL4w"],"notActualSources" : []}
+  ,{"tags": ["movie clip"], "actualSources" : ["https://www.youtube.com/watch?v=McOlBR1RQFM"],"notActualSources" : []}
+  ,{"tags": ["movie clip"], "actualSources" : ["https://www.youtube.com/watch?v=hmNjoP4L1HA"],"notActualSources" : []}
+  ,{"tags": ["movie clip"], "actualSources" : ["https://www.youtube.com/watch?v=SdkFDOdzFQ8"],"notActualSources" : []}
+  ,{"tags": ["movie clip"], "actualSources" : ["https://www.youtube.com/watch?v=_t775SIJ3gs"],"notActualSources" : []}
+  ,{"tags": ["movie clip"], "actualSources" : ["https://www.youtube.com/watch?v=zslNn8Cd0-A"],"notActualSources" : []}
+  ,{"tags": ["movie clip"], "actualSources" : ["https://www.youtube.com/watch?v=1YXmZvEdv6k"],"notActualSources" : []}
+  ,{"tags": ["movie clip"], "actualSources" : ["https://www.youtube.com/watch?v=eHOwUUo9RKQ"],"notActualSources" : []}
+  ,{"tags": ["movie clip"], "actualSources" : ["https://www.youtube.com/watch?v=FcqZynKuqhI"],"notActualSources" : []}
+  ,{"tags": ["movie clip"], "actualSources" : ["https://www.youtube.com/watch?v=lzmzZaB0kss"],"notActualSources" : []}
+  ,{"tags": ["movie clip"], "actualSources" : ["https://www.youtube.com/watch?v=pos_Lh_kYsE"],"notActualSources" : []}
+  ,{"tags": ["movie clip"], "actualSources" : ["https://www.youtube.com/watch?v=OMFQtY6655E"],"notActualSources" : []}
+  ,{"tags": ["movie clip"], "actualSources" : ["https://www.youtube.com/watch?v=uQkDOs-EtdU"],"notActualSources" : []}
+  ,{"tags": ["movie clip"], "actualSources" : ["https://www.youtube.com/watch?v=PZhs7w-FzeI"],"notActualSources" : []}
+  ,{"tags": ["movie clip"], "actualSources" : ["https://www.youtube.com/watch?v=dMSQpWvwCIM"],"notActualSources" : []}
+  ,{"tags": ["movie clip"], "actualSources" : ["https://www.youtube.com/watch?v=r2pt2-F2j2g"],"notActualSources" : []}
+  ,{"tags": ["movie clip"], "actualSources" : ["https://www.youtube.com/watch?v=66im5Mi7x3A"],"notActualSources" : []}
+  ,{"tags": ["movie clip"], "actualSources" : ["https://www.youtube.com/watch?v=LGQuI4bqSw4"],"notActualSources" : []}
+  ],
+  "contentSearchList": [
+    // electronic music
+    {"tags": ["electronic music"], "url" : "https://www.youtube.com/user/Pulse8Music/videos"}
+    ,{"tags": ["electronic music"], "url" : "https://www.youtube.com/user/boyleyapacaksiniz/videos"}
+    ,{"tags": ["electronic music"], "url" : "https://www.youtube.com/user/SpaceAmbient/videos"}
+	,{"tags": ["electronic music"], "url" : "https://www.youtube.com/user/TechnoBaseFanSenne/videos"}
+    ,{"tags": ["electronic music"], "url" : "https://www.youtube.com/user/sheepsempire/videos"}
+    ,{"tags": ["electronic music"], "url" : "https://www.youtube.com/user/9EricCN3/videos"}
+    ,{"tags": ["electronic music"], "url" : "https://www.youtube.com/user/Nemron28/videos"}
+    ,{"tags": ["electronic music"], "url" : "https://www.youtube.com/user/TobiasBassline/videos"}
+    ,{"tags": ["electronic music"], "url" : "https://www.youtube.com/channel/UCfWL_qB3km5tKUY_BAef_6A/videos"}
+	,{"tags": ["electronic music"], "url" : "https://www.youtube.com/channel/UC4X7J9D6VbTIwnFDFNkfQ1A/videos"}
+	,{"tags": ["new electronic music"], "url" : "https://bandcamp.com/tag/electronic?sort_field=pop"}
+//    ,{"tags": ["electronic music"], "url" : "https://www.youtube.com/user/MixHound/videos"}
+
+  //short electronic music
+  ,  {"tags": ["short electronic music"], "url" : "https://www.youtube.com/user/SpinninRec/videos"}
+  ,  {"tags": ["short electronic music"], "url" : "https://www.youtube.com/user/NoCopyrightSounds/videos"}
+  ,  {"tags": ["short electronic music"], "url" : "https://www.youtube.com/channel/UCCeNgETxEJf__ZAAOvU5ZaQ/videos"}
+  ,  {"tags": ["short electronic music"], "url" : "https://www.youtube.com/user/AirwaveMusicTV/videos"}
+  ,  {"tags": ["short electronic music"], "url" : "https://www.youtube.com/channel/UCFq_AE3BWaVscSA_GVGYUcw/videos"}
+  ,  {"tags": ["short electronic music"], "url" : "https://www.youtube.com/user/UltraRecords/videos"}
+  ,  {"tags": ["short electronic music"], "url" : "https://www.youtube.com/user/PandoraMuslc/videos"}
+  ,  {"tags": ["short electronic music"], "url" : "https://www.youtube.com/user/MonstercatMedia/videos"}
+  ,  {"tags": ["short electronic music"], "url" : "https://www.youtube.com/user/jStahL27/videos"}
+  ,  {"tags": ["short electronic music"], "url" : "https://www.youtube.com/user/JJDofficial/videos"}
+  ,  {"tags": ["short electronic music"], "url" : "https://www.youtube.com/user/PandoraChill/videos"}
+  ,  {"tags": ["short electronic music"], "url" : "https://www.youtube.com/user/21noocead12/videos"}
+  ,  {"tags": ["short electronic music"], "url" : "https://www.youtube.com/user/tobuofficial/videos"}
+  ,  {"tags": ["short electronic music"], "url" : "https://www.youtube.com/user/ElectroLightOfficial/videos"}
+  ,  {"tags": ["short electronic music"], "url" : "https://www.youtube.com/channel/UCXvSeBDvzmPO05k-0RyB34w/videos"}
+  ,  {"tags": ["short electronic music"], "url" : "https://www.youtube.com/user/EMHmusicPromo/videos"}
+  ,  {"tags": ["short electronic music"], "url" : "https://www.youtube.com/channel/UCYsQBXpnkduQxGo3z1lstZw/videos"}
+  ,  {"tags": ["short electronic music"], "url" : "https://www.youtube.com/user/MinimalAndTechno/videos"}
+  ,  {"tags": ["short electronic music"], "url" : "https://www.youtube.com/user/OfficialTrapCity/videos"}
+  ,  {"tags": ["short electronic music"], "url" : "https://www.youtube.com/channel/UCDQaXV09PR6uaJ8msxKy1Vw/videos"}
+  ,  {"tags": ["short electronic music"], "url" : "https://www.youtube.com/user/R3HABTUBE/videos"}
+  ,  {"tags": ["short electronic music"], "url" : "https://www.youtube.com/user/SensitiveTracks/videos"}
+  ,  {"tags": ["short electronic music"], "url" : "https://www.youtube.com/user/AllTrapNation/videos"}
+  ,  {"tags": ["short electronic music"], "url" : "https://www.youtube.com/user/BassBoostOfficial/videos"}
+  ,  {"tags": ["short electronic music"], "url" : "https://www.youtube.com/channel/UCYQyOtL6oMU8ScXA2mjYAYw/videos"}
+  ,  {"tags": ["short electronic music"], "url" : "https://www.youtube.com/channel/UCrZsKQXXq652czHn8XmOIEw/videos"}
+  ,  {"tags": ["short electronic music"], "url" : "https://www.youtube.com/user/MrSuicideSheep/videos"}
+  ,  {"tags": ["short electronic music"], "url" : "https://www.youtube.com/channel/UCs99pdCqkuLxkii13Ak_cxw/videos"}
+  ,  {"tags": ["short electronic music"], "url" : "https://www.youtube.com/channel/UC-v8o-39gThc7Mu2NzBrHkw/videos"}
+  ,  {"tags": ["short electronic music"], "url" : "https://www.youtube.com/channel/UCTc3vxWltlHLaxZc3e56IJg/videos"}
+  ,  {"tags": ["short electronic music"], "url" : "https://www.youtube.com/user/UDUBSTEPHD/videos"}
+  ,  {"tags": ["short electronic music"], "url" : "https://www.youtube.com/user/DiavelNN/videos"}
+  ,  {"tags": ["short electronic music"], "url" : "https://www.youtube.com/user/nyuualiaslucy/videos"}
+  ,  {"tags": ["short electronic music"], "url" : "https://www.youtube.com/user/MusicVVawe/videos"}
+  ,  {"tags": ["short electronic music"], "url" : "https://www.youtube.com/user/NinjaUMusic/videos"}
+
+
+
+
+
+
+
+
+
+    // short rap
+  ,  {"tags": ["short rap"], "url" : "https://www.youtube.com/user/WorldStarHipHopTV/videos"}
+
+
+
+  // bollywood
+  ,  {"tags": ["bollywood"], "url" : "https://www.youtube.com/user/UltraHindi/videos"}
+
+
+
+
+    // short relax music
+    ,{"tags": ["music", "short relax music"], "url" : "https://www.youtube.com/user/EdgelessJA/videos"}
+  ,{"tags": ["music", "short relax music"], "url" : "https://www.youtube.com/channel/UC_ccayKYwXyN17o7JG2cgYA/videos"}
+  ,{"tags": ["music", "short relax music"], "url" : "https://www.youtube.com/channel/UCSJ4gkVC6NrvII8umztf0Ow/videos"}
+  ,{"tags": ["music", "short relax music"], "url" : "https://www.youtube.com/user/TriangleMuslc/videos"}
+
+
+
+
+  ,{"tags": ["music", "trance music"], "url" : "https://www.youtube.com/user/MrLemilica2/videos"}
+
+
+
+
+    // fail compilation
+  ,{"tags": ["fail compilation"], "url" : "https://www.youtube.com/user/failarmy/videos"}
+  ,{"tags": ["fail compilation"], "url" : "https://www.youtube.com/channel/UCuunebfqIi8uCzAs_fO1D6Q/videos"}
+  ,{"tags": ["fail compilation"], "url" : "https://www.youtube.com/user/VineAholic/videos"}
+  ,{"tags": ["fail compilation"], "url" : "https://www.youtube.com/user/AFVofficial/videos"}
+  ,{"tags": ["fail compilation"], "url" : "https://www.youtube.com/channel/UCPqLadF9hvPlOj_5UXymkDQ/videos"}
+  ,{"tags": ["fail compilation"], "url" : "https://www.youtube.com/user/MonthlyFails/videos"}
+  ,{"tags": ["fail compilation"], "url" : "https://www.youtube.com/channel/UCNkTUGmCDngofrGsjlnElFg/videos"}
+
+
+
+
+
+    // supergame
+  ,  {"tags": ["game trailer"], "url" : "https://www.youtube.com/playlist?list=PLdPi-oE6iImbrOlk9HpZbdfkYeA35rbnP"}
+  ,  {"tags": ["game trailer"], "url" : "https://www.youtube.com/user/GameNewsOfficial/videos"}
+  ,  {"tags": ["game trailer"], "url" : "https://www.youtube.com/user/Izuniy/videos"}
+  ,  {"tags": ["game trailer"], "url" : "https://www.youtube.com/user/gametrailers/videos"}
+  ,  {"tags": ["game trailer"], "url" : "https://www.youtube.com/user/BethesdaSoftworks/videos"}
+  ,  {"tags": ["game trailer"], "url" : "https://www.youtube.com/user/Nintendo/videos"}
+  ,  {"tags": ["game trailer"], "url" : "https://www.youtube.com/user/PlayStation/videos"}
+  ,  {"tags": ["game trailer"], "url" : "https://www.youtube.com/user/xbox/videos"}
+  ,  {"tags": ["game trailer"], "url" : "https://www.youtube.com/user/ubisoft/videos"}
+  ,  {"tags": ["game trailer"], "url" : "https://www.youtube.com/user/WBGAMES/videos"}
+  ,  {"tags": ["game trailer"], "url" : "https://www.youtube.com/user/EA/videos"}
+  ,  {"tags": ["game trailer"], "url" : "https://www.youtube.com/user/SQEXMembersNA/videos"}
+  ,  {"tags": ["game trailer"], "url" : "https://www.youtube.com/user/blizzard/videos"}
+  ,  {"tags": ["game trailer"], "url" : "https://www.youtube.com/user/NamcoBandaiGames/videos"}
+  ,  {"tags": ["game trailer"], "url" : "https://www.youtube.com/user/TelltaleGames/videos"}
+  ,  {"tags": ["game trailer"], "url" : "https://www.youtube.com/user/teamfortress/videos"}
+  ,  {"tags": ["game trailer"], "url" : "https://www.youtube.com/user/Valve/videos"}
+  ,  {"tags": ["game trailer"], "url" : "https://www.youtube.com/user/Team17SoftwareLtd/videos"}
+  ,  {"tags": ["game trailer"], "url" : "https://www.youtube.com/user/DevolverDigital/videos"}
+  ,  {"tags": ["game trailer"], "url" : "https://www.youtube.com/user/curvestudios/videos"}
+  ,  {"tags": ["game trailer"], "url" : "https://www.youtube.com/channel/UCaSgsFdGbwjfdawl3rOXiwQ/videos"}
+  ,  {"tags": ["game trailer"], "url" : "https://www.youtube.com/user/BlizzHeroes/videos"}
+  ,  {"tags": ["game trailer"], "url" : "https://www.youtube.com/user/epicfortnite/videos"}
+  ,  {"tags": ["game trailer"], "url" : "https://www.youtube.com/user/RockstarGames/videos"}
+  ,  {"tags": ["game trailer"], "url" : "https://www.youtube.com/channel/UCKToYSCkBY_jUYO2AjxfGVA/videos"}
+  ,  {"tags": ["game trailer"], "url" : "https://www.youtube.com/user/AtlusUSA/videos"}
+  ,  {"tags": ["game trailer"], "url" : "https://www.youtube.com/user/THQ/videos"}
+  ,  {"tags": ["game trailer"], "url" : "https://www.youtube.com/user/DyingLightGame/videos"}
+  ,  {"tags": ["game trailer"], "url" : "https://www.youtube.com/user/SEGAEurope/videos"}
+  ,  {"tags": ["game trailer"], "url" : "https://www.youtube.com/user/2KGames/videos"}
+//   ,  {"tags": ["game trailer"], "url" : "https://www.youtube.com/user/EAMobileGames/videos"}
+
+
+
+  ,  {"tags": ["lets play"], "url" : "https://www.youtube.com/user/MKIceAndFire/videos"}
+
+
+
+    // movie clips
+  ,  {"tags": ["movie clip"], "url" : "https://www.youtube.com/channel/UClVbhSLxwws-KSsPKz135bw/videos"}
+  ,  {"tags": ["movie clip"], "url" : "https://www.youtube.com/channel/UCziXARv_BiHZdT7tBVbQXPw/videos"}
+  ,  {"tags": ["movie clip"], "url" : "https://www.youtube.com/user/l0ky86/videos"}
+  ,  {"tags": ["movie clip"], "url" : "https://www.youtube.com/user/GcPaim/videos"}
+  ,  {"tags": ["movie clip"], "url" : "https://www.youtube.com/channel/UCeAVMPbuB_dOKDzV3HMefDw/videos"}
+  ,  {"tags": ["movie clip"], "url" : "https://www.youtube.com/channel/UCuGtSnFs0lbb7Loo0WeKmVQ/videos"}
+  ,  {"tags": ["movie clip"], "url" : "https://www.youtube.com/user/KingDevil1996/videos"}
+  ,  {"tags": ["movie clip"], "url" : "https://www.youtube.com/channel/UC8BQGqcCSFq6RC9feEGUGFA/videos"}
+  ,  {"tags": ["movie clip"], "url" : "https://www.youtube.com/channel/UCbdn1Ge8JoTS8OkL8FzWoag/videos"}
+  ,  {"tags": ["movie clip"], "url" : "https://www.youtube.com/channel/UC0g2A0pBs3fF_1dpnVeei8w/videos"}
+  ,  {"tags": ["movie clip"], "url" : "https://www.youtube.com/channel/UCBI30F94YyVLExyTvDsQCIg/videos"}
+  ,  {"tags": ["movie clip"], "url" : "https://www.youtube.com/user/blackviewhd/videos"}
+  ,  {"tags": ["movie clip"], "url" : "https://www.youtube.com/user/SungTobias/videos"}
+  // ,  {"tags": ["movie clip"], "url" : "https://www.youtube.com/user/FASHIH31N/videos"}
+  
+
+
+   // movie clips - watermarked
+//  ,  {"tags": ["movie clip"], "url" : "https://www.youtube.com/user/movieclips/videos"}
+//  ,  {"tags": ["movie clip"], "url" : "https://www.youtube.com/channel/UC6BAQLqymtpI8azcVOL70sw/videos"}
+//  ,  {"tags": ["movie clip"], "url" : "https://www.youtube.com/channel/UCF2DedNpo5ht4cEHXk1WVgg/videos"}
+//  ,  {"tags": ["movie clip"], "url" : "https://www.youtube.com/channel/UCGUFNx36k4RQCx1jJbybh1A/videos"}
+
+
+    // movie trailers
+  ,  {"tags": ["movie trailer"], "url" : "https://www.youtube.com/user/starwars/videos"}
+  ,  {"tags": ["movie trailer"], "url" : "https://www.youtube.com/user/SonyPictures/videos"}
+  ,  {"tags": ["movie trailer"], "url" : "https://www.youtube.com/user/WarnerBrosPictures/videos"}
+  ,  {"tags": ["movie trailer"], "url" : "https://www.youtube.com/user/FoxMovies/videos"}
+  ,  {"tags": ["movie trailer"], "url" : "https://www.youtube.com/user/Paramount/videos"}
+  ,  {"tags": ["movie trailer"], "url" : "https://www.youtube.com/user/UniversalPictures/videos"}
+  ,  {"tags": ["movie trailer"], "url" : "https://www.youtube.com/user/disneyanimation/videos"}
+  ,  {"tags": ["movie trailer"], "url" : "https://www.youtube.com/user/LionsgateLIVE/videos"}
+
+
+
+  ,  {"tags": ["short electronic music"], "url" : "https://www.youtube.com/user/NoCopyrightSounds/videos"}
+
+
+
+    // game clips
+  ,  {"tags": ["game clip"], "url" : "https://www.youtube.com/user/GamerForEternity/videos"}
+  
+  
+  // animation
+  , {"tags": ["game clip"], "url" : "https://www.youtube.com/channel/UCAY51-JY_npsgY--85_rXKg/videos"}
+
+
+  // programming-music
+  , {"tags": ["ambient"], "url" : "https://www.youtube.com/playlist?list=PLdPi-oE6iImbmv5uOoc2SVGianJVNZLSS"}
+
+
+
+  // relax music
+  , {"tags": ["relax music"], "url" : "https://www.youtube.com/playlist?list=PLdPi-oE6iImaOleTPdb9OnxJOoiSR6_kD"}
+  //, {"tags": ["relax music"], "url" : "https://www.youtube.com/channel/UCphOK9NiPE6qnj9Mp9aHWZg"}
+  , {"tags": ["relax music"], "url" : "https://www.youtube.com/user/YourRelaxMusic1/videos"}
+  , {"tags": ["relax music"], "url" : "https://bandcamp.com/tag/relaxation?sort_field=pop"}
+  , {"tags": ["relax music"], "url" : "https://bandcamp.com/tag/sleep?sort_field=pop"}
+
+  // relax sounds
+  , {"tags": ["relax sounds"], "url" : "https://www.youtube.com/playlist?list=PLdPi-oE6iImZuybiXRxE7avNlfPZzBGIn"}
+
+
+  // griffins moments
+  , {"tags": ["griffins moments"], "url" : "https://www.youtube.com/channel/UCBNjCE2gqezJyDpDfGbKSAg/videos"}
+  , {"tags": ["griffins moments"], "url" : "https://www.youtube.com/channel/UCL1B9JrSzrtFgeKSi1PMDFw/videos"}
+  , {"tags": ["griffins moments"], "url" : "https://www.youtube.com/channel/UC5sc9MVoeS12-xWK8g6v6mA/videos"}
+  , {"tags": ["griffins moments"], "url" : "https://www.youtube.com/user/CritiCalSrbG4m3r/videos"}
+  , {"tags": ["griffins moments"], "url" : "https://www.youtube.com/channel/UCK4jb-NLH7n9WvoKfYyPYcQ/videos"}
+
+
+   // simpsons moments
+   , {"tags": ["simpsons moments"], "url" : "https://www.youtube.com/channel/UC8xmHZiwx9eISijzp8KSKOg/videos"}
+
+
+   
+   // simpsons moments
+   , {"tags": ["simpsons moments"], "url" : "https://www.youtube.com/playlist?list=PLdPi-oE6iImb22HfOBCXajLzWTyFuMSK4"}
+
+   // chillout music
+   , {"tags": ["chillout music"], "url" : "https://www.youtube.com/channel/UCSJ4gkVC6NrvII8umztf0Ow/videos"}
+   , {"tags": ["chillout music"], "url" : "https://www.youtube.com/user/Chillhopdotcom/videos"}
+
+
+
+    // lo-fi
+   , {"tags": ["lofi", "full album"], "url" : "https://bandcamp.com/tag/lo-fi?sort_field=pop"}
+
+
+    // stoner rock
+    , {"tags": ["stoner-rock", "full album"], "url" : "https://bandcamp.com/tag/stoner-rock?sort_field=pop"}
+
+  ]
+}

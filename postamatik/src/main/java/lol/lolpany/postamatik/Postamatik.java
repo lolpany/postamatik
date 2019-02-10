@@ -23,7 +23,7 @@ public class Postamatik {
 
     public static final boolean HEADLESS = true;
 
-    public static final String POSTAMATIK_HOME = "R:\\postamatik\\";
+    public static final String POSTAMATIK_HOME = "R:\\postamatik\\postamatik\\";
     public static final String CONFIG_DIR = "D:\\storage\\info\\buffer\\postamatik\\accounts-config";
     public static final String ACCOUNTS_CONFIG = CONFIG_DIR + "\\accounts-config.json";
     public static final String POSTS_TIMELINE = "D:\\storage\\info\\buffer\\postamatik\\posts-timeline\\posts-timeline.json";
