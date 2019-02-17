@@ -25,6 +25,7 @@ public class Postamatik {
 
     public static final String POSTAMATIK_HOME = "R:\\postamatik\\postamatik\\";
     public static final String CONFIG_DIR = "D:\\storage\\info\\buffer\\postamatik\\accounts-config";
+    public static final String PUBLIC_CONFIG_DIR = "D:\\storage\\Dropbox\\Dropbox\\projects\\postamatik-public-config\\";
     public static final String ACCOUNTS_CONFIG = CONFIG_DIR + "\\accounts-config.json";
     public static final String POSTS_TIMELINE = "D:\\storage\\info\\buffer\\postamatik\\posts-timeline\\posts-timeline.json";
 
@@ -97,7 +98,7 @@ public class Postamatik {
                 accountsConfigsQueue, "accounts-config.json", gson, isOn));
 
         executorService.execute(new JsonConfigWatcher<>(ContentRepositoryStore.class,
-                POSTAMATIK_HOME + "resource\\content-repository",
+                PUBLIC_CONFIG_DIR + "content-repository",
                 contentRepositoryStoreQueue, "content-repository-store.json", gson, isOn));
 
         ContentRepository contentRepository = new ContentRepository(contentRepositoryStoreQueue, postsTimeline,

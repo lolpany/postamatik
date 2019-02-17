@@ -7,14 +7,18 @@ import lol.lolpany.Location;
 import lol.lolpany.postamatik.*;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.util.*;
 
 import static com.codeborne.selenide.Selenide.$$;
 import static com.codeborne.selenide.Selenide.close;
 import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.WebDriverRunner.setWebDriver;
 import static java.util.Collections.emptyList;
 import static java.util.Collections.singletonList;
+import static lol.lolpany.postamatik.Postamatik.HEADLESS;
 import static org.apache.commons.lang3.StringUtils.trim;
 
 public class BandcampContentSearch implements ContentSearch {
@@ -30,6 +34,11 @@ public class BandcampContentSearch implements ContentSearch {
     @Override
     public Content findContent(double precision, Set<String> tags, PostsTimeline postsTimeline, Account account, Location<LocationConfig> location) {
         Content result = null;
+//        ChromeOptions chromeOptions = new ChromeOptions();
+//        if (HEADLESS) {
+//            chromeOptions.addArguments("headless");
+//        }
+//        setWebDriver(new ChromeDriver(chromeOptions));
         Configuration.baseUrl = "https://bandcamp.com";
         if (Utils.match(this.tags, tags) >= precision) {
             result = findContent(tags, postsTimeline, location);

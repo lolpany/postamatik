@@ -21,7 +21,7 @@ import static java.lang.Thread.sleep;
 public class ContentStreamerDispatcher implements Runnable {
 
     public final static String CHROME_DRIVER_LOCATION = "R:\\postamatik\\bin\\chromedriver.exe";
-    public final static String VIDEO_CACHE = "R:\\";
+    public final static String VIDEO_CACHE = "R:\\postamatik-cache\\";
     private final static int STREAMER_BUFFER_SIZE = 10240;
     private final static int CORE_POOL_SIZE = 10240;
     private final static int MAXIMUM_POOL_SIZE = 10240;

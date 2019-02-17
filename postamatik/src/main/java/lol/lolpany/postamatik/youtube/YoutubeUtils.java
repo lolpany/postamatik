@@ -44,7 +44,7 @@ public class YoutubeUtils {
                 || $("li.identity-prompt-account-list-item").exists());
 
         open("https://www.youtube.com/upload");
-        waitTill(() -> /*$("li.identity-prompt-account-list-item").exists() || */$(UPLOAD_BUTTON_SELECTOR).exists());
+        waitTill(() -> $("li.identity-prompt-account-list-item").exists());
 
         if ($("li.identity-prompt-account-list-item").exists()) {
             for (SelenideElement accountLi : $$("li.identity-prompt-account-list-item")) {
