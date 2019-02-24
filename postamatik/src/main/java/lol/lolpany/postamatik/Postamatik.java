@@ -21,7 +21,7 @@ import static lol.lolpany.postamatik.ContentStreamerDispatcher.CHROME_DRIVER_LOC
 
 public class Postamatik {
 
-    public static final boolean HEADLESS = true;
+    public static final boolean HEADLESS = false;
 
     public static final String POSTAMATIK_HOME = "R:\\postamatik\\postamatik\\";
     public static final String CONFIG_DIR = "D:\\storage\\info\\buffer\\postamatik\\accounts-config";

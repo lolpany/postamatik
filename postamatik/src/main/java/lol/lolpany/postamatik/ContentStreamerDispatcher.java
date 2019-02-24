@@ -2,6 +2,7 @@ package lol.lolpany.postamatik;
 
 import lol.lolpany.ComponentConnection;
 import lol.lolpany.postamatik.bandcamp.YoutubeDlAggregateAudioInputStreamFactory;
+import lol.lolpany.postamatik.bandcamp.YoutubeDlAudioAndThumbInputStreamFactory;
 import lol.lolpany.postamatik.youtube.YoutubeDlInputStreamFactory;
 import lol.lolpany.postamatik.youtube.YoutubeOutputStreamFactory;
 
@@ -9,12 +10,14 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.GeneralSecurityException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.function.Predicate;
+import java.util.function.BiPredicate;
 
 import static java.lang.Thread.sleep;
 
@@ -22,17 +25,19 @@ public class ContentStreamerDispatcher implements Runnable {
 
     public final static String CHROME_DRIVER_LOCATION = "R:\\postamatik\\bin\\chromedriver.exe";
     public final static String VIDEO_CACHE = "R:\\postamatik-cache\\";
+    public final static Path VIDEO_CACHE_PATH = Paths.get(VIDEO_CACHE);
     private final static int STREAMER_BUFFER_SIZE = 10240;
     private final static int CORE_POOL_SIZE = 10240;
     private final static int MAXIMUM_POOL_SIZE = 10240;
     private final static int MAXIMUM_PARALLER_STREAMS = 3;
-    private final static Map<Predicate<String>, SourceInputStreamFactory> SOURCE_INPUT_STREAM_FACTORIES =
-            new HashMap<Predicate<String>, SourceInputStreamFactory>() {{
-                put((host) -> host.equals("www.youtube.com"), new YoutubeDlInputStreamFactory(VIDEO_CACHE));
-                put((host) -> host.endsWith("bandcamp.com"), new YoutubeDlAggregateAudioInputStreamFactory(VIDEO_CACHE));
+    private final static Map<BiPredicate<String, ContentLength>, SourceInputStreamFactory> SOURCE_INPUT_STREAM_FACTORIES =
+            new HashMap<>() {{
+                put((host, contentLength) -> host.equals("www.youtube.com"), new YoutubeDlInputStreamFactory(VIDEO_CACHE));
+                put((host, contentLength) -> host.endsWith("bandcamp.com") && contentLength == ContentLength.LONG, new YoutubeDlAggregateAudioInputStreamFactory(VIDEO_CACHE));
+                put((host, contentLength) -> host.endsWith("bandcamp.com") && contentLength == ContentLength.SHORT, new YoutubeDlAudioAndThumbInputStreamFactory(VIDEO_CACHE));
             }};
     private final static Map<String, LocationOutputStreamFactory> LOCATION_OUTPUT_STREAM_FACTORIES =
-            new HashMap<String, LocationOutputStreamFactory>() {{
+            new HashMap<>() {{
                 try {
                     put("www.youtube.com", new YoutubeOutputStreamFactory(CHROME_DRIVER_LOCATION));
                 } catch (GeneralSecurityException e) {
@@ -103,8 +108,9 @@ public class ContentStreamerDispatcher implements Runnable {
     private SourceInputStream identifySourceInputStream(Post post, String locationUrl) throws MalformedURLException, FileNotFoundException, InterruptedException {
         SourceInputStream result = null;
         String host = new URL(post.content.getActualSource()).getHost();
-        for (Map.Entry<Predicate<String>, SourceInputStreamFactory> factories : SOURCE_INPUT_STREAM_FACTORIES.entrySet()) {
-            if (factories.getKey().test(host)) {
+        ContentLength contentLength = post.location.locationConfig.contentLength;
+        for (Map.Entry<BiPredicate<String, ContentLength>, SourceInputStreamFactory> factories : SOURCE_INPUT_STREAM_FACTORIES.entrySet()) {
+            if (factories.getKey().test(host, contentLength)) {
                 result = factories.getValue().create(post.content.getActualSource(), post.content, postsTimeline, locationUrl);
                 break;
             }

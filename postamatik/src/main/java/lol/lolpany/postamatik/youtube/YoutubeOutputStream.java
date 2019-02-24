@@ -31,7 +31,6 @@ public class YoutubeOutputStream implements LocationOutputStream {
         YouTube youTube = YoutubeApi.fetchYouTube(account, location);
 
 
-
         com.google.api.services.youtube.model.Video videoObjectDefiningMetadata
                 = new com.google.api.services.youtube.model.Video();
 
@@ -55,9 +54,15 @@ public class YoutubeOutputStream implements LocationOutputStream {
 
         MediaHttpUploader uploader = videoInsert.getMediaHttpUploader();
         uploader.setDisableGZipContent(false);
-        uploader.setDirectUploadEnabled(false);
-        com.google.api.services.youtube.model.Video returnedVideo = videoInsert.execute();
+        uploader.setDirectUploadEnabled(true);
+        com.google.api.services.youtube.model.Video returnedVideo = null;
+        while (returnedVideo == null) {
+            try {
+                returnedVideo = videoInsert.execute();
+            } catch (IOException ignored) {
 
+            }
+        }
         return new YoutubePostAction(returnedVideo.getId(), youTube, account, location);
     }
 

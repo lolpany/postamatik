@@ -47,8 +47,12 @@ public class YoutubeDlInputStream implements SourceInputStream {
         File root = new File(videoCache);
         FilenameFilter beginswithm = (directory, filename) -> filename.startsWith(fileName);
 
-        content.file = root.listFiles(beginswithm)[0];
-
-        return content;
+        File[] files = root.listFiles(beginswithm);
+        if (files.length > 0) {
+            content.file = root.listFiles(beginswithm)[0];
+            return content;
+        } else {
+            return null;
+        }
     }
 }

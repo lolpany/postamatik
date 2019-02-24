@@ -5,20 +5,20 @@ import com.codeborne.selenide.SelenideElement;
 import lol.lolpany.Account;
 import lol.lolpany.Location;
 import lol.lolpany.postamatik.*;
-import org.apache.commons.lang3.tuple.ImmutablePair;
-import org.apache.commons.lang3.tuple.Pair;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
+import org.apache.commons.lang3.tuple.ImmutableTriple;
+import org.apache.commons.lang3.tuple.Triple;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
-import static com.codeborne.selenide.Selenide.$$;
-import static com.codeborne.selenide.Selenide.close;
-import static com.codeborne.selenide.Selenide.open;
-import static com.codeborne.selenide.WebDriverRunner.setWebDriver;
+import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.WebDriverRunner.closeWebDriver;
+import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static java.util.Collections.emptyList;
 import static java.util.Collections.singletonList;
-import static lol.lolpany.postamatik.Postamatik.HEADLESS;
 import static org.apache.commons.lang3.StringUtils.trim;
 
 public class BandcampContentSearch implements ContentSearch {
@@ -41,33 +41,32 @@ public class BandcampContentSearch implements ContentSearch {
 //        setWebDriver(new ChromeDriver(chromeOptions));
         Configuration.baseUrl = "https://bandcamp.com";
         if (Utils.match(this.tags, tags) >= precision) {
-            result = findContent(tags, postsTimeline, location);
+            open(this.url);
+            sleep(5000);
+            if (!$("div.follow").exists()) {
+                result = findContentOld(tags, postsTimeline, location);
+            } else {
+                result = findContentNew(tags, postsTimeline, location);
+            }
         }
         return result;
     }
 
-    private Content findContent(Set<String> tags, PostsTimeline postsTimeline, Location<LocationConfig> location) {
+    private Content findContentOld(Set<String> tags, PostsTimeline postsTimeline, Location<LocationConfig> location) {
         Content result = null;
         for (int i = 1; i <= 10; i++) {
-            String pageUrl = this.url + "&page=" + i ;
+            String pageUrl = this.url + (this.url.contains("?") ? "&" : "?") + "page=" + i;
             open(pageUrl);
 
-            Map<String, Pair<String, String>> albums = new HashMap<>();
+            List<Triple<String, String, String>> albums = new ArrayList<>();
             for (SelenideElement albumItem : $$("li.item")) {
-                albums.put(albumItem.find("a").attr("href"),
-                        new ImmutablePair<>(albumItem.find("div.itemsubtext").text(), albumItem.find("div.itemtext").text()));
+                albums.add(new ImmutableTriple<>(albumItem.find("a").attr("href"),
+                        albumItem.find("div.itemsubtext").text(), albumItem.find("div.itemtext").text()));
             }
-            for (Map.Entry<String, Pair<String, String>> album : albums.entrySet()) {
-                open(album.getKey());
-
-
-                if (isContentLengthSuitable(location.locationConfig.contentLength)) {
-                    Content content = new Content(tags, singletonList(album.getKey()), emptyList());
-                    open(pageUrl);
-                    content.name = album.getValue().getLeft() + " - " + album.getValue().getRight();
-                    if (!postsTimeline.isAlreadyScheduledOrUploadedOrPosted(location.url.toString(), content)) {
-                        return content;
-                    }
+            for (Triple<String, String, String> album : albums) {
+                result = extractContent(postsTimeline, location, pageUrl, album);
+                if (result != null) {
+                    return result;
                 }
             }
 
@@ -76,7 +75,95 @@ public class BandcampContentSearch implements ContentSearch {
         return result;
     }
 
-    private boolean isContentLengthSuitable(ContentLength locationContentLength) {
+
+    private Content findContentNew(Set<String> tags, PostsTimeline postsTimeline, Location<LocationConfig> location) {
+        Content result = null;
+        try {
+            String pageUrl = this.url;
+            open(pageUrl);
+            SelenideElement button = $("button.view-more");
+            button.exists();
+            button.click();
+            int i = 0;
+            while (scrollMore()) {
+                List<Triple<String, String, String>> albums = new ArrayList<>();
+                for (SelenideElement albumItem : $$("div#dig-deeper div.dig-deeper-item")) {
+                    albums.add(new ImmutableTriple<>(albumItem.find("a").attr("href"),
+                            albumItem.find("div.artist > span").text(), albumItem.find("div.title").text()));
+                }
+                for (Triple<String, String, String> album : albums.subList(i, albums.size())) {
+                    result = extractContent(postsTimeline, location, pageUrl, album);
+                    if (result != null) {
+                        return result;
+                    }
+                    i++;
+                }
+            }
+        } finally {
+            close();
+            closeWebDriver();
+        }
+        return result;
+    }
+
+    private Content extractContent(PostsTimeline postsTimeline, Location<LocationConfig> location, String pageUrl, Triple<String, String, String> album) {
+        open(album.getLeft());
+        switch (location.locationConfig.contentLength) {
+            case LONG:
+                if (isLongContentLengthSuitable(location.locationConfig.contentLength)) {
+                    Content content = new Content(tags, singletonList(album.getLeft()), emptyList());
+                    open(pageUrl);
+                    content.name = album.getMiddle() + " - " + album.getRight();
+                    if (!postsTimeline.isAlreadyScheduledOrUploadedOrPosted(location.url.toString(), content)) {
+                        return content;
+                    }
+                }
+                break;
+            case SHORT:
+                List<SelenideElement> timeSpans = $$("div.title > span");
+                timeSpans.get(timeSpans.size() - 1).scrollTo();
+                for (SelenideElement track : $$("div.title")) {
+                    if (isShortContentLengthSuitable(location.locationConfig.contentLength, track)) {
+                        Content content = new Content(tags, singletonList(track.find("a").attr("href")), emptyList());
+                        String trackLabel = track.find("a").find("span").text();
+                        if (trackLabel.contains("-")) {
+                            content.name = trackLabel;
+                        } else {
+                            content.name = $("div#name-section span > a").text() + " - " + trackLabel;
+                        }
+                        if (!postsTimeline.isAlreadyScheduledOrUploadedOrPosted(location.url.toString(), content)) {
+                            return content;
+                        }
+                    }
+                }
+        }
+        return null;
+    }
+
+    private boolean isShortContentLengthSuitable(ContentLength locationContentLength, SelenideElement track) {
+        if (track.find("span.time").exists()) {
+            return ContentLength.fromMinutes(toMinutes(track.find("span.time").text())) == locationContentLength;
+        } else {
+            return false;
+        }
+    }
+
+    private boolean scrollMore() {
+        WebDriver webDriver = getWebDriver();
+        int initialHeight = $("body").getSize().getHeight();
+        int i = 0;
+        while (initialHeight == $("body").getSize().getHeight() && i < 5) {
+            i++;
+            ((JavascriptExecutor) webDriver)
+                    .executeScript("window.scrollTo(0, document.body.scrollHeight)");
+            sleep(5000);
+            ((JavascriptExecutor) webDriver)
+                    .executeScript("window.scrollTo(0, document.body.scrollHeight)");
+        }
+        return initialHeight != $("body").getSize().getHeight();
+    }
+
+    private boolean isLongContentLengthSuitable(ContentLength locationContentLength) {
         return ContentLength.fromMinutes(sumDurations()) == locationContentLength;
     }
 
