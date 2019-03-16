@@ -32,9 +32,9 @@ public class ContentStreamerDispatcher implements Runnable {
     private final static int MAXIMUM_PARALLER_STREAMS = 3;
     private final static Map<BiPredicate<String, ContentLength>, SourceInputStreamFactory> SOURCE_INPUT_STREAM_FACTORIES =
             new HashMap<>() {{
-                put((host, contentLength) -> host.equals("www.youtube.com"), new YoutubeDlInputStreamFactory(VIDEO_CACHE));
-                put((host, contentLength) -> host.endsWith("bandcamp.com") && contentLength == ContentLength.LONG, new YoutubeDlAggregateAudioInputStreamFactory(VIDEO_CACHE));
-                put((host, contentLength) -> host.endsWith("bandcamp.com") && contentLength == ContentLength.SHORT, new YoutubeDlAudioAndThumbInputStreamFactory(VIDEO_CACHE));
+                put((url, contentLength) -> url.contains("www.youtube.com"), new YoutubeDlInputStreamFactory(VIDEO_CACHE));
+                put((url, contentLength) -> url.contains("/album/") && contentLength == ContentLength.LONG, new YoutubeDlAggregateAudioInputStreamFactory(VIDEO_CACHE));
+                put((url, contentLength) -> url.contains("bandcamp.com") && contentLength == ContentLength.SHORT, new YoutubeDlAudioAndThumbInputStreamFactory(VIDEO_CACHE));
             }};
     private final static Map<String, LocationOutputStreamFactory> LOCATION_OUTPUT_STREAM_FACTORIES =
             new HashMap<>() {{
@@ -107,10 +107,9 @@ public class ContentStreamerDispatcher implements Runnable {
 
     private SourceInputStream identifySourceInputStream(Post post, String locationUrl) throws MalformedURLException, FileNotFoundException, InterruptedException {
         SourceInputStream result = null;
-        String host = new URL(post.content.getActualSource()).getHost();
         ContentLength contentLength = post.location.locationConfig.contentLength;
         for (Map.Entry<BiPredicate<String, ContentLength>, SourceInputStreamFactory> factories : SOURCE_INPUT_STREAM_FACTORIES.entrySet()) {
-            if (factories.getKey().test(host, contentLength)) {
+            if (factories.getKey().test(post.content.getActualSource(), contentLength)) {
                 result = factories.getValue().create(post.content.getActualSource(), post.content, postsTimeline, locationUrl);
                 break;
             }
