@@ -50,7 +50,7 @@ public class YoutubeDlAggregateAudioInputStream implements SourceInputStream {
         File root = new File(folder);
         String thumb = Objects.requireNonNull(root.listFiles((dir, name) -> name.endsWith(".jpg")))[0].getName();
         StringBuilder concatOption = new StringBuilder("\"concat:");
-        for (File audio : root.listFiles((dir, name) -> name.endsWith(".mp3"))) {
+        for (File audio : listFiles(root)) {
             concatOption.append(audio).append("|");
         }
         concatOption.setLength(concatOption.length() - 1);
@@ -65,5 +65,13 @@ public class YoutubeDlAggregateAudioInputStream implements SourceInputStream {
         content.file = root.listFiles((directory, filename) -> filename.endsWith(videoFileName))[0];
 
         return content;
+    }
+
+    private File[] listFiles(File root) {
+        File[] result = root.listFiles((dir, name) -> name.endsWith(".mp3"));
+        if (result.length == 0) {
+            result = root.listFiles((dir, name) -> name.endsWith(".aiff"));
+        }
+        return result;
     }
 }

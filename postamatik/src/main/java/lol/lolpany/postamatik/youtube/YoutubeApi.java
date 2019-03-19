@@ -6,8 +6,10 @@ import com.google.api.client.auth.oauth2.StoredCredential;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeRequestUrl;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
+import com.google.api.client.http.HttpBackOffIOExceptionHandler;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.api.client.util.ExponentialBackOff;
 import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.youtube.YouTube;
 import lol.lolpany.Account;
@@ -29,18 +31,19 @@ public class YoutubeApi {
     private static final String AUTHORIZATION_SERVER_ENCODED_URL = "https://accounts.google.com/o/oauth2/v2/auth";
     private static final File CLIENT_SECRET = new File("D:\\storage\\info\\buffer\\postamatik\\clientSecret.txt");
 
-    private static Map<String, Map<String, YouTube>> youTubeByChannelByAccount = new ConcurrentHashMap<>();
+    private static Map<String, Map<String, Credential>> credentialByChannelByAccount = new ConcurrentHashMap<>();
 
     private YoutubeApi() {
     }
 
-    private static YouTube initYouTube(Account account, YoutubeLocation location) throws IOException, GeneralSecurityException {
+    private static Credential initCredential(Account account, YoutubeLocation location) throws IOException, GeneralSecurityException {
 
         GoogleAuthorizationCodeFlow authorizationCodeFlow = new GoogleAuthorizationCodeFlow.Builder(
 //                BearerToken.authorizationHeaderAccessMethod(),
                 new NetHttpTransport(),
                 new JacksonFactory(),
-                CLIENT_ID, FileUtils.readFileToString(CLIENT_SECRET), new ArrayList<String>() {{
+                CLIENT_ID, FileUtils.readFileToString(CLIENT_SECRET), new ArrayList<String>() {
+            {
                 add("https://www.googleapis.com/auth/youtube");
                 add("https://www.googleapis.com/auth/youtube.upload");
             }
@@ -81,33 +84,33 @@ public class YoutubeApi {
 //                }
         }
 
+        return credential;
+    }
+
+    public static YouTube fetchYouTube(Account account, YoutubeLocation location) throws IOException, GeneralSecurityException {
+        Credential credential = null;
+        if (credentialByChannelByAccount.get(account.login) != null) {
+            credential = credentialByChannelByAccount.get(account.login).get(location.url.toString());
+        }
+        if (credential == null) {
+            credential = initCredential(account, location);
+            credentialByChannelByAccount.computeIfAbsent(account.login, key -> new ConcurrentHashMap<>())
+                    .put(location.url.toString(), credential);
+        }
         return new YouTube.Builder(
                 GoogleNetHttpTransport.newTrustedTransport(), JacksonFactory.getDefaultInstance(), credential)
                 .setApplicationName("postamatik")
                 .build();
     }
 
-    public static YouTube fetchYouTube(Account account, YoutubeLocation location) throws IOException, GeneralSecurityException {
-        YouTube youTube = null;
-        if (youTubeByChannelByAccount.get(account.login) != null) {
-            youTube = youTubeByChannelByAccount.get(account.login).get(location.url.toString());
-        }
-        if (youTube == null) {
-            youTube = initYouTube(account, location);
-            youTubeByChannelByAccount.computeIfAbsent(account.login, key -> new ConcurrentHashMap<>())
-                    .put(location.url.toString(), youTube);
-        }
-        return youTube;
-    }
-
 //    public <T> T execute(Account account, YoutubeLocation location, YouTubeRequest<T> request) throws IOException, GeneralSecurityException {
 //        YouTube youTube = null;
-//        if (youTubeByChannelByAccount.get(account.login) != null) {
-//            youTube = youTubeByChannelByAccount.get(account.login).get(location.url.toString());
+//        if (credentialByChannelByAccount.get(account.login) != null) {
+//            youTube = credentialByChannelByAccount.get(account.login).get(location.url.toString());
 //        }
 //        if (youTube == null) {
 //            youTube = fetchYouTube(account, location);
-//            youTubeByChannelByAccount.computeIfAbsent(account.login, key -> new ConcurrentHashMap<>())
+//            credentialByChannelByAccount.computeIfAbsent(account.login, key -> new ConcurrentHashMap<>())
 //                    .put(location.url.toString(), youTube);
 //        }
 //        try {

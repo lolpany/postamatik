@@ -1,5 +1,6 @@
 package lol.lolpany.postamatik.youtube;
 
+import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.googleapis.media.MediaHttpUploader;
 import com.google.api.client.http.InputStreamContent;
 import com.google.api.services.youtube.YouTube;
@@ -51,10 +52,10 @@ public class YoutubeOutputStream implements LocationOutputStream {
 
         YouTube.Videos.Insert videoInsert = youTube.videos()
                 .insert("snippet,statistics,status", videoObjectDefiningMetadata, mediaContent);
-
         MediaHttpUploader uploader = videoInsert.getMediaHttpUploader();
         uploader.setDisableGZipContent(true);
         uploader.setDirectUploadEnabled(true);
+        uploader.setChunkSize(4194304);
         com.google.api.services.youtube.model.Video returnedVideo = videoInsert.execute();
         return new YoutubePostAction(returnedVideo.getId(), youTube, account, location);
     }
