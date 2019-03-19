@@ -34,7 +34,7 @@ public class YoutubeDlAudioAndThumbInputStream implements SourceInputStream {
         String folderName = UUID.randomUUID().toString();
 
         String folder = videoCache + "\\" + folderName;
-        Files.createDirectory(Paths.get(folder));
+        Files.createDirectories(Paths.get(folder));
 
 
         if (postsTimeline.isAlreadyUploadedOrPosted(locationUrl, content)) {
