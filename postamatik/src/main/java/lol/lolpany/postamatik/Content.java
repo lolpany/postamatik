@@ -4,6 +4,7 @@ import org.apache.commons.lang3.ObjectUtils;
 
 import java.io.File;
 import java.net.URL;
+import java.time.Instant;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -16,6 +17,7 @@ public class Content {
     public Set<String> tags;
     public List<String> actualSources;
     public List<String> notActualSources;
+    public Instant time;
     public File file;
 
     public Content(Set<String> tags, List<String> actualSources, List<String> notActualSources) {

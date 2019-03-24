@@ -23,7 +23,7 @@ import static java.lang.Thread.sleep;
 
 public class ContentStreamerDispatcher implements Runnable {
 
-    public final static String CHROME_DRIVER_LOCATION = "R:\\postamatik\\bin\\chromedriver.exe";
+    public final static String CHROME_DRIVER_LOCATION = "R:\\chromedriver.exe";
     public final static String VIDEO_CACHE = "R:\\postamatik-cache\\";
     public final static Path VIDEO_CACHE_PATH = Paths.get(VIDEO_CACHE);
     private final static int STREAMER_BUFFER_SIZE = 10240;
@@ -31,13 +31,13 @@ public class ContentStreamerDispatcher implements Runnable {
     private final static int MAXIMUM_POOL_SIZE = 10240;
     private final static int MAXIMUM_PARALLER_STREAMS = 3;
     private final static Map<BiPredicate<String, ContentLength>, SourceInputStreamFactory> SOURCE_INPUT_STREAM_FACTORIES =
-            new HashMap<>() {{
+            new HashMap<BiPredicate<String, ContentLength>, SourceInputStreamFactory>() {{
                 put((url, contentLength) -> url.contains("www.youtube.com"), new YoutubeDlInputStreamFactory(VIDEO_CACHE));
                 put((url, contentLength) -> url.contains("/album/") && contentLength == ContentLength.LONG, new YoutubeDlAggregateAudioInputStreamFactory(VIDEO_CACHE));
                 put((url, contentLength) -> url.contains("bandcamp.com") && contentLength == ContentLength.SHORT, new YoutubeDlAudioAndThumbInputStreamFactory(VIDEO_CACHE));
             }};
     private final static Map<String, LocationOutputStreamFactory> LOCATION_OUTPUT_STREAM_FACTORIES =
-            new HashMap<>() {{
+            new HashMap<String, LocationOutputStreamFactory>() {{
                 try {
                     put("www.youtube.com", new YoutubeOutputStreamFactory(CHROME_DRIVER_LOCATION));
                 } catch (GeneralSecurityException e) {

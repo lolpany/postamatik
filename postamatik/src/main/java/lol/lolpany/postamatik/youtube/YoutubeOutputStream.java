@@ -1,6 +1,7 @@
 package lol.lolpany.postamatik.youtube;
 
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
+import com.google.api.client.googleapis.json.GoogleJsonResponseException;
 import com.google.api.client.googleapis.media.MediaHttpUploader;
 import com.google.api.client.http.InputStreamContent;
 import com.google.api.services.youtube.YouTube;

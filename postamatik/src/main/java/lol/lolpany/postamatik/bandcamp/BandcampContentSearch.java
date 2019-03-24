@@ -10,15 +10,23 @@ import org.apache.commons.lang3.tuple.Triple;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverRunner.closeWebDriver;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
+import static java.time.temporal.ChronoUnit.HOURS;
 import static java.util.Collections.emptyList;
 import static java.util.Collections.singletonList;
+import static lol.lolpany.postamatik.SelenideUtils.isDaysPassed;
 import static org.apache.commons.lang3.StringUtils.trim;
 
 public class BandcampContentSearch implements ContentSearch {
@@ -32,7 +40,8 @@ public class BandcampContentSearch implements ContentSearch {
     }
 
     @Override
-    public Content findContent(double precision, Set<String> tags, PostsTimeline postsTimeline, Account account, Location<LocationConfig> location) {
+    public Content findContent(double precision, Set<String> tags, PostsTimeline postsTimeline, Account account,
+                               Location<LocationConfig> location) {
         Content result = null;
 //        ChromeOptions chromeOptions = new ChromeOptions();
 //        if (HEADLESS) {
@@ -106,7 +115,8 @@ public class BandcampContentSearch implements ContentSearch {
         return result;
     }
 
-    private Content extractContent(PostsTimeline postsTimeline, Location<LocationConfig> location, String pageUrl, Triple<String, String, String> album) {
+    private Content extractContent(PostsTimeline postsTimeline, Location<LocationConfig> location, String pageUrl,
+                                   Triple<String, String, String> album) {
         open(album.getLeft());
         switch (location.locationConfig.contentLength) {
             case LONG:
@@ -116,6 +126,10 @@ public class BandcampContentSearch implements ContentSearch {
                     content.name = album.getMiddle() + " - " + album.getRight();
                     if (!postsTimeline.isAlreadyScheduledOrUploadedOrPosted(location.url.toString(), content)) {
                         return content;
+                    }
+                    content.time = Instant.now();
+                    if (isDaysPassed(location.locationConfig, content)) {
+                        return null;
                     }
                 }
                 break;
@@ -134,10 +148,21 @@ public class BandcampContentSearch implements ContentSearch {
                         if (!postsTimeline.isAlreadyScheduledOrUploadedOrPosted(location.url.toString(), content)) {
                             return content;
                         }
+                        content.time = parseContentTime();
+                        if (isDaysPassed(location.locationConfig, content)) {
+                            return null;
+                        }
                     }
                 }
         }
         return null;
+    }
+
+    private Instant parseContentTime() {
+        String date = $("#trackInfoInner > .tralbum-credits > meta[itemprop=\"datePublished\"]").attr("content");
+        return LocalDate.of(Integer.parseInt(date.substring(0, 4)), Integer.parseInt(date.substring(4, 6)),
+                Integer.parseInt(date.substring(6, 8))).atStartOfDay().toInstant(
+                ZoneOffset.UTC);
     }
 
     private boolean isShortContentLengthSuitable(ContentLength locationContentLength, SelenideElement track) {
@@ -170,7 +195,8 @@ public class BandcampContentSearch implements ContentSearch {
     private int sumDurations() {
         List<SelenideElement> timeSpans = $$("div.title > span");
         timeSpans.get(timeSpans.size() - 1).scrollTo();
-        return $$("div.title > span").texts().stream().map(this::toMinutes).reduce((integer, integer2) -> integer + integer2).get();
+        return $$("div.title > span").texts().stream().map(this::toMinutes)
+                .reduce((integer, integer2) -> integer + integer2).get();
     }
 
     private int toMinutes(String duration) {

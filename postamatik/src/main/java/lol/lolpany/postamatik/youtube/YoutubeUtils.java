@@ -21,7 +21,7 @@ public class YoutubeUtils {
     public static final int FETCH_SIZE = 50;
     private final static String UPLOAD_BUTTON_SELECTOR = "div#upload-prompt-box input[type=\"file\"]";
 
-    public static void authorize(Account account, YoutubeLocation location) {
+    private static void authorize(Account account, YoutubeLocation location) {
         open("https://accounts.google.com/ServiceLogin/identifier?service=youtube&flowName=GlifWebSignIn&flowEntry=AddSession");
         if ($("input#identifierId").is(Condition.exist)) {
             $("input#identifierId").sendKeys(account.login);
@@ -88,6 +88,17 @@ public class YoutubeUtils {
                     break;
                 }
             }
+
+
+            while (!$("form #submit_approve_access").exists() && !url().startsWith("http://www.example.com")
+                    && !url().contains("/oauth/consent")) {
+                sleep(1000);
+            }
+
+            if (url().contains("/oauth/consent")) {
+                $("#submit_approve_access").click();
+            }
+
 
             while (!$("form #submit_approve_access").exists() && !url().startsWith("http://www.example.com")) {
                 sleep(1000);

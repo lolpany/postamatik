@@ -11,10 +11,12 @@ import java.io.IOException;
 import java.net.URL;
 import java.security.GeneralSecurityException;
 import java.time.Duration;
+import java.time.Instant;
 import java.util.Set;
 
 import static java.util.Collections.emptyList;
 import static java.util.Collections.singletonList;
+import static lol.lolpany.postamatik.SelenideUtils.isDaysPassed;
 import static lol.lolpany.postamatik.youtube.YoutubeUtils.FETCH_SIZE;
 
 public class YoutubeContentSearch implements ContentSearch {
@@ -67,7 +69,9 @@ public class YoutubeContentSearch implements ContentSearch {
                         youtubeLocation.locationConfig.contentLength)) {
                     Content content = new Content(tags, singletonList(VIDEO_PREFIX + playlistItem.getContentDetails().getVideoId()), emptyList());
                     content.name = playlistItem.getSnippet().getTitle();
-                    if (!postsTimeline.isAlreadyScheduledOrUploadedOrPosted(youtubeLocation.url.toString(), content)) {
+                    content.time = Instant.parse(playlistItem.getSnippet().getPublishedAt().toStringRfc3339());
+                    if (!postsTimeline.isAlreadyScheduledOrUploadedOrPosted(youtubeLocation.url.toString(), content)
+                    && !isDaysPassed(youtubeLocation.locationConfig, content)) {
                         return content;
                     }
                 }

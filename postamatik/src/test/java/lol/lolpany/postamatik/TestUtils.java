@@ -4,7 +4,6 @@ import lol.lolpany.Account;
 import lol.lolpany.Location;
 import lol.lolpany.postamatik.youtube.YoutubeLocation;
 import org.apache.commons.lang3.builder.ToStringExclude;
-import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Field;
 import java.net.MalformedURLException;
@@ -23,7 +22,7 @@ public class TestUtils {
             testYoutubeLocation = new YoutubeLocation(
                     new URL("https://www.youtube.com/channel/UCC2VdQa8i5_4GiW446zhPug"),
                     new LocationConfig("https://www.youtube.com/channel/UCC2VdQa8i5_4GiW446zhPug",
-                            Collections.singleton("test"), 1, 0.01, ContentLength.SHORT), "Test Testovich");
+                            Collections.singleton("test"), 1, 0.01, 3, ContentLength.SHORT), "Test Testovich");
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
