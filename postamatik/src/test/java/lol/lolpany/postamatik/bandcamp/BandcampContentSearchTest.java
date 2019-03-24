@@ -15,6 +15,7 @@ import java.net.URL;
 
 import static com.codeborne.selenide.WebDriverRunner.setWebDriver;
 import static java.util.Collections.singleton;
+import static java.util.Collections.singletonList;
 import static lol.lolpany.postamatik.ContentStreamerDispatcher.CHROME_DRIVER_LOCATION;
 import static lol.lolpany.postamatik.Postamatik.HEADLESS;
 
@@ -28,7 +29,8 @@ public class BandcampContentSearchTest {
         }
         setWebDriver(new ChromeDriver(chromeOptions));
         Content content = new BandcampContentSearch("https://bandcamp.com/tag/lo-fi?sort_field=pop", singleton("lo-fi")).findContent(1.0, singleton("lo-fi"), new PostsTimeline(),
-                null, new Location<>(new URL("http://www.lol.lol"), new LocationConfig(null, null, 0.0, 0.0, 3, ContentLength.LONG)));
+                null, new Location<>(new URL("http://www.lol.lol"), new LocationConfig(null, null, 0.0, 0.0, 3,
+                        singletonList(ContentLength.LONG))));
         int a = 1;
     }
 }

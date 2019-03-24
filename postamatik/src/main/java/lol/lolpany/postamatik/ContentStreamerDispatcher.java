@@ -9,12 +9,12 @@ import lol.lolpany.postamatik.youtube.YoutubeOutputStreamFactory;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.GeneralSecurityException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.BiPredicate;
@@ -107,7 +107,7 @@ public class ContentStreamerDispatcher implements Runnable {
 
     private SourceInputStream identifySourceInputStream(Post post, String locationUrl) throws MalformedURLException, FileNotFoundException, InterruptedException {
         SourceInputStream result = null;
-        ContentLength contentLength = post.location.locationConfig.contentLength;
+        ContentLength contentLength = post.location.locationConfig.contentLengths.get(new Random().nextInt(post.location.locationConfig.contentLengths.size()));
         for (Map.Entry<BiPredicate<String, ContentLength>, SourceInputStreamFactory> factories : SOURCE_INPUT_STREAM_FACTORIES.entrySet()) {
             if (factories.getKey().test(post.content.getActualSource(), contentLength)) {
                 result = factories.getValue().create(post.content.getActualSource(), post.content, postsTimeline, locationUrl);

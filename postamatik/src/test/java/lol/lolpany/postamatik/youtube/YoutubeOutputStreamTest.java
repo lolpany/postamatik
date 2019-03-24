@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.security.GeneralSecurityException;
 
+import static java.util.Collections.singleton;
 import static java.util.Collections.singletonList;
 
 public class YoutubeOutputStreamTest {
@@ -18,7 +19,7 @@ public class YoutubeOutputStreamTest {
     @Test
     public void go() throws IOException, GeneralSecurityException {
         YoutubeLocation location = new YoutubeLocation(new URL("https://www.youtube.com/channel/UCcpxdjh8t3e65jGqdiADYWA"),
-                new LocationConfig(null, null, 0, 0, 3, ContentLength.SHORT), "supergame");
+                new LocationConfig(null, null, 0, 0, 3, singletonList(ContentLength.SHORT)), "supergame");
         Content content = new Content(null, null, null);
         content.name = "Her[x]  ||  Autumn EP";
         content.file = new File("D:\\buffer\\lol.mp4");

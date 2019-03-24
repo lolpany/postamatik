@@ -12,6 +12,9 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import static java.util.Collections.singleton;
+import static java.util.Collections.singletonList;
+
 public class TestUtils {
     public static final String ACCOUNTS_CONFIG = "D:\\storage\\info\\buffer\\postamatik-test\\accounts-config\\accounts-config.json";
     public static final String POSTS_TIMELINE = "D:\\storage\\info\\buffer\\postamatik-test\\posts-timeline\\posts-timeline.json";
@@ -22,7 +25,8 @@ public class TestUtils {
             testYoutubeLocation = new YoutubeLocation(
                     new URL("https://www.youtube.com/channel/UCC2VdQa8i5_4GiW446zhPug"),
                     new LocationConfig("https://www.youtube.com/channel/UCC2VdQa8i5_4GiW446zhPug",
-                            Collections.singleton("test"), 1, 0.01, 3, ContentLength.SHORT), "Test Testovich");
+                            singleton("test"), 1, 0.01, 3,
+                            singletonList(ContentLength.SHORT)), "Test Testovich");
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }

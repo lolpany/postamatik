@@ -13,17 +13,14 @@ import org.openqa.selenium.WebDriver;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.TemporalUnit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
 
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverRunner.closeWebDriver;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
-import static java.time.temporal.ChronoUnit.HOURS;
 import static java.util.Collections.emptyList;
 import static java.util.Collections.singletonList;
 import static lol.lolpany.postamatik.SelenideUtils.isDaysPassed;
@@ -118,9 +115,12 @@ public class BandcampContentSearch implements ContentSearch {
     private Content extractContent(PostsTimeline postsTimeline, Location<LocationConfig> location, String pageUrl,
                                    Triple<String, String, String> album) {
         open(album.getLeft());
-        switch (location.locationConfig.contentLength) {
+        ContentLength contentLength = location.locationConfig.contentLengths
+                .get(new Random().nextInt(location.locationConfig.contentLengths.size()));
+        switch (contentLength) {
             case LONG:
-                if (isLongContentLengthSuitable(location.locationConfig.contentLength)) {
+            case MEDIUM:
+                if (isMediumOrLongContentLengthSuitable(location.locationConfig.contentLengths)) {
                     Content content = new Content(tags, singletonList(album.getLeft()), emptyList());
                     open(pageUrl);
                     content.name = album.getMiddle() + " - " + album.getRight();
@@ -137,7 +137,7 @@ public class BandcampContentSearch implements ContentSearch {
                 List<SelenideElement> timeSpans = $$("div.title > span");
                 timeSpans.get(timeSpans.size() - 1).scrollTo();
                 for (SelenideElement track : $$("div.title")) {
-                    if (isShortContentLengthSuitable(location.locationConfig.contentLength, track)) {
+                    if (isShortContentLengthSuitable(location.locationConfig.contentLengths, track)) {
                         Content content = new Content(tags, singletonList(track.find("a").attr("href")), emptyList());
                         String trackLabel = track.find("a").find("span").text();
                         if (trackLabel.contains("-")) {
@@ -165,9 +165,9 @@ public class BandcampContentSearch implements ContentSearch {
                 ZoneOffset.UTC);
     }
 
-    private boolean isShortContentLengthSuitable(ContentLength locationContentLength, SelenideElement track) {
+    private boolean isShortContentLengthSuitable(List<ContentLength> locationContentLength, SelenideElement track) {
         if (track.find("span.time").exists()) {
-            return ContentLength.fromMinutes(toMinutes(track.find("span.time").text())) == locationContentLength;
+            return locationContentLength.contains(ContentLength.fromMinutes(toMinutes(track.find("span.time").text())));
         } else {
             return false;
         }
@@ -188,8 +188,8 @@ public class BandcampContentSearch implements ContentSearch {
         return initialHeight != $("body").getSize().getHeight();
     }
 
-    private boolean isLongContentLengthSuitable(ContentLength locationContentLength) {
-        return ContentLength.fromMinutes(sumDurations()) == locationContentLength;
+    private boolean isMediumOrLongContentLengthSuitable(List<ContentLength> locationContentLength) {
+        return locationContentLength.contains(ContentLength.fromMinutes(sumDurations()));
     }
 
     private int sumDurations() {

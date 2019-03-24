@@ -12,6 +12,7 @@ import java.net.URL;
 import java.security.GeneralSecurityException;
 import java.time.Duration;
 import java.time.Instant;
+import java.util.List;
 import java.util.Set;
 
 import static java.util.Collections.emptyList;
@@ -35,7 +36,8 @@ public class YoutubeContentSearch implements ContentSearch {
     }
 
     @Override
-    public Content findContent(double precision, Set<String> tags, PostsTimeline postsTimeline, Account account, Location<LocationConfig> location)
+    public Content findContent(double precision, Set<String> tags, PostsTimeline postsTimeline, Account account,
+                               Location<LocationConfig> location)
             throws IOException, GeneralSecurityException {
         Content result = null;
         if (Utils.match(this.tags, tags) >= precision) {
@@ -47,31 +49,35 @@ public class YoutubeContentSearch implements ContentSearch {
 
     private Content findContent(Account account, String url, Set<String> tags, PostsTimeline postsTimeline,
                                 Location location) throws IOException, GeneralSecurityException {
-        YoutubeLocation youtubeLocation  = (YoutubeLocation) location;
+        YoutubeLocation youtubeLocation = (YoutubeLocation) location;
         YouTube youTube = YoutubeApi.fetchYouTube(account, youtubeLocation);
         String uploadsPlaylistId = "";
         URL contentSourceUrl = new URL(url);
         if (contentSourceUrl.getPath().startsWith(CHANNEL)) {
-            uploadsPlaylistId = youTube.channels().list("contentDetails").setId(contentSourceUrl.getPath().split("/")[2])
-                    .execute().getItems().get(0).getContentDetails().getRelatedPlaylists().getUploads();
+            uploadsPlaylistId =
+                    youTube.channels().list("contentDetails").setId(contentSourceUrl.getPath().split("/")[2])
+                            .execute().getItems().get(0).getContentDetails().getRelatedPlaylists().getUploads();
         } else if (contentSourceUrl.getPath().startsWith(USER)) {
-            uploadsPlaylistId = youTube.channels().list("contentDetails").setForUsername(contentSourceUrl.getPath().split("/")[2])
-                    .execute().getItems().get(0).getContentDetails().getRelatedPlaylists().getUploads();
+            uploadsPlaylistId =
+                    youTube.channels().list("contentDetails").setForUsername(contentSourceUrl.getPath().split("/")[2])
+                            .execute().getItems().get(0).getContentDetails().getRelatedPlaylists().getUploads();
         } else if (contentSourceUrl.getPath().startsWith(PLAYLIST)) {
             uploadsPlaylistId = contentSourceUrl.getQuery().substring(5);
         }
         String nextPageToken = "";
         while (nextPageToken != null) {
             PlaylistItemListResponse response = youTube.playlistItems().list("snippet,contentDetails")
-                    .setPlaylistId(uploadsPlaylistId).setMaxResults((long) FETCH_SIZE).setPageToken(nextPageToken).execute();
+                    .setPlaylistId(uploadsPlaylistId).setMaxResults((long) FETCH_SIZE).setPageToken(nextPageToken)
+                    .execute();
             for (PlaylistItem playlistItem : response.getItems()) {
                 if (isContentLengthSuitable(youTube, playlistItem.getContentDetails().getVideoId(),
-                        youtubeLocation.locationConfig.contentLength)) {
-                    Content content = new Content(tags, singletonList(VIDEO_PREFIX + playlistItem.getContentDetails().getVideoId()), emptyList());
+                        youtubeLocation.locationConfig.contentLengths)) {
+                    Content content = new Content(tags,
+                            singletonList(VIDEO_PREFIX + playlistItem.getContentDetails().getVideoId()), emptyList());
                     content.name = playlistItem.getSnippet().getTitle();
                     content.time = Instant.parse(playlistItem.getSnippet().getPublishedAt().toStringRfc3339());
                     if (!postsTimeline.isAlreadyScheduledOrUploadedOrPosted(youtubeLocation.url.toString(), content)
-                    && !isDaysPassed(youtubeLocation.locationConfig, content)) {
+                            && !isDaysPassed(youtubeLocation.locationConfig, content)) {
                         return content;
                     }
                 }
@@ -81,8 +87,10 @@ public class YoutubeContentSearch implements ContentSearch {
         return null;
     }
 
-    private boolean isContentLengthSuitable(YouTube youTube, String videoId, ContentLength locationContentLength) throws IOException {
-        return ContentLength.fromMinutes(Duration.parse(youTube.videos().list("contentDetails").setId(videoId).execute().getItems().get(0).getContentDetails().getDuration()).toMinutes()) ==
-                locationContentLength;
+    private boolean isContentLengthSuitable(YouTube youTube, String videoId, List<ContentLength> locationContentLength)
+            throws IOException {
+        return locationContentLength.contains(ContentLength.fromMinutes(Duration.parse(
+                youTube.videos().list("contentDetails").setId(videoId).execute().getItems().get(0).getContentDetails()
+                        .getDuration()).toMinutes()));
     }
 }
