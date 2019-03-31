@@ -56,8 +56,13 @@ public class Solver implements Runnable {
                             ConcurrentLinkedQueue<Post> posts = postsTimeline.getPosts(location.url.toString());
                             for (Instant instant : generateNewPostInstants(location.locationConfig, posts,
                                     UPLOAD_THRESHOLD)) {
-                                Content content = contentRepository.getContent(location.locationConfig.precision,
-                                        location.locationConfig.tags, account, location, postsTimeline);
+                                Content content = null;
+                                try {
+                                    content = contentRepository.getContent(location.locationConfig.precision,
+                                            location.locationConfig.tags, account, location, postsTimeline);
+                                } catch (Exception ignored) {
+
+                                }
                                 Post post = new Post(instant, content, account, location);
                                 if (content != null) {
                                     contentStreamerQueue.offer(post);
