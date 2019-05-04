@@ -19,7 +19,8 @@ import static lol.lolpany.postamatik.TestUtils.testYoutubeLocation;
 
 public class YoutubeApiTest {
     private static final String POP_VIDEOS_FILE_LOCATION = "D:\\buffer\\youtube-top.txt";
-    private static final String TEST_ACCOUNTS_CONFIG = "D:\\storage\\info\\buffer\\postamatik-test\\accounts-config\\accounts-config.json";
+    private static final String TEST_ACCOUNTS_CONFIG =
+            "D:\\storage\\info\\buffer\\postamatik-test\\accounts-config\\accounts-config.json";
 
     @Test
     public void go() throws IOException, GeneralSecurityException {
@@ -31,26 +32,31 @@ public class YoutubeApiTest {
         for (int i = 0; i < pageCount; i++) {
             SearchListResponse search = youtube.search().list("id").setOrder("viewCount")
                     .setPageToken(pageToken).setType("video").setMaxResults((long) pageSize).setQ("music").execute();
-            ids.addAll(search.getItems().stream().map((video) -> video.getId().getVideoId()).collect(Collectors.toList()));
+            ids.addAll(
+                    search.getItems().stream().map((video) -> video.getId().getVideoId()).collect(Collectors.toList()));
             pageToken = search.getNextPageToken();
             if (search.getNextPageToken() == null) {
                 break;
             }
         }
         Set<Video> videos = new HashSet<>();
-        for (int i = 0; i < ids.size()/pageSize;  i++) {
+        for (int i = 0; i < ids.size() / pageSize; i++) {
             videos.addAll(youtube.videos().list("snippet,statistics")
-                    .setId(StringUtils.join(ids.subList(pageSize * i, min(pageSize * (i+1), ids.size())), ","))
-                    .execute().getItems().stream().map((video) -> new Video(video.getId(), video.getSnippet().getTitle(), video.getSnippet().getDescription().replaceAll("\n", ""),
+                    .setId(StringUtils.join(ids.subList(pageSize * i, min(pageSize * (i + 1), ids.size())), ","))
+                    .execute().getItems().stream()
+                    .map((video) -> new Video(video.getId(), video.getSnippet().getTitle(),
+                            video.getSnippet().getDescription().replaceAll("\n", ""),
                             video.getStatistics().getViewCount().longValue())).collect(Collectors.toList()));
         }
         StringBuilder result = new StringBuilder();
         List<Video> sortedVideos = new ArrayList<>(videos);
         sortedVideos.sort((one, another) -> Long.compare(another.viewCount, one.viewCount));
         for (Video video : sortedVideos) {
-            result.append("https://www.youtube.com/watch?v=").append(video.videoId).append(" ").append(video.toString()).append("\n");
+            result.append("https://www.youtube.com/watch?v=").append(video.videoId).append(" ").append(video.toString())
+                    .append("\n");
         }
-        FileUtils.writeStringToFile(new File(POP_VIDEOS_FILE_LOCATION), result.toString(), StandardCharsets.UTF_8.toString());
+        FileUtils.writeStringToFile(new File(POP_VIDEOS_FILE_LOCATION), result.toString(),
+                StandardCharsets.UTF_8.toString());
     }
 
     private final static class Video {

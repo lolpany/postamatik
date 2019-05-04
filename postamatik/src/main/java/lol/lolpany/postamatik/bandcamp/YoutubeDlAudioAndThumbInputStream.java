@@ -22,7 +22,8 @@ public class YoutubeDlAudioAndThumbInputStream implements SourceInputStream {
     private final PostsTimeline postsTimeline;
     private final String locationUrl;
 
-    YoutubeDlAudioAndThumbInputStream(String source, Content content, String videoCache, PostsTimeline postsTimeline, String locationUrl) {
+    YoutubeDlAudioAndThumbInputStream(String source, Content content, String videoCache, PostsTimeline postsTimeline,
+                                      String locationUrl) {
         this.source = source;
         this.content = content;
         this.videoCache = videoCache;
@@ -34,7 +35,7 @@ public class YoutubeDlAudioAndThumbInputStream implements SourceInputStream {
     public Content read() throws Exception {
         String folderName = UUID.randomUUID().toString();
 
-        String folder = videoCache + "\\" + folderName;
+        String folder = videoCache + File.separator + folderName;
         Files.createDirectories(Paths.get(folder));
 
 
@@ -48,14 +49,14 @@ public class YoutubeDlAudioAndThumbInputStream implements SourceInputStream {
 
         File root = new File(folder);
         String thumb = Objects.requireNonNull(root.listFiles((dir, name) -> name.endsWith(".jpg")))[0].getName();
-        StringBuilder concatOption = new StringBuilder("\"concat:");
         File audio = root.listFiles((dir, name) -> name.endsWith(".mp3"))[0];
 
         String videoFileName = UUID.randomUUID().toString() + ".avi";
 
         new ProcessExecutor().command(FFMPEG,
                 "-loop", "1", "-r", "1", "-i",
-                folder + "\\" + thumb, "-i", audio.getAbsolutePath(), "-c", "copy", "-shortest", folder + "\\" + videoFileName).execute();
+                folder + File.separator + thumb, "-i", audio.getAbsolutePath(), "-c", "copy", "-shortest",
+                folder + File.separator + videoFileName).execute();
 
         content.file = root.listFiles((directory, filename) -> filename.endsWith(videoFileName))[0];
 

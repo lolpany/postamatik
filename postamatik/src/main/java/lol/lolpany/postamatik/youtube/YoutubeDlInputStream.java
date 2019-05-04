@@ -20,7 +20,8 @@ public class YoutubeDlInputStream implements SourceInputStream {
     private final PostsTimeline postsTimeline;
     private final String locationUrl;
 
-    YoutubeDlInputStream(String source, Content content, String videoCache, PostsTimeline postsTimeline, String locationUrl) {
+    YoutubeDlInputStream(String source, Content content, String videoCache, PostsTimeline postsTimeline,
+                         String locationUrl) {
         this.source = source;
         this.content = content;
         this.videoCache = videoCache;
@@ -42,7 +43,8 @@ public class YoutubeDlInputStream implements SourceInputStream {
         }
 
         new ProcessExecutor().command(YOUTUBE_DL,
-                "--no-check-certificate", "-f", "\"bestvideo+bestaudio/best\"", "-o", videoCache + "\\" + fileName,
+                "--no-check-certificate", "-f", "bestvideo+bestaudio/best", "-o",
+                videoCache + File.separator + fileName,
                 source).execute();
 
         File root = new File(videoCache);
