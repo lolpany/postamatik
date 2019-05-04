@@ -28,7 +28,7 @@ public class PostsTimeline implements AutoCloseable {
 
     private ConcurrentHashMap<String, ConcurrentLinkedQueue<Post>> timeline;
 
-      public PostsTimeline() {
+    public PostsTimeline() {
         timeline = new ConcurrentHashMap<>();
     }
 
@@ -124,7 +124,7 @@ public class PostsTimeline implements AutoCloseable {
     public boolean isAlreadyScheduledOrUploadedOrPosted(String locationUrl, Content content) {
         if (timeline.get(locationUrl) != null) {
             for (Post post : timeline.get(locationUrl)) {
-                if ((post.postState == PostState.SCHEDULED ||post.postState == PostState.UPLOADED
+                if ((post.postState == PostState.SCHEDULED || post.postState == PostState.UPLOADED
                         || post.postState == PostState.POSTED) && content.equals(post.content)) {
                     return true;
                 }

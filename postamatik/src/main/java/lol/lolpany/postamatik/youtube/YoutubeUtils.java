@@ -12,7 +12,7 @@ import java.net.URL;
 
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverRunner.*;
-import static lol.lolpany.postamatik.ContentStreamerDispatcher.CHROME_DRIVER_LOCATION;
+import static lol.lolpany.postamatik.Postamatik.CHROME_DRIVER_LOCATION;
 import static lol.lolpany.postamatik.Postamatik.HEADLESS;
 import static lol.lolpany.postamatik.SelenideUtils.waitTill;
 

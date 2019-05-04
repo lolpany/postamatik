@@ -10,6 +10,7 @@ import java.io.FilenameFilter;
 import java.util.UUID;
 
 import static lol.lolpany.postamatik.Postamatik.POSTAMATIK_HOME;
+import static lol.lolpany.postamatik.Postamatik.YOUTUBE_DL;
 
 public class YoutubeDlInputStream implements SourceInputStream {
 
@@ -32,7 +33,7 @@ public class YoutubeDlInputStream implements SourceInputStream {
         String fileName = UUID.randomUUID().toString();
 
         content.name = new ProcessExecutor().readOutput(true).command(
-                POSTAMATIK_HOME + "resource\\youtube-dl.exe",
+                YOUTUBE_DL,
                 "--no-check-certificate", "-e", source)
                 .execute().outputString("windows-1251");
 
@@ -40,7 +41,7 @@ public class YoutubeDlInputStream implements SourceInputStream {
             return content;
         }
 
-        new ProcessExecutor().command(POSTAMATIK_HOME + "resource\\youtube-dl.exe",
+        new ProcessExecutor().command(YOUTUBE_DL,
                 "--no-check-certificate", "-f", "\"bestvideo+bestaudio/best\"", "-o", videoCache + "\\" + fileName,
                 source).execute();
 

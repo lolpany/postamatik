@@ -3,7 +3,7 @@ package lol.lolpany.postamatik.youtube;
 import lol.lolpany.postamatik.Content;
 import org.junit.Test;
 
-import static lol.lolpany.postamatik.ContentStreamerDispatcher.VIDEO_CACHE;
+import static lol.lolpany.postamatik.Postamatik.VIDEO_CACHE;
 
 public class YoutubeDlInputStreamTest {
     @Test

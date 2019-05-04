@@ -6,13 +6,12 @@ import com.google.api.client.auth.oauth2.StoredCredential;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeRequestUrl;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
-import com.google.api.client.http.HttpBackOffIOExceptionHandler;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
-import com.google.api.client.util.ExponentialBackOff;
 import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.youtube.YouTube;
 import lol.lolpany.Account;
+import lol.lolpany.postamatik.Postamatik;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
@@ -26,11 +25,6 @@ import static lol.lolpany.postamatik.youtube.YoutubeUtils.fetchAuthorizationCode
 
 public class YoutubeApi {
 
-    private static final String CREDENTIAL_STORAGE = "D:\\storage\\info\\buffer\\postamatik\\access-token";
-    private static final String CLIENT_ID = "917439087874-rc9q2c1mb5mv8c2p5fe69errjeqmskvt.apps.googleusercontent.com";
-    private static final String AUTHORIZATION_SERVER_ENCODED_URL = "https://accounts.google.com/o/oauth2/v2/auth";
-    private static final File CLIENT_SECRET = new File("D:\\storage\\info\\buffer\\postamatik\\clientSecret.txt");
-
     private static Map<String, Map<String, Credential>> credentialByChannelByAccount = new ConcurrentHashMap<>();
 
     private YoutubeApi() {
@@ -42,7 +36,7 @@ public class YoutubeApi {
 //                BearerToken.authorizationHeaderAccessMethod(),
                 new NetHttpTransport(),
                 new JacksonFactory(),
-                CLIENT_ID, FileUtils.readFileToString(CLIENT_SECRET), new ArrayList<String>() {
+                Postamatik.CLIENT_ID, FileUtils.readFileToString(Postamatik.CLIENT_SECRET), new ArrayList<String>() {
             {
                 add("https://www.googleapis.com/auth/youtube");
                 add("https://www.googleapis.com/auth/youtube.upload");
@@ -54,7 +48,7 @@ public class YoutubeApi {
 //                ), CLIENT_ID, AUTHORIZATION_SERVER_ENCODED_URL
         ).setAccessType("offline").setApprovalPrompt("force").setCredentialDataStore(
                 StoredCredential.getDefaultDataStore(
-                        new FileDataStoreFactory(new File(CREDENTIAL_STORAGE))))
+                        new FileDataStoreFactory(new File(Postamatik.CREDENTIAL_STORAGE))))
                 .build();
 
         Credential credential = authorizationCodeFlow.loadCredential(account.login);

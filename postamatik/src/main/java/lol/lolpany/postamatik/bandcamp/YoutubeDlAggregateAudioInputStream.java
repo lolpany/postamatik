@@ -4,16 +4,16 @@ import lol.lolpany.postamatik.Content;
 import lol.lolpany.postamatik.PostsTimeline;
 import lol.lolpany.postamatik.SourceInputStream;
 import org.zeroturnaround.exec.ProcessExecutor;
+import org.zeroturnaround.exec.ProcessResult;
 
 import java.io.File;
-import java.io.FilenameFilter;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
 import java.util.UUID;
 
-import static lol.lolpany.postamatik.Postamatik.POSTAMATIK_HOME;
+import static lol.lolpany.postamatik.Postamatik.FFMPEG;
+import static lol.lolpany.postamatik.Postamatik.YOUTUBE_DL;
 
 public class YoutubeDlAggregateAudioInputStream implements SourceInputStream {
 
@@ -43,7 +43,7 @@ public class YoutubeDlAggregateAudioInputStream implements SourceInputStream {
             return content;
         }
 
-        new ProcessExecutor().command(POSTAMATIK_HOME + "resource\\youtube-dl.exe",
+        new ProcessExecutor().command(YOUTUBE_DL,
                 "--no-check-certificate", "-f", "\"bestvideo+bestaudio/best\"", "--write-thumbnail", "-o",
                 folder + "\\%(title)s-%(id)s.%(ext)s", source).execute();
 
@@ -58,7 +58,7 @@ public class YoutubeDlAggregateAudioInputStream implements SourceInputStream {
 
         String videoFileName = UUID.randomUUID().toString() + ".mp4";
 
-        new ProcessExecutor().command(POSTAMATIK_HOME + "resource\\ffmpeg.exe", "-i", concatOption.toString(),
+        new ProcessExecutor().command(FFMPEG, "-i", concatOption.toString(),
                 "-loop", "1", "-r", "1","-i",
                 folder + "\\" + thumb, "-c", "copy", "-shortest", "-vcodec", "libx264", folder + "\\" + videoFileName).execute();
 

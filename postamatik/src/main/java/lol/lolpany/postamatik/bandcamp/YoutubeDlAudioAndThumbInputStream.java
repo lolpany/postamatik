@@ -11,7 +11,8 @@ import java.nio.file.Paths;
 import java.util.Objects;
 import java.util.UUID;
 
-import static lol.lolpany.postamatik.Postamatik.POSTAMATIK_HOME;
+import static lol.lolpany.postamatik.Postamatik.FFMPEG;
+import static lol.lolpany.postamatik.Postamatik.YOUTUBE_DL;
 
 public class YoutubeDlAudioAndThumbInputStream implements SourceInputStream {
 
@@ -41,7 +42,7 @@ public class YoutubeDlAudioAndThumbInputStream implements SourceInputStream {
             return content;
         }
 
-        new ProcessExecutor().command(POSTAMATIK_HOME + "resource\\youtube-dl.exe",
+        new ProcessExecutor().command(YOUTUBE_DL,
                 "--no-check-certificate", "-f", "mp3", "--write-thumbnail", "-o",
                 folder + "\\%(title)s-%(id)s.%(ext)s", source).execute();
 
@@ -52,8 +53,8 @@ public class YoutubeDlAudioAndThumbInputStream implements SourceInputStream {
 
         String videoFileName = UUID.randomUUID().toString() + ".avi";
 
-        new ProcessExecutor().command(POSTAMATIK_HOME + "resource\\ffmpeg.exe",
-                "-loop", "1", "-r", "1","-i",
+        new ProcessExecutor().command(FFMPEG,
+                "-loop", "1", "-r", "1", "-i",
                 folder + "\\" + thumb, "-i", audio.getAbsolutePath(), "-c", "copy", "-shortest", folder + "\\" + videoFileName).execute();
 
         content.file = root.listFiles((directory, filename) -> filename.endsWith(videoFileName))[0];

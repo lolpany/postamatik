@@ -1,6 +1,5 @@
 package lol.lolpany.postamatik.bandcamp;
 
-import lol.lolpany.Account;
 import lol.lolpany.Location;
 import lol.lolpany.postamatik.Content;
 import lol.lolpany.postamatik.ContentLength;
@@ -16,7 +15,7 @@ import java.net.URL;
 import static com.codeborne.selenide.WebDriverRunner.setWebDriver;
 import static java.util.Collections.singleton;
 import static java.util.Collections.singletonList;
-import static lol.lolpany.postamatik.ContentStreamerDispatcher.CHROME_DRIVER_LOCATION;
+import static lol.lolpany.postamatik.Postamatik.CHROME_DRIVER_LOCATION;
 import static lol.lolpany.postamatik.Postamatik.HEADLESS;
 
 public class BandcampContentSearchTest {

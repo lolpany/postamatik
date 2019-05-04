@@ -5,7 +5,7 @@ import lol.lolpany.postamatik.PostsTimeline;
 import org.junit.Test;
 
 import static java.util.Collections.singletonList;
-import static lol.lolpany.postamatik.ContentStreamerDispatcher.VIDEO_CACHE;
+import static lol.lolpany.postamatik.Postamatik.VIDEO_CACHE;
 
 public class YoutubeDlAudioAndThumbInputStreamTest {
 
