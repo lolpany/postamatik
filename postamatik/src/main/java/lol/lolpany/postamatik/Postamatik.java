@@ -32,9 +32,9 @@ public class Postamatik {
     public static final String PUBLIC_CONFIG_DIR = POSTAMATIK_HOME + "content-repository";
     public static final String ACCOUNTS_CONFIG = CONFIG_DIR + "accounts-config.json";
     public static final String POSTS_TIMELINE = CONFIG_DIR + "posts-timeline.json";
-    public static final String YOUTUBE_DL_DIR = "/usr/bin/";
+    public static final String YOUTUBE_DL_DIR = "/usr/local/bin/";
     public static final String YOUTUBE_DL = YOUTUBE_DL_DIR + "youtube-dl";
-    public static final String FFMPEG_DIR = YOUTUBE_DL_DIR;
+    public static final String FFMPEG_DIR = "/usr/bin/";
     public static final String FFMPEG = FFMPEG_DIR + "ffmpeg";
     public final static String VIDEO_CACHE = "/tmp/postamatik-cache";
     public static final String CREDENTIAL_STORAGE = POSTAMATIK_HOME + "access-token";
