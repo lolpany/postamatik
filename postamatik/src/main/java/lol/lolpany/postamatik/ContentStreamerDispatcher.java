@@ -27,7 +27,6 @@ public class ContentStreamerDispatcher implements Runnable {
     private final static int STREAMER_BUFFER_SIZE = 10240;
     private final static int CORE_POOL_SIZE = 10240;
     private final static int MAXIMUM_POOL_SIZE = 10240;
-    private final static int MAXIMUM_PARALLER_STREAMS = 3;
     private final static Map<BiPredicate<String, ContentLength>, SourceInputStreamFactory> SOURCE_INPUT_STREAM_FACTORIES =
             new HashMap<BiPredicate<String, ContentLength>, SourceInputStreamFactory>() {{
                 put((url, contentLength) -> url.contains("www.youtube.com"), new YoutubeDlInputStreamFactory(Postamatik.VIDEO_CACHE));
@@ -60,7 +59,7 @@ public class ContentStreamerDispatcher implements Runnable {
                                      PostsTimeline postsTimeline) {
         this.isOn = isOn;
         this.contentStreamerQueue = contentStreamerQueue;
-        this.streamsLimitingSemaphore = new Semaphore(MAXIMUM_PARALLER_STREAMS);
+        this.streamsLimitingSemaphore = new Semaphore(Postamatik.CONTENT_STREAMER_MAXIMUM_PARALLER_STREAMS);
         this.posterQueue = posterQueue;
         this.streamerErrorQueue = streamerErrorQueue;
         this.postsTimeline = postsTimeline;
