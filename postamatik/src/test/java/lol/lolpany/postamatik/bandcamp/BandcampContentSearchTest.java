@@ -23,8 +23,9 @@ public class BandcampContentSearchTest {
     public void test() throws MalformedURLException {
         System.setProperty("webdriver.chrome.driver", CHROME_DRIVER_LOCATION);
         ChromeOptions chromeOptions = new ChromeOptions();
+        chromeOptions.addArguments("--no-sandbox");
         if (HEADLESS) {
-            chromeOptions.addArguments("headless");
+            chromeOptions.setHeadless(true);
         }
         setWebDriver(new ChromeDriver(chromeOptions));
         Content content = new BandcampContentSearch("https://bandcamp.com/tag/lo-fi?sort_field=pop", singleton("lo-fi")).findContent(1.0, singleton("lo-fi"), new PostsTimeline(),

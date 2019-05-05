@@ -43,9 +43,9 @@ public class YoutubeDlAudioAndThumbInputStream implements SourceInputStream {
             return content;
         }
 
-        new ProcessExecutor().command(YOUTUBE_DL,
+        new ProcessExecutor().command(YOUTUBE_DL, "--restrict-filenames",
                 "--no-check-certificate", "-f", "mp3", "--write-thumbnail", "-o",
-                folder + "\\%(title)s-%(id)s.%(ext)s", source).execute();
+                folder + File.separator + "%(title)s-%(id)s.%(ext)s", source).execute();
 
         File root = new File(folder);
         String thumb = Objects.requireNonNull(root.listFiles((dir, name) -> name.endsWith(".jpg")))[0].getName();

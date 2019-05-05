@@ -130,8 +130,8 @@ public class Postamatik {
                 PUBLIC_CONFIG_DIR,
                 contentRepositoryStoreQueue, "content-repository-store.json", gson, isOn));
 
-        ContentRepository contentRepository = new ContentRepository(contentRepositoryStoreQueue, postsTimeline,
-                CHROME_DRIVER_LOCATION);
+        ContentRepository contentRepository = new ContentRepository(contentRepositoryStoreQueue, postsTimeline
+        );
 
         executorService.execute(new Solver(accountsConfigsQueue, contentStreamerQueue,
                 contentRepository, postsTimeline, streamerErrorQueue, isOn));

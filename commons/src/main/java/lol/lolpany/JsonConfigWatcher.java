@@ -6,6 +6,7 @@ import com.google.gson.JsonSyntaxException;
 import lol.lolpany.ComponentConnection;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.*;
@@ -24,20 +25,20 @@ public class JsonConfigWatcher<T> implements Runnable {
     private final String fileName;
 
     public JsonConfigWatcher(Class<T> configClass, String configDir,
-                             ComponentConnection<T> jsonConfigQueue, String fileName, Gson gson, AtomicBoolean on) {
+                             ComponentConnection<T> jsonConfigQueue, String fileName, Gson gson, AtomicBoolean on) throws FileNotFoundException {
         this.configClass = configClass;
         this.configDir = configDir;
         this.jsonConfigQueue = jsonConfigQueue;
         this.fileName = fileName;
         this.gson = gson;
         this.on = on;
+        this.jsonConfigQueue.offer(gson.fromJson(new FileReader(configDir + File.separator
+                + fileName), configClass));
     }
 
     @Override
     public void run() {
         try {
-            jsonConfigQueue.offer(gson.fromJson(new FileReader(configDir + File.separator
-                    + fileName), configClass));
             WatchKey key = Paths.get(configDir).register(
                     FileSystems.getDefault().newWatchService(), ENTRY_MODIFY);
             while (on.get()) {

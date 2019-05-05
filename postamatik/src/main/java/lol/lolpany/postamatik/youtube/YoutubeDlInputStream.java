@@ -42,7 +42,7 @@ public class YoutubeDlInputStream implements SourceInputStream {
             return content;
         }
 
-        new ProcessExecutor().command(YOUTUBE_DL,
+        new ProcessExecutor().command(YOUTUBE_DL, "--restrict-filenames",
                 "--no-check-certificate", "-f", "bestvideo+bestaudio/best", "-o",
                 videoCache + File.separator + fileName,
                 source).execute();

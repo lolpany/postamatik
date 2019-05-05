@@ -9,6 +9,8 @@ import org.apache.commons.lang3.tuple.ImmutableTriple;
 import org.apache.commons.lang3.tuple.Triple;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -19,10 +21,12 @@ import java.util.Random;
 import java.util.Set;
 
 import static com.codeborne.selenide.Selenide.*;
-import static com.codeborne.selenide.WebDriverRunner.closeWebDriver;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
+import static com.codeborne.selenide.WebDriverRunner.setWebDriver;
 import static java.util.Collections.emptyList;
 import static java.util.Collections.singletonList;
+import static lol.lolpany.postamatik.Postamatik.CHROME_DRIVER_LOCATION;
+import static lol.lolpany.postamatik.Postamatik.HEADLESS;
 import static lol.lolpany.postamatik.SelenideUtils.isDaysPassed;
 import static org.apache.commons.lang3.StringUtils.trim;
 
@@ -40,12 +44,15 @@ public class BandcampContentSearch implements ContentSearch {
     public Content findContent(double precision, Set<String> tags, PostsTimeline postsTimeline, Account account,
                                Location<LocationConfig> location) {
         Content result = null;
+//        System.setProperty("webdriver.chrome.driver", CHROME_DRIVER_LOCATION);
 //        ChromeOptions chromeOptions = new ChromeOptions();
+//        chromeOptions.addArguments("--no-sandbox");
 //        if (HEADLESS) {
-//            chromeOptions.addArguments("headless");
+//            chromeOptions.setHeadless(true);
 //        }
 //        setWebDriver(new ChromeDriver(chromeOptions));
         Configuration.baseUrl = "https://bandcamp.com";
+
         if (Utils.match(this.tags, tags) >= precision) {
             open(this.url);
             sleep(5000);
@@ -77,39 +84,32 @@ public class BandcampContentSearch implements ContentSearch {
             }
 
         }
-        close();
         return result;
     }
 
 
     private Content findContentNew(Set<String> tags, PostsTimeline postsTimeline, Location<LocationConfig> location) {
-        Content result = null;
-        try {
-            String pageUrl = this.url;
-            open(pageUrl);
-            SelenideElement button = $("button.view-more");
-            button.exists();
-            button.click();
-            int i = 0;
-            while (scrollMore()) {
-                List<Triple<String, String, String>> albums = new ArrayList<>();
-                for (SelenideElement albumItem : $$("div#dig-deeper div.dig-deeper-item")) {
-                    albums.add(new ImmutableTriple<>(albumItem.find("a").attr("href"),
-                            albumItem.find("div.artist > span").text(), albumItem.find("div.title").text()));
-                }
-                for (Triple<String, String, String> album : albums.subList(i, albums.size())) {
-                    result = extractContent(postsTimeline, location, pageUrl, album);
-                    if (result != null) {
-                        return result;
-                    }
-                    i++;
-                }
+        String pageUrl = this.url;
+        open(pageUrl);
+        SelenideElement button = $("button.view-more");
+        button.exists();
+        button.click();
+        int i = 0;
+        while (scrollMore()) {
+            List<Triple<String, String, String>> albums = new ArrayList<>();
+            for (SelenideElement albumItem : $$("div#dig-deeper div.dig-deeper-item")) {
+                albums.add(new ImmutableTriple<>(albumItem.find("a").attr("href"),
+                        albumItem.find("div.artist > span").text(), albumItem.find("div.title").text()));
             }
-        } finally {
-            close();
-            closeWebDriver();
+            for (Triple<String, String, String> album : albums.subList(i, albums.size())) {
+                Content result = extractContent(postsTimeline, location, pageUrl, album);
+                if (result != null) {
+                    return result;
+                }
+                i++;
+            }
         }
-        return result;
+        return null;
     }
 
     private Content extractContent(PostsTimeline postsTimeline, Location<LocationConfig> location, String pageUrl,

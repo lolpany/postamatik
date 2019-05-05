@@ -28,13 +28,13 @@ public class ContentStreamerDispatcher implements Runnable {
     private final static int CORE_POOL_SIZE = 10240;
     private final static int MAXIMUM_POOL_SIZE = 10240;
     private final static Map<BiPredicate<String, ContentLength>, SourceInputStreamFactory> SOURCE_INPUT_STREAM_FACTORIES =
-            new HashMap<BiPredicate<String, ContentLength>, SourceInputStreamFactory>() {{
+            new HashMap<>() {{
                 put((url, contentLength) -> url.contains("www.youtube.com"), new YoutubeDlInputStreamFactory(Postamatik.VIDEO_CACHE));
                 put((url, contentLength) -> url.contains("/album/") && contentLength == ContentLength.LONG, new YoutubeDlAggregateAudioInputStreamFactory(Postamatik.VIDEO_CACHE));
                 put((url, contentLength) -> url.contains("bandcamp.com") && contentLength == ContentLength.SHORT, new YoutubeDlAudioAndThumbInputStreamFactory(Postamatik.VIDEO_CACHE));
             }};
     private final static Map<String, LocationOutputStreamFactory> LOCATION_OUTPUT_STREAM_FACTORIES =
-            new HashMap<String, LocationOutputStreamFactory>() {{
+            new HashMap<>() {{
                 try {
                     put("www.youtube.com", new YoutubeOutputStreamFactory(Postamatik.CHROME_DRIVER_LOCATION));
                 } catch (GeneralSecurityException e) {

@@ -60,8 +60,8 @@ public class Solver implements Runnable {
                                 try {
                                     content = contentRepository.getContent(location.locationConfig.precision,
                                             location.locationConfig.tags, account, location, postsTimeline);
-                                } catch (Exception ignored) {
-
+                                } catch (Exception e) {
+                                        e.printStackTrace();
                                 }
                                 Post post = new Post(instant, content, account, location);
                                 if (content != null) {
@@ -90,7 +90,7 @@ public class Solver implements Runnable {
                     postWithAlreadyPostedContent = streamerErrorQueue.poll();
                 }
                 sleep(1000);
-            } catch (Exception e) {
+            } catch (Throwable e) {
                 e.printStackTrace();
             }
         }

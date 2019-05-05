@@ -63,63 +63,65 @@ public class YoutubeUtils {
     public static String fetchAuthorizationCode(AuthorizationCodeRequestUrl authorizationCodeRequestUrl,
                                                 Account account, YoutubeLocation location)
             throws MalformedURLException {
-        System.setProperty("webdriver.chrome.driver", CHROME_DRIVER_LOCATION);
-        ChromeOptions chromeOpts = new ChromeOptions();
-        if (HEADLESS) {
-            chromeOpts.addArguments("headless");
-        }
-        setWebDriver(new ChromeDriver(chromeOpts));
-        authorize(account, location);
-        open(authorizationCodeRequestUrl.build());
+        try {
+            System.setProperty("webdriver.chrome.driver", CHROME_DRIVER_LOCATION);
+            ChromeOptions chromeOptions = new ChromeOptions();
+            chromeOptions.addArguments("--no-sandbox");
+            if (HEADLESS) {
+                chromeOptions.setHeadless(true);
+            }
+            setWebDriver(new ChromeDriver(chromeOptions));
+            authorize(account, location);
+            open(authorizationCodeRequestUrl.build());
 
-        while (!url().contains("/signin/oauth/oauthchooseaccount")
-                && !url().contains("/signin/oauth/delegation")
-                && !url().contains("DelegateAccountSelector")
-                && !url().startsWith("http://www.example.com")
-                && !$("form #submit_approve_access").is(Condition.visible)) {
-            sleep(1000);
-        }
+            while (!url().contains("/signin/oauth/oauthchooseaccount")
+                    && !url().contains("/signin/oauth/delegation")
+                    && !url().contains("DelegateAccountSelector")
+                    && !url().startsWith("http://www.example.com")
+                    && !$("form #submit_approve_access").is(Condition.visible)) {
+                sleep(1000);
+            }
 
-        if (!url().startsWith("http://www.example.com")) {
-            String accountsSelector = $("form ul").exists() ? "form ul li" : "ol#account-list li";
-            for (SelenideElement accountLi : $$(accountsSelector)) {
-                if (accountLi.innerText().contains(location.channelName)) {
-                    accountLi.click();
-                    break;
+            if (!url().startsWith("http://www.example.com")) {
+                String accountsSelector = $("form ul").exists() ? "form ul li" : "ol#account-list li";
+                for (SelenideElement accountLi : $$(accountsSelector)) {
+                    if (accountLi.innerText().contains(location.channelName)) {
+                        accountLi.click();
+                        break;
+                    }
                 }
-            }
 
 
-            while (!$("form #submit_approve_access").exists() && !url().startsWith("http://www.example.com")
-                    && !url().contains("/oauth/consent")) {
-                sleep(1000);
-            }
-
-            if (url().contains("/oauth/consent")) {
-                $("#submit_approve_access").click();
-            }
-
-
-            while (!$("form #submit_approve_access").exists() && !url().startsWith("http://www.example.com")) {
-                sleep(1000);
-            }
-
-            if ($("form #submit_approve_access").exists()) {
-                while (!$("form #submit_approve_access").isEnabled()) {
+                while (!$("form #submit_approve_access").exists() && !url().startsWith("http://www.example.com")
+                        && !url().contains("/oauth/consent")) {
                     sleep(1000);
                 }
-                $("form #submit_approve_access").click();
+
+                if (url().contains("/oauth/consent")) {
+                    $("#submit_approve_access").click();
+                }
+
+
+                while (!$("form #submit_approve_access").exists() && !url().startsWith("http://www.example.com")) {
+                    sleep(1000);
+                }
+
+                if ($("form #submit_approve_access").exists()) {
+                    while (!$("form #submit_approve_access").isEnabled()) {
+                        sleep(1000);
+                    }
+                    $("form #submit_approve_access").click();
+                }
             }
-        }
 
-        while (!url().startsWith("http://www.example.com")) {
-            sleep(1000);
-        }
+            while (!url().startsWith("http://www.example.com")) {
+                sleep(1000);
+            }
 
-        String result = new URL(url()).getQuery().split("=")[1];
-        close();
-        closeWebDriver();
-        return result;
+            return new URL(url()).getQuery().split("=")[1];
+        } finally {
+            closeWebDriver();
+        }
     }
 
 

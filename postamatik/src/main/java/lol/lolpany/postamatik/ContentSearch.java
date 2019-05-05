@@ -2,6 +2,7 @@ package lol.lolpany.postamatik;
 
 import lol.lolpany.Account;
 import lol.lolpany.Location;
+import org.openqa.selenium.WebDriver;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
