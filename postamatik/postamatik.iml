@@ -60,7 +60,7 @@
     <orderEntry type="library" name="Maven: javax.mail:javax.mail-api:1.5.1" level="project" />
     <orderEntry type="library" name="Maven: javax.activation:activation:1.1" level="project" />
     <orderEntry type="library" name="Maven: com.sun.mail:javax.mail:1.5.5" level="project" />
-    <orderEntry type="library" name="Maven: com.google.apis:google-api-services-youtube:v3-rev206-1.25.0" level="project" />
+    <orderEntry type="library" name="Maven: com.google.apis:google-api-services-youtube:v3-rev211-1.25.0" level="project" />
     <orderEntry type="library" name="Maven: com.google.api-client:google-api-client:1.25.0" level="project" />
     <orderEntry type="library" name="Maven: com.google.oauth-client:google-oauth-client:1.25.0" level="project" />
     <orderEntry type="library" name="Maven: com.google.http-client:google-http-client:1.25.0" level="project" />
