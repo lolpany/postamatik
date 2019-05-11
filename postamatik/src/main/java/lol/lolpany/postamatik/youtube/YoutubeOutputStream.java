@@ -30,7 +30,7 @@ public class YoutubeOutputStream implements LocationOutputStream {
     @Override
     public PostAction write(Content content) throws IOException, GeneralSecurityException {
 
-        YouTube youTube = YoutubeApi.fetchYouTube(account, location);
+        YouTube youTube = YoutubeApi.fetchYouTube(account, location, YoutubeDesignation.OUTPUT_STREAM);
 
 
         com.google.api.services.youtube.model.Video videoObjectDefiningMetadata

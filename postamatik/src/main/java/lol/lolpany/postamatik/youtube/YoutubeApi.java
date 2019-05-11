@@ -16,6 +16,7 @@ import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.Map;
@@ -25,18 +26,19 @@ import static lol.lolpany.postamatik.youtube.YoutubeUtils.fetchAuthorizationCode
 
 public class YoutubeApi {
 
-    private static Map<String, Map<String, Credential>> credentialByChannelByAccount = new ConcurrentHashMap<>();
+    private static Map<String, Map<YoutubeDesignation, Map<String, Credential>>> credentialByChannelByAccount =
+            new ConcurrentHashMap<>();
 
     private YoutubeApi() {
     }
 
-    private static Credential initCredential(Account account, YoutubeLocation location) throws IOException, GeneralSecurityException {
+    private static Credential initCredential(Account account, YoutubeLocation location) throws IOException {
 
         GoogleAuthorizationCodeFlow authorizationCodeFlow = new GoogleAuthorizationCodeFlow.Builder(
 //                BearerToken.authorizationHeaderAccessMethod(),
                 new NetHttpTransport(),
                 new JacksonFactory(),
-                Postamatik.CLIENT_ID, FileUtils.readFileToString(Postamatik.CLIENT_SECRET), new ArrayList<String>() {
+                Postamatik.CLIENT_ID, FileUtils.readFileToString(Postamatik.CLIENT_SECRET), new ArrayList<>() {
             {
                 add("https://www.googleapis.com/auth/youtube");
                 add("https://www.googleapis.com/auth/youtube.upload");
@@ -56,7 +58,8 @@ public class YoutubeApi {
 //            AuthorizationCodeRequestUrl authorizationCodeRequestUrl = authorizationCodeFlow.newAuthorizationUrl();
 //            authorizationCodeRequestUrl.setScopes();
 //        authorizationCodeRequestUrl.setRedirectUri("http://www.example.com");
-            GoogleAuthorizationCodeRequestUrl codeRequestUrl = authorizationCodeFlow.newAuthorizationUrl().setRedirectUri("http://www.example.com");
+            GoogleAuthorizationCodeRequestUrl codeRequestUrl =
+                    authorizationCodeFlow.newAuthorizationUrl().setRedirectUri("http://www.example.com");
 //        (AUTHORIZATION_SERVER_ENCODED_URL, CLIENT_ID, "http://www.example.com",
 //                        new ArrayList<String>() {{
 //                            add("https://www.googleapis.com/auth/youtube");
@@ -66,8 +69,10 @@ public class YoutubeApi {
 //                codeRequestUrl.setApprovalPrompt("force");
             String authorizationCode =
                     java.net.URLDecoder.decode(fetchAuthorizationCode(codeRequestUrl, account, location),
-                            "UTF-8");
-            AuthorizationCodeTokenRequest tokenRequest = authorizationCodeFlow.newTokenRequest(authorizationCode).setRedirectUri("http://www.example.com").setGrantType("authorization_code");
+                            StandardCharsets.UTF_8);
+            AuthorizationCodeTokenRequest tokenRequest =
+                    authorizationCodeFlow.newTokenRequest(authorizationCode).setRedirectUri("http://www.example.com")
+                            .setGrantType("authorization_code");
 //        tokenRequest;
 
             credential = authorizationCodeFlow.createAndStoreCredential(tokenRequest.execute(), account.login);
@@ -81,14 +86,15 @@ public class YoutubeApi {
         return credential;
     }
 
-    public static YouTube fetchYouTube(Account account, YoutubeLocation location) throws IOException, GeneralSecurityException {
-        Credential credential = null;
-        if (credentialByChannelByAccount.get(account.login) != null) {
-            credential = credentialByChannelByAccount.get(account.login).get(location.url.toString());
-        }
+    static YouTube fetchYouTube(Account account, YoutubeLocation location, YoutubeDesignation youtubeDesignation)
+            throws IOException, GeneralSecurityException {
+        Credential credential =
+                credentialByChannelByAccount.computeIfAbsent(account.login, key -> new ConcurrentHashMap<>())
+                        .computeIfAbsent(youtubeDesignation, k -> new ConcurrentHashMap<>())
+                        .get(location.url.toString());
         if (credential == null) {
             credential = initCredential(account, location);
-            credentialByChannelByAccount.computeIfAbsent(account.login, key -> new ConcurrentHashMap<>())
+            credentialByChannelByAccount.get(account.login).get(youtubeDesignation)
                     .put(location.url.toString(), credential);
         }
         return new YouTube.Builder(
@@ -96,26 +102,5 @@ public class YoutubeApi {
                 .setApplicationName("postamatik")
                 .build();
     }
-
-//    public <T> T execute(Account account, YoutubeLocation location, YouTubeRequest<T> request) throws IOException, GeneralSecurityException {
-//        YouTube youTube = null;
-//        if (credentialByChannelByAccount.get(account.login) != null) {
-//            youTube = credentialByChannelByAccount.get(account.login).get(location.url.toString());
-//        }
-//        if (youTube == null) {
-//            youTube = fetchYouTube(account, location);
-//            credentialByChannelByAccount.computeIfAbsent(account.login, key -> new ConcurrentHashMap<>())
-//                    .put(location.url.toString(), youTube);
-//        }
-//        try {
-//            return request.execute();
-//        } catch (GoogleJsonResponseException e) {
-//            if (e.getStatusCode() == 401) {
-////                youTube = ;
-//            }
-//        }
-//        return null;
-//    }
-
 
 }

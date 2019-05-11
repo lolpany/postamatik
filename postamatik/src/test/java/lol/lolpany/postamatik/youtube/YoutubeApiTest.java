@@ -24,7 +24,7 @@ public class YoutubeApiTest {
 
     @Test
     public void go() throws IOException, GeneralSecurityException {
-        YouTube youtube = YoutubeApi.fetchYouTube(TEST_ACCOUNT, testYoutubeLocation);
+        YouTube youtube = YoutubeApi.fetchYouTube(TEST_ACCOUNT, testYoutubeLocation, null);
         List<String> ids = new ArrayList<>();
         String pageToken = "";
         int pageCount = 100;

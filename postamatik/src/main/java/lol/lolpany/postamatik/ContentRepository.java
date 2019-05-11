@@ -3,19 +3,13 @@ package lol.lolpany.postamatik;
 import lol.lolpany.Account;
 import lol.lolpany.ComponentConnection;
 import lol.lolpany.Location;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.Collections;
 import java.util.Set;
 
-import static com.codeborne.selenide.Browsers.CHROME;
 import static com.codeborne.selenide.WebDriverRunner.closeWebDriver;
-import static com.codeborne.selenide.WebDriverRunner.setWebDriver;
-import static lol.lolpany.postamatik.Postamatik.CHROME_DRIVER_LOCATION;
-import static lol.lolpany.postamatik.Postamatik.HEADLESS;
 
 public class ContentRepository {
 
@@ -27,12 +21,6 @@ public class ContentRepository {
                              PostsTimeline postsTimeline) {
         this.contentRepositoryStoreQueue = contentRepositoryStoreQueue;
         this.postsTimeline = postsTimeline;
-
-        System.setProperty("webdriver.chrome.driver", CHROME_DRIVER_LOCATION);
-        ChromeOptions chromeOptions = new ChromeOptions();
-        if (HEADLESS) {
-            chromeOptions.setHeadless(true);
-        }
     }
 
     Content getContent(double precision, Set<String> tags, Account account, Location location, PostsTimeline timeline)

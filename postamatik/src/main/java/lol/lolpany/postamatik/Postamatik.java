@@ -28,34 +28,36 @@ public class Postamatik {
 
     final static int CONTENT_STREAMER_MAXIMUM_PARALLER_STREAMS = 5;
 
-//    public static final String POSTAMATIK_HOME = "/home/user/postamatik/";
-//    public final static String CHROME_DRIVER_LOCATION = POSTAMATIK_HOME + "chromedriver";
-//    public static final String CONFIG_DIR = POSTAMATIK_HOME + "config/";
-//    public static final String PUBLIC_CONFIG_DIR = POSTAMATIK_HOME + "content-repository";
-//    public static final String ACCOUNTS_CONFIG = CONFIG_DIR + "accounts-config.json";
-//    public static final String POSTS_TIMELINE = CONFIG_DIR + "posts-timeline.json";
-//    public static final String YOUTUBE_DL_DIR = "/usr/local/bin/";
-//    public static final String YOUTUBE_DL = YOUTUBE_DL_DIR + "youtube-dl";
-//    public static final String FFMPEG_DIR = "/usr/bin/";
-//    public static final String FFMPEG = FFMPEG_DIR + "ffmpeg";
-//    public final static String VIDEO_CACHE = "/tmp/postamatik-cache";
-//    public static final String CREDENTIAL_STORAGE = POSTAMATIK_HOME + "access-token";
-//    public static final File CLIENT_SECRET = new File(POSTAMATIK_HOME + "clientSecret.txt");
+    public static final String POSTAMATIK_HOME = "/home/user/postamatik/";
+    public final static String CHROME_DRIVER_LOCATION = POSTAMATIK_HOME + "chromedriver";
+    public final static String GECKO_DRIVER_LOCATION = POSTAMATIK_HOME + "geckodriver";
+    public static final String CONFIG_DIR = POSTAMATIK_HOME + "config/";
+    public static final String PUBLIC_CONFIG_DIR = POSTAMATIK_HOME + "content-repository";
+    public static final String ACCOUNTS_CONFIG = CONFIG_DIR + "accounts-config.json";
+    public static final String POSTS_TIMELINE = CONFIG_DIR + "posts-timeline.json";
+    public static final String YOUTUBE_DL_DIR = "/usr/local/bin/";
+    public static final String YOUTUBE_DL = YOUTUBE_DL_DIR + "youtube-dl";
+    public static final String FFMPEG_DIR = "/usr/bin/";
+    public static final String FFMPEG = FFMPEG_DIR + "ffmpeg";
+    public final static String VIDEO_CACHE = "/tmp/postamatik-cache";
+    public static final String CREDENTIAL_STORAGE = POSTAMATIK_HOME + "access-token";
+    public static final File CLIENT_SECRET = new File(POSTAMATIK_HOME + "clientSecret.txt");
 
 
-    public static final String POSTAMATIK_HOME = "R:\\postamatik\\postamatik\\";
-    public final static String CHROME_DRIVER_LOCATION = "R:\\chromedriver.exe";
-    public static final String CONFIG_DIR = "C:\\all\\info\\buffer\\postamatik\\accounts-config";
-    public static final String PUBLIC_CONFIG_DIR = "C:\\Users\\user\\Dropbox\\projects\\postamatik-public-config\\content-repository\\";
-    public static final String ACCOUNTS_CONFIG = CONFIG_DIR + "\\accounts-config.json";
-    public static final String POSTS_TIMELINE = POSTAMATIK_HOME + "posts-timeline.json";
-    public static final String YOUTUBE_DL_DIR = "R:\\";
-    public static final String YOUTUBE_DL = YOUTUBE_DL_DIR + "youtube-dl.exe";
-    public static final String FFMPEG_DIR = YOUTUBE_DL_DIR;
-    public static final String FFMPEG = FFMPEG_DIR + "ffmpeg.exe";
-    public final static String VIDEO_CACHE = "R:\\postamatik-cache\\";
-    public static final String CREDENTIAL_STORAGE = "C:\\all\\info\\buffer\\postamatik\\access-token";
-    public static final File CLIENT_SECRET = new File("C:\\all\\info\\buffer\\postamatik\\clientSecret.txt");
+//    public static final String POSTAMATIK_HOME = "R:\\postamatik\\postamatik\\";
+//    public final static String GECKO_DRIVER_LOCATION = "R:\\geckodriver.exe";
+//    public final static String CHROME_DRIVER_LOCATION = "R:\\chromedriver.exe";
+//    public static final String CONFIG_DIR = "C:\\all\\info\\buffer\\postamatik\\accounts-config";
+//    public static final String PUBLIC_CONFIG_DIR = "C:\\Users\\user\\Dropbox\\projects\\postamatik-public-config\\content-repository\\";
+//    public static final String ACCOUNTS_CONFIG = CONFIG_DIR + "\\accounts-config.json";
+//    public static final String POSTS_TIMELINE = POSTAMATIK_HOME + "posts-timeline.json";
+//    public static final String YOUTUBE_DL_DIR = "R:\\";
+//    public static final String YOUTUBE_DL = YOUTUBE_DL_DIR + "youtube-dl.exe";
+//    public static final String FFMPEG_DIR = YOUTUBE_DL_DIR;
+//    public static final String FFMPEG = FFMPEG_DIR + "ffmpeg.exe";
+//    public final static String VIDEO_CACHE = "R:\\postamatik-cache\\";
+//    public static final String CREDENTIAL_STORAGE = "C:\\all\\info\\buffer\\postamatik\\access-token";
+//    public static final File CLIENT_SECRET = new File("C:\\all\\info\\buffer\\postamatik\\clientSecret.txt");
 
 
     public static void main(String[] args) throws Exception {

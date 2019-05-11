@@ -51,7 +51,7 @@ public class YoutubeContentSearch implements ContentSearch {
     private Content findContent(Account account, String url, Set<String> tags, PostsTimeline postsTimeline,
                                 Location location) throws IOException, GeneralSecurityException {
         YoutubeLocation youtubeLocation = (YoutubeLocation) location;
-        YouTube youTube = YoutubeApi.fetchYouTube(account, youtubeLocation);
+        YouTube youTube = YoutubeApi.fetchYouTube(account, youtubeLocation, YoutubeDesignation.CONTENT_SEARCH);
         String uploadsPlaylistId = "";
         URL contentSourceUrl = new URL(url);
         if (contentSourceUrl.getPath().startsWith(CHANNEL)) {

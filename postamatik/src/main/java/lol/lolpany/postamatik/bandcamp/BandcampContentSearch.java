@@ -11,6 +11,8 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -21,12 +23,10 @@ import java.util.Random;
 import java.util.Set;
 
 import static com.codeborne.selenide.Selenide.*;
-import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
-import static com.codeborne.selenide.WebDriverRunner.setWebDriver;
+import static com.codeborne.selenide.WebDriverRunner.*;
 import static java.util.Collections.emptyList;
 import static java.util.Collections.singletonList;
-import static lol.lolpany.postamatik.Postamatik.CHROME_DRIVER_LOCATION;
-import static lol.lolpany.postamatik.Postamatik.HEADLESS;
+import static lol.lolpany.postamatik.Postamatik.*;
 import static lol.lolpany.postamatik.SelenideUtils.isDaysPassed;
 import static org.apache.commons.lang3.StringUtils.trim;
 
@@ -43,26 +43,40 @@ public class BandcampContentSearch implements ContentSearch {
     @Override
     public Content findContent(double precision, Set<String> tags, PostsTimeline postsTimeline, Account account,
                                Location<LocationConfig> location) {
-        Content result = null;
-//        System.setProperty("webdriver.chrome.driver", CHROME_DRIVER_LOCATION);
-//        ChromeOptions chromeOptions = new ChromeOptions();
-//        chromeOptions.addArguments("--no-sandbox");
-//        if (HEADLESS) {
-//            chromeOptions.setHeadless(true);
-//        }
-//        setWebDriver(new ChromeDriver(chromeOptions));
-        Configuration.baseUrl = "https://bandcamp.com";
-
-        if (Utils.match(this.tags, tags) >= precision) {
-            open(this.url);
-            sleep(5000);
-            if (!$("div.follow").exists()) {
-                result = findContentOld(tags, postsTimeline, location);
-            } else {
-                result = findContentNew(tags, postsTimeline, location);
+        try {
+            Content result = null;
+            System.setProperty("webdriver.chrome.driver", CHROME_DRIVER_LOCATION);
+            ChromeOptions chromeOptions = new ChromeOptions();
+            chromeOptions.addArguments("--no-sandbox");
+            if (HEADLESS) {
+                chromeOptions.setHeadless(true);
             }
+            setWebDriver(new ChromeDriver(chromeOptions));
+
+//            System.setProperty("webdriver.gecko.driver", GECKO_DRIVER_LOCATION);
+//            FirefoxOptions firefoxOptions = new FirefoxOptions();
+//            firefoxOptions.setAcceptInsecureCerts(true);
+//            if (HEADLESS) {
+//                firefoxOptions.setHeadless(true);
+//            }
+//            setWebDriver(new FirefoxDriver(firefoxOptions));
+
+            Configuration.baseUrl = "https://bandcamp.com";
+
+            if (Utils.match(this.tags, tags) >= precision) {
+                open(this.url);
+                sleep(5000);
+                if (!$("div.follow").exists()) {
+                    result = findContentOld(tags, postsTimeline, location);
+                } else {
+                    result = findContentNew(tags, postsTimeline, location);
+                }
+            }
+            return result;
+        } finally {
+            closeWebDriver();
         }
-        return result;
+
     }
 
     private Content findContentOld(Set<String> tags, PostsTimeline postsTimeline, Location<LocationConfig> location) {

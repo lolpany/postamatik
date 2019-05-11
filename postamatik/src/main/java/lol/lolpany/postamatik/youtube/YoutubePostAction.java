@@ -27,7 +27,7 @@ public class YoutubePostAction implements PostAction {
     public void run() {
         try {
             // fetch fresh
-            fetchYouTube(account, location).videos().update("status", new com.google.api.services.youtube.model.Video().setId(videoId).setStatus(
+            fetchYouTube(account, location, YoutubeDesignation.POST_ACTION).videos().update("status", new com.google.api.services.youtube.model.Video().setId(videoId).setStatus(
                     new VideoStatus().setPrivacyStatus("public")
             )).execute();
         } catch (IOException | GeneralSecurityException e) {
