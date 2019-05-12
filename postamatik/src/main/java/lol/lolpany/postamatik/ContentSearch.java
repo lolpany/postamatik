@@ -9,5 +9,6 @@ import java.security.GeneralSecurityException;
 import java.util.Set;
 
 public interface ContentSearch {
-    Content findContent(double precision, Set<String> tags, PostsTimeline postsTimeline, Account account, Location<LocationConfig> location) throws IOException, GeneralSecurityException;
+    Content findContent(double precision, Set<String> tags, PostsTimeline postsTimeline, Account account, Location<LocationConfig> location)
+            throws IOException, GeneralSecurityException, InterruptedException;
 }

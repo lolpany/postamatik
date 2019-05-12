@@ -46,7 +46,7 @@ public class YoutubeDlAggregateAudioInputStream implements SourceInputStream {
 
         new ProcessExecutor().command(YOUTUBE_DL, "--restrict-filenames",
                 "--no-check-certificate", "-f", "bestvideo+bestaudio/best", "--write-thumbnail", "-o",
-                folder + File.separator + "%(title)s-%(id)s.%(ext)s", source).execute();
+                folder + File.separator + "%(title)s.%(ext)s", source).execute();
 
         File root = new File(folder);
         String thumb = Objects.requireNonNull(root.listFiles((dir, name) -> name.endsWith(".jpg")))[0].getName();

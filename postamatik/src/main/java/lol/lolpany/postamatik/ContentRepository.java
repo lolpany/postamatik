@@ -24,7 +24,7 @@ public class ContentRepository {
     }
 
     Content getContent(double precision, Set<String> tags, Account account, Location location, PostsTimeline timeline)
-            throws IOException, GeneralSecurityException {
+            throws IOException, GeneralSecurityException, InterruptedException {
         try {
             ContentRepositoryStore newContentRepositoryStore = contentRepositoryStoreQueue.poll();
             if (newContentRepositoryStore != null) {

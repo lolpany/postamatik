@@ -21,7 +21,7 @@ import static lol.lolpany.postamatik.Postamatik.*;
 
 public class BandcampContentSearchTest {
     @Test
-    public void test() throws MalformedURLException {
+    public void test() throws MalformedURLException, InterruptedException {
         System.setProperty("webdriver.chrome.driver", CHROME_DRIVER_LOCATION);
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("--no-sandbox");

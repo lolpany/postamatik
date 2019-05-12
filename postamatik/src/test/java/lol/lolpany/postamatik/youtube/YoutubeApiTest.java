@@ -24,7 +24,7 @@ public class YoutubeApiTest {
 
     @Test
     public void go() throws IOException, GeneralSecurityException {
-        YouTube youtube = YoutubeApi.fetchYouTube(TEST_ACCOUNT, testYoutubeLocation, null);
+        YouTube youtube = YoutubeApi.fetchYouTube(TEST_ACCOUNT, testYoutubeLocation, YoutubeDesignation.CONTENT_SEARCH);
         List<String> ids = new ArrayList<>();
         String pageToken = "";
         int pageCount = 100;
@@ -57,6 +57,16 @@ public class YoutubeApiTest {
         }
         FileUtils.writeStringToFile(new File(POP_VIDEOS_FILE_LOCATION), result.toString(),
                 StandardCharsets.UTF_8.toString());
+    }
+
+    @Test
+    public void videoInfo() throws IOException, GeneralSecurityException {
+        YouTube youtube = YoutubeApi.fetchYouTube(TEST_ACCOUNT, testYoutubeLocation, YoutubeDesignation.CONTENT_SEARCH);
+        List<com.google.api.services.youtube.model.Video> videos = youtube.videos()
+                .list("snippet,statistics,contentDetails,fileDetails,recordingDetails,processingDetails,status,suggestions,topicDetails")
+                .setId("bbwfjjyFE8I")
+                .execute().getItems();
+        int a = 4;
     }
 
     private final static class Video {
