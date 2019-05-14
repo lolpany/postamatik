@@ -42,6 +42,7 @@ public class YoutubeApi {
             {
                 add("https://www.googleapis.com/auth/youtube");
                 add("https://www.googleapis.com/auth/youtube.upload");
+                add("https://www.googleapis.com/auth/youtubepartner-channel-audit");
             }
         }
 //                new GenericUrl("https://accounts.google.com/o/oauth2/token"),

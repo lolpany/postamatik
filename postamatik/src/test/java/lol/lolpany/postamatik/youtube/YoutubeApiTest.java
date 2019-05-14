@@ -69,6 +69,17 @@ public class YoutubeApiTest {
         int a = 4;
     }
 
+    @Test
+    public void channelInfo() throws IOException, GeneralSecurityException {
+        YouTube youtube = YoutubeApi.fetchYouTube(TEST_ACCOUNT, testYoutubeLocation, YoutubeDesignation.CONTENT_SEARCH);
+        List<com.google.api.services.youtube.model.Channel> channels = youtube.channels()
+                .list("auditDetails")
+                .setMine(true)
+                .execute().getItems();
+        int a = 4;
+    }
+
+
     private final static class Video {
         private final String videoId;
         private final String title;
