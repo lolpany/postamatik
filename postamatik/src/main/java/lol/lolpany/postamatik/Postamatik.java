@@ -3,10 +3,9 @@ package lol.lolpany.postamatik;
 import com.codeborne.selenide.Configuration;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import lol.lolpany.AccountsConfig;
-import lol.lolpany.ComponentConnection;
-import lol.lolpany.JsonConfigWatcher;
-import lol.lolpany.Location;
+import lol.lolpany.*;
+import org.apache.commons.lang3.tuple.Pair;
+import org.apache.commons.lang3.tuple.Triple;
 
 import java.io.File;
 import java.io.FileReader;
@@ -76,6 +75,7 @@ public class Postamatik {
 
 
         ComponentConnection<AccountsConfig> accountsConfigsQueue = new ComponentConnection<>(1);
+        ComponentConnection<Triple<Switch, Account, Location<LocationConfig>>> locationConfigSolverQueue = new ComponentConnection<>(100);
         ComponentConnection<ContentRepositoryStore> contentRepositoryStoreQueue = new ComponentConnection<>(1);
 //        PriorityBlockingQueue<Post> contentStreamerQueue = new PriorityBlockingQueue<>(1000,
 //                comparing(firstPost -> firstPost.time));
@@ -135,8 +135,11 @@ public class Postamatik {
         ContentRepository contentRepository = new ContentRepository(contentRepositoryStoreQueue, postsTimeline
         );
 
-        executorService.execute(new Solver(accountsConfigsQueue, contentStreamerQueue,
-                contentRepository, postsTimeline, streamerErrorQueue, isOn));
+        executorService.execute(new Component(isOn, new LocationSwitcher(accountsConfigsQueue, locationConfigSolverQueue)));
+
+        executorService.execute(
+                new Solver(locationConfigSolverQueue, contentStreamerQueue,
+                        contentRepository, postsTimeline, streamerErrorQueue, isOn));
 
         executorService.execute(new ContentStreamerDispatcher(isOn, contentStreamerQueue, posterQueue,
                 streamerErrorQueue, postsTimeline));

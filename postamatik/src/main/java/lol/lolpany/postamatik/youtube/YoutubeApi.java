@@ -87,7 +87,7 @@ public class YoutubeApi {
         return credential;
     }
 
-    static YouTube fetchYouTube(Account account, YoutubeLocation location, YoutubeDesignation youtubeDesignation)
+    public static YouTube fetchYouTube(Account account, YoutubeLocation location, YoutubeDesignation youtubeDesignation)
             throws IOException, GeneralSecurityException {
         Credential credential =
                 credentialByChannelByAccount.computeIfAbsent(account.login, key -> new ConcurrentHashMap<>())

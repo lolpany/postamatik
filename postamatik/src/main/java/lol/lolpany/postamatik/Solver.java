@@ -4,13 +4,17 @@ import lol.lolpany.Account;
 import lol.lolpany.AccountsConfig;
 import lol.lolpany.ComponentConnection;
 import lol.lolpany.Location;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
+import org.apache.commons.lang3.tuple.Triple;
 
 import java.time.Duration;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -23,55 +27,61 @@ public class Solver implements Runnable {
 
     private final static Duration POST_TIME = Duration.ofHours(10);
     private final static int UPLOAD_THRESHOLD = 1;
-    private final ComponentConnection<AccountsConfig> accountsConfigsQueue;
+    private final ComponentConnection<Triple<Switch, Account, Location<LocationConfig>>> locationConfigQueue;
+    private final Map<String, Pair<Account, Location<LocationConfig>>> urlToLocation;
     private AtomicBoolean on;
     private final PriorityComponentConnection<Post> contentStreamerQueue;
     private final ContentRepository contentRepository;
     private final PostsTimeline postsTimeline;
     private final ComponentConnection<Post> streamerErrorQueue;
 
-    public Solver(ComponentConnection<AccountsConfig> accountsConfigsQueue,
-                  PriorityComponentConnection<Post> contentStreamerQueue, ContentRepository contentRepository,
+    public Solver(ComponentConnection<Triple<Switch, Account, Location<LocationConfig>>> locationConfigQueue,
+                  PriorityComponentConnection<Post> contentStreamerQueue,
+                  ContentRepository contentRepository,
                   PostsTimeline postsTimeline, ComponentConnection<Post> streamerErrorQueue, AtomicBoolean on) {
-        this.accountsConfigsQueue = accountsConfigsQueue;
+        this.locationConfigQueue = locationConfigQueue;
         this.contentStreamerQueue = contentStreamerQueue;
         this.contentRepository = contentRepository;
         this.postsTimeline = postsTimeline;
         this.streamerErrorQueue = streamerErrorQueue;
         this.on = on;
+        this.urlToLocation = new HashMap<>();
     }
 
     public void run() {
 
-        AccountsConfig<LocationConfig> accountsConfig = null;
         while (on.get()) {
             try {
-                AccountsConfig<LocationConfig> newAccountsConfig = accountsConfigsQueue.poll();
-                if (newAccountsConfig != null) {
-                    accountsConfig = newAccountsConfig;
+                Triple<Switch, Account, Location<LocationConfig>> locationSwitch = locationConfigQueue.poll();
+                while (locationSwitch != null) {
+                    if (locationSwitch.getLeft() == Switch.ENABLE) {
+                        urlToLocation.put(locationSwitch.getRight().url.toString(),
+                                new ImmutablePair<>(locationSwitch.getMiddle(), locationSwitch.getRight()));
+                    } else {
+                        urlToLocation.remove(locationSwitch.getRight().url.toString());
+                    }
+                    locationSwitch = locationConfigQueue.poll();
                 }
-                if (accountsConfig != null) {
-                    for (Account<LocationConfig> account : accountsConfig.accountsConfig) {
-                        for (Location<LocationConfig> location : account.locations) {
-                            ConcurrentLinkedQueue<Post> posts = postsTimeline.getPosts(location.url.toString());
-                            for (Instant instant : generateNewPostInstants(location.locationConfig, posts,
-                                    UPLOAD_THRESHOLD)) {
-                                Content content = null;
-                                try {
-                                    content = contentRepository.getContent(location.locationConfig.precision,
-                                            location.locationConfig.tags, account, location, postsTimeline);
-                                } catch (Exception e) {
-                                        e.printStackTrace();
-                                }
-                                Post post = new Post(instant, content, account, location);
-                                if (content != null) {
-                                    contentStreamerQueue.offer(post);
-                                } else {
-                                    // todo notify content-manager
-                                }
-                                postsTimeline.addPost(location.url.toString(), post);
-                            }
+                for (Pair<Account, Location<LocationConfig>> accoundAndLocation : urlToLocation.values()) {
+                    Account account = accoundAndLocation.getLeft();
+                    Location<LocationConfig> location = accoundAndLocation.getRight();
+                    ConcurrentLinkedQueue<Post> posts = postsTimeline.getPosts(location.url.toString());
+                    for (Instant instant : generateNewPostInstants(location.locationConfig, posts,
+                            UPLOAD_THRESHOLD)) {
+                        Content content = null;
+                        try {
+                            content = contentRepository.getContent(location.locationConfig.precision,
+                                    location.locationConfig.tags, account, location, postsTimeline);
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
+                        Post post = new Post(instant, content, account, location);
+                        if (content != null) {
+                            contentStreamerQueue.offer(post);
+                        } else {
+                            // todo notify content-manager
+                        }
+                        postsTimeline.addPost(location.url.toString(), post);
                     }
                 }
                 Post postWithAlreadyPostedContent = streamerErrorQueue.poll();
