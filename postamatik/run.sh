@@ -1,1 +1,1 @@
-nohup java -agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=*:8888 -jar /home/user/postamatik/postamatik-1.0-jar-with-dependencies.jar &
+nohup java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:8888 -jar /home/user/postamatik/postamatik-1.0-jar-with-dependencies.jar &
