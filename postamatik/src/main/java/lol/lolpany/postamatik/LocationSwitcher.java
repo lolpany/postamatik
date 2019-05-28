@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static java.lang.Thread.sleep;
+import static java.util.concurrent.TimeUnit.HOURS;
 
 public class LocationSwitcher implements ComponentCycle {
 
@@ -62,6 +63,6 @@ public class LocationSwitcher implements ComponentCycle {
                 }
             }
         }
-        sleep(30000);
+        sleep(HOURS.toMillis(1));
     }
 }
