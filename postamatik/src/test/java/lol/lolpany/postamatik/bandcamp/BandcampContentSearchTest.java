@@ -12,6 +12,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 
 import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.net.URL;
 
 import static com.codeborne.selenide.WebDriverRunner.setWebDriver;
@@ -21,7 +22,7 @@ import static lol.lolpany.postamatik.Postamatik.*;
 
 public class BandcampContentSearchTest {
     @Test
-    public void test() throws MalformedURLException, InterruptedException {
+    public void test() throws MalformedURLException, InterruptedException, URISyntaxException {
         System.setProperty("webdriver.chrome.driver", CHROME_DRIVER_LOCATION);
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("--no-sandbox");

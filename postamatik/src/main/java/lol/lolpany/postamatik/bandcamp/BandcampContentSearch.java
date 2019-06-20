@@ -12,6 +12,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
@@ -33,7 +35,7 @@ public class BandcampContentSearch implements ContentSearch {
     private final String url;
     private final Set<String> tags;
 
-    BandcampContentSearch(String url, Set<String> tags) {
+    BandcampContentSearch(String url, Set<String> tags) throws URISyntaxException {
         this.url = url;
         this.tags = tags;
     }
@@ -70,6 +72,8 @@ public class BandcampContentSearch implements ContentSearch {
                     result = findContentNew(webDriver, tags, postsTimeline, location);
                 }
             }
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
         } finally {
             webDriver.quit();
         }
@@ -103,8 +107,8 @@ public class BandcampContentSearch implements ContentSearch {
 
 
     private Content findContentNew(WebDriver webDriver, Set<String> tags, PostsTimeline postsTimeline,
-                                   Location<LocationConfig> location) throws InterruptedException {
-        String pageUrl = this.url;
+                                   Location<LocationConfig> location) throws InterruptedException, URISyntaxException {
+        String pageUrl = getUrlWithoutParameters(this.url);
         webDriver.get(pageUrl);
         WebElement button = webDriver.findElement(cssSelector("button.view-more"));
         button.click();
@@ -236,5 +240,14 @@ public class BandcampContentSearch implements ContentSearch {
             multiplier *= 60;
         }
         return result;
+    }
+
+    private String getUrlWithoutParameters(String url) throws URISyntaxException {
+        URI uri = new URI(url);
+        return new URI(uri.getScheme(),
+                uri.getAuthority(),
+                uri.getPath(),
+                "tab=all_releases&s=date",
+                uri.getFragment()).toString();
     }
 }
