@@ -21,7 +21,7 @@ import static org.apache.commons.io.FileUtils.writeStringToFile;
 public class PostsTimeline implements AutoCloseable {
 
     private final static Map<String, LocationTimelineReaderFactory> LOCATION_TIMELINES_FACTORIES =
-            new HashMap<String, LocationTimelineReaderFactory>() {{
+            new HashMap<>() {{
                 put("www.youtube.com", new YoutubeTimelineReaderFactory());
             }};
 

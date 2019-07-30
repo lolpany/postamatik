@@ -7,7 +7,7 @@ import org.junit.Test;
 import static java.util.Collections.singletonList;
 import static lol.lolpany.postamatik.Postamatik.VIDEO_CACHE;
 
-public class YoutubeDlAudioAndThumbInputStreamTest {
+public class YoutubeDlInputStreamTest {
 
     @Test
     public void test() throws Exception {

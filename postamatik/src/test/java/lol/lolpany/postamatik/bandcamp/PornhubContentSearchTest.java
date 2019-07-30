@@ -20,7 +20,7 @@ import static java.util.Collections.singleton;
 import static java.util.Collections.singletonList;
 import static lol.lolpany.postamatik.Postamatik.*;
 
-public class BandcampContentSearchTest {
+public class PornhubContentSearchTest {
     @Test
     public void test() throws MalformedURLException, InterruptedException, URISyntaxException {
         System.setProperty("webdriver.chrome.driver", CHROME_DRIVER_LOCATION);
