@@ -2,6 +2,7 @@ package lol.lolpany.postamatik;
 
 import com.google.gson.*;
 import lol.lolpany.postamatik.bandcamp.BandcampContentSearch;
+import lol.lolpany.postamatik.pornhub.PornhubContentSearch;
 import lol.lolpany.postamatik.youtube.YoutubeContentSearch;
 
 import java.lang.reflect.Type;
@@ -17,6 +18,8 @@ public final class ContentSearchDeserializer implements JsonDeserializer<Content
             actualClass = YoutubeContentSearch.class;
         } else if (typeName.getAsString().startsWith("https://bandcamp.com/tag/")) {
             actualClass = BandcampContentSearch.class;
+        } else if (typeName.getAsString().startsWith("https://www.pornhub.com/")) {
+            actualClass = PornhubContentSearch.class;
         }
         return context.deserialize(elem, actualClass);
     }

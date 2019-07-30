@@ -20,7 +20,7 @@ import static java.util.Comparator.comparing;
 
 public class Postamatik {
 
-    public static final boolean HEADLESS = true;
+    public static final boolean HEADLESS = false;
 
     public static final String CLIENT_ID = "917439087874-rc9q2c1mb5mv8c2p5fe69errjeqmskvt.apps.googleusercontent.com";
     private static final String AUTHORIZATION_SERVER_ENCODED_URL = "https://accounts.google.com/o/oauth2/v2/auth";

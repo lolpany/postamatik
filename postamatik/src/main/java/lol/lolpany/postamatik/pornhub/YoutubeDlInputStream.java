@@ -6,6 +6,7 @@ import lol.lolpany.postamatik.SourceInputStream;
 import org.zeroturnaround.exec.ProcessExecutor;
 
 import java.io.File;
+import java.io.FilenameFilter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Objects;
@@ -33,33 +34,31 @@ public class YoutubeDlInputStream implements SourceInputStream {
 
     @Override
     public Content read() throws Exception {
-        String folderName = UUID.randomUUID().toString();
+        String fileName = UUID.randomUUID().toString();
 
-        String folder = videoCache + File.separator + folderName;
-        Files.createDirectories(Paths.get(folder));
-
+        content.name = new ProcessExecutor().readOutput(true).command(
+                YOUTUBE_DL,
+                "--no-check-certificate", "-e", source)
+                .execute().outputString("windows-1251");
 
         if (postsTimeline.isAlreadyUploadedOrPosted(locationUrl, content)) {
             return content;
         }
 
         new ProcessExecutor().command(YOUTUBE_DL, "--restrict-filenames",
-                "--no-check-certificate", "-f", "mp3", "--write-thumbnail", "-o",
-                folder + File.separator + "%(title)s.%(ext)s", source).execute();
+                "--no-check-certificate", "-f", "bestvideo+bestaudio/best", "-o",
+                videoCache + File.separator + fileName,
+                source).execute();
 
-        File root = new File(folder);
-        String thumb = Objects.requireNonNull(root.listFiles((dir, name) -> name.endsWith(".jpg")))[0].getName();
-        File audio = root.listFiles((dir, name) -> name.endsWith(".mp3"))[0];
+        File root = new File(videoCache);
+        FilenameFilter beginswithm = (directory, filename) -> filename.startsWith(fileName);
 
-        String videoFileName = UUID.randomUUID().toString() + ".avi";
-
-        new ProcessExecutor().command(FFMPEG,
-                "-loop", "1", "-r", "1", "-i",
-                folder + File.separator + thumb, "-i", audio.getAbsolutePath(), "-c", "copy", "-shortest",
-                folder + File.separator + videoFileName).execute();
-
-        content.file = root.listFiles((directory, filename) -> filename.endsWith(videoFileName))[0];
-
-        return content;
+        File[] files = root.listFiles(beginswithm);
+        if (files.length > 0) {
+            content.file = root.listFiles(beginswithm)[0];
+            return content;
+        } else {
+            return null;
+        }
     }
 }

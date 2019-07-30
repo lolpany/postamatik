@@ -2,6 +2,7 @@ package lol.lolpany.postamatik;
 
 import lol.lolpany.Account;
 import lol.lolpany.Location;
+import lol.lolpany.postamatik.pornhub.PornhubLocation;
 import lol.lolpany.postamatik.youtube.YoutubeLocation;
 import org.apache.commons.lang3.builder.ToStringExclude;
 
@@ -16,9 +17,10 @@ import static java.util.Collections.singleton;
 import static java.util.Collections.singletonList;
 
 public class TestUtils {
-    public static final String ACCOUNTS_CONFIG = "D:\\storage\\info\\buffer\\postamatik-test\\accounts-config\\accounts-config.json";
-    public static final String POSTS_TIMELINE = "D:\\storage\\info\\buffer\\postamatik-test\\posts-timeline\\posts-timeline.json";
+    public static final String ACCOUNTS_CONFIG = "C:\\all\\info\\buffer\\postamatik-test\\accounts-config\\accounts-config.json";
+    public static final String POSTS_TIMELINE = "C:\\all\\info\\buffer\\postamatik-test\\posts-timeline\\posts-timeline.json";
     public static YoutubeLocation testYoutubeLocation = null;
+    public static PornhubLocation testPornhubLocation = null;
 
     static {
         try {
@@ -27,11 +29,21 @@ public class TestUtils {
                     new LocationConfig("https://www.youtube.com/channel/UCC2VdQa8i5_4GiW446zhPug",
                             singleton("test"), 1, 0.01, 3,
                             singletonList(ContentLength.SHORT)), "Test Testovich");
+            testPornhubLocation = new PornhubLocation(
+                    new URL("https://www.pornhub.com/users/girlcentral"),
+                    new LocationConfig("https://www.pornhub.com/users/girlcentral",
+                            singleton("test"), 1, 0.01, 3,
+                            singletonList(ContentLength.SHORT)));
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
     }
 
-    public static final Account TEST_ACCOUNT = new Account("testtestovich12345678@gmail.com", "testtestovich12345678@gmail.com", "A_123456",
+    public static final Account TEST_ACCOUNT = new Account("testtestovich12345678@gmail.com",
+            "testtestovich12345678@gmail.com", "A_123456",
+            Collections.singletonList(testPornhubLocation));
+
+    public static final Account TEST_PORNHUB_ACCOUNT = new Account("asdfasdfds222@gmail.com",
+            "asdfasdfds222@gmail.com", "swdf@F#@F#@f23f",
             Collections.singletonList(testYoutubeLocation));
 }

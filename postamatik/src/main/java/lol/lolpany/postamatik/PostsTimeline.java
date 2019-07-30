@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import lol.lolpany.Account;
 import lol.lolpany.AccountsConfig;
 import lol.lolpany.Location;
+import lol.lolpany.postamatik.pornhub.PornhubTimelineReaderFactory;
 import lol.lolpany.postamatik.youtube.YoutubeTimelineReaderFactory;
 
 import java.io.File;
@@ -23,6 +24,7 @@ public class PostsTimeline implements AutoCloseable {
     private final static Map<String, LocationTimelineReaderFactory> LOCATION_TIMELINES_FACTORIES =
             new HashMap<>() {{
                 put("www.youtube.com", new YoutubeTimelineReaderFactory());
+                put("www.pornhub.com", new PornhubTimelineReaderFactory());
             }};
 
 

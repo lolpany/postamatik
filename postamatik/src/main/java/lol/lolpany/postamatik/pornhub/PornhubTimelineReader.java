@@ -10,6 +10,6 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public class PornhubTimelineReader implements LocationTimelineReader {
     @Override
     public ConcurrentLinkedQueue<Post> read(Account account, Location location) {
-        return null;
+        return new ConcurrentLinkedQueue<>();
     }
 }
