@@ -34,7 +34,7 @@ public class YoutubeDlInputStream implements SourceInputStream {
 
     @Override
     public Content read() throws Exception {
-        String fileName = UUID.randomUUID().toString();
+        String fileName = UUID.randomUUID().toString() + ".mp4";
 
         content.name = new ProcessExecutor().readOutput(true).command(
                 YOUTUBE_DL,

@@ -5,6 +5,7 @@ import lol.lolpany.Account;
 import lol.lolpany.AccountsConfig;
 import lol.lolpany.ComponentConnection;
 import lol.lolpany.Location;
+import lol.lolpany.postamatik.pornhub.PornhubLocation;
 import lol.lolpany.postamatik.youtube.YoutubeApi;
 import lol.lolpany.postamatik.youtube.YoutubeDesignation;
 import lol.lolpany.postamatik.youtube.YoutubeLocation;
@@ -59,6 +60,10 @@ public class LocationSwitcher implements ComponentCycle {
                             locationUrlToSwitch.put(url, newSwitch);
                         }
 
+                    } else {
+                        Switch newSwitch = Switch.ENABLE;
+                        locationConfigSolverQueue.offer(new ImmutableTriple<>(newSwitch, account, location));
+                        locationUrlToSwitch.put(location.url.toString(), newSwitch);
                     }
                 }
             }

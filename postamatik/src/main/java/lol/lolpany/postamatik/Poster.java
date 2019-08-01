@@ -18,7 +18,9 @@ public class Poster implements ComponentCycle {
         Post post = posterQueue.peek();
 
         if (post != null && post.time != null && post.time.isBefore(Instant.now())) {
-            post.action.run();
+            if (post.action != null) {
+                post.action.run();
+            }
             posterQueue.poll();
             postsTimeline.setPosted(post);
         }

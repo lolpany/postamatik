@@ -3,6 +3,7 @@ package lol.lolpany.postamatik;
 import lol.lolpany.ComponentConnection;
 import lol.lolpany.postamatik.bandcamp.YoutubeDlAggregateAudioInputStreamFactory;
 import lol.lolpany.postamatik.bandcamp.YoutubeDlAudioAndThumbInputStreamFactory;
+import lol.lolpany.postamatik.pornhub.PornhubOutputStreamFactory;
 import lol.lolpany.postamatik.youtube.YoutubeDlInputStreamFactory;
 import lol.lolpany.postamatik.youtube.YoutubeOutputStreamFactory;
 
@@ -32,11 +33,14 @@ public class ContentStreamerDispatcher implements Runnable {
                 put((url, contentLength) -> url.contains("www.youtube.com"), new YoutubeDlInputStreamFactory(Postamatik.VIDEO_CACHE));
                 put((url, contentLength) -> url.contains("/album/") && contentLength == ContentLength.LONG, new YoutubeDlAggregateAudioInputStreamFactory(Postamatik.VIDEO_CACHE));
                 put((url, contentLength) -> url.contains("bandcamp.com") && contentLength == ContentLength.SHORT, new YoutubeDlAudioAndThumbInputStreamFactory(Postamatik.VIDEO_CACHE));
+                put((url, contentLength) -> url.contains("pornhub.com"), new lol.lolpany.postamatik.pornhub.YoutubeDlInputStreamFactory(Postamatik.VIDEO_CACHE));
             }};
     private final static Map<String, LocationOutputStreamFactory> LOCATION_OUTPUT_STREAM_FACTORIES =
             new HashMap<>() {{
                 try {
                     put("www.youtube.com", new YoutubeOutputStreamFactory(Postamatik.CHROME_DRIVER_LOCATION));
+                    put("www.pornhub.com", new PornhubOutputStreamFactory(Postamatik.CHROME_DRIVER_LOCATION));
+                    put("rt.pornhub.com", new PornhubOutputStreamFactory(Postamatik.CHROME_DRIVER_LOCATION));
                 } catch (GeneralSecurityException e) {
                     e.printStackTrace();
                 } catch (IOException e) {
