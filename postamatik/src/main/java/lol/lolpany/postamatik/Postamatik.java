@@ -22,7 +22,7 @@ public class Postamatik {
 
     public static final boolean HEADLESS = true;
 
-    public static final String CLIENT_ID = "917439087874-rc9q2c1mb5mv8c2p5fe69errjeqmskvt.apps.googleusercontent.com";
+    public static final String CLIENT_ID = "1059174167186-g08vc81kulft2qs4dq9ndokcjl297469.apps.googleusercontent.com";
     private static final String AUTHORIZATION_SERVER_ENCODED_URL = "https://accounts.google.com/o/oauth2/v2/auth";
 
     final static int CONTENT_STREAMER_MAXIMUM_PARALLER_STREAMS = 5;
@@ -46,10 +46,10 @@ public class Postamatik {
 //    public static final String POSTAMATIK_HOME = "R:\\postamatik\\postamatik\\";
 //    public final static String GECKO_DRIVER_LOCATION = "R:\\geckodriver.exe";
 //    public final static String CHROME_DRIVER_LOCATION = "R:\\chromedriver.exe";
-////    public static final String CONFIG_DIR = "C:\\all\\info\\buffer\\postamatik\\accounts-config";
-//    public static final String CONFIG_DIR = "C:\\all\\info\\buffer\\postamatik-test\\accounts-config";
+//    public static final String CONFIG_DIR = "C:\\all\\info\\buffer\\postamatik\\accounts-config";
+////    public static final String CONFIG_DIR = "C:\\all\\info\\buffer\\postamatik-test\\accounts-config";
 ////    public static final String PUBLIC_CONFIG_DIR = "C:\\Users\\user\\Dropbox\\projects\\postamatik-public-config\\content-repository\\";
-//    public static final String PUBLIC_CONFIG_DIR = "C:\\all\\info\\buffer\\postamatik-test\\";
+//    public static final String PUBLIC_CONFIG_DIR = "C:\\Users\\user\\Dropbox\\projects\\postamatik-public-config\\content-repository\\";
 //    public static final String ACCOUNTS_CONFIG = CONFIG_DIR + "\\accounts-config.json";
 //    public static final String POSTS_TIMELINE = POSTAMATIK_HOME + "posts-timeline.json";
 //    public static final String YOUTUBE_DL_DIR = "R:\\";
