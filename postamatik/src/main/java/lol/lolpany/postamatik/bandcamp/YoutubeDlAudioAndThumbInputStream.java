@@ -11,6 +11,7 @@ import java.nio.file.Paths;
 import java.util.Objects;
 import java.util.UUID;
 
+import static java.lang.String.join;
 import static lol.lolpany.postamatik.Postamatik.FFMPEG;
 import static lol.lolpany.postamatik.Postamatik.YOUTUBE_DL;
 
@@ -33,7 +34,7 @@ public class YoutubeDlAudioAndThumbInputStream implements SourceInputStream {
 
     @Override
     public Content read() throws Exception {
-        String folderName = UUID.randomUUID().toString();
+        String folderName = join("_", content.tags).replaceAll(" ", "_") + "_" + UUID.randomUUID().toString();
 
         String folder = videoCache + File.separator + folderName;
         Files.createDirectories(Paths.get(folder));
@@ -55,9 +56,10 @@ public class YoutubeDlAudioAndThumbInputStream implements SourceInputStream {
 
         new ProcessExecutor().command(FFMPEG,
                 "-loop", "1", "-r", "1", "-i",
-                folder + File.separator + thumb, "-i", audio.getAbsolutePath(), "-c", "copy", "-shortest",
+                folder + File.separator + thumb, "-i", audio.getAbsolutePath(),
+                "-metadata", "title=" + content.name,
+                "-c", "copy", "-shortest",
                 folder + File.separator + videoFileName).execute();
-
         content.file = root.listFiles((directory, filename) -> filename.endsWith(videoFileName))[0];
 
         return content;

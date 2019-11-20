@@ -49,7 +49,7 @@ public class YoutubeTimelineReader implements LocationTimelineReader<YoutubeLoca
                     if (video.getStatus().getPrivacyStatus().equals("private")
                             && !"duplicate".equals(video.getStatus().getRejectionReason())) {
                         post.postState = PostState.UPLOADED;
-                        post.setAction(new YoutubePostAction(video.getId(), youTube, account, location));
+//                        post.setAction(new YoutubePostAction(video.getId(), youTube, account, location));
                     } else {
                         post.postState = PostState.POSTED;
                     }

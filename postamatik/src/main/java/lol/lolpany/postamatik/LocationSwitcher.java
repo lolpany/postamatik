@@ -43,28 +43,28 @@ public class LocationSwitcher implements ComponentCycle {
         if (accountsConfig != null) {
             for (Account<LocationConfig> account : accountsConfig.accountsConfig) {
                 for (Location<LocationConfig> location : account.locations) {
-                    if (location instanceof YoutubeLocation) {
-                        YouTube youTube = YoutubeApi
-                                .fetchYouTube(account, (YoutubeLocation) location,
-                                        YoutubeDesignation.LOCATION_SWITCHER);
-
-                        Switch newSwitch = youTube.channels()
-                                .list("auditDetails")
-                                .setMine(true)
-                                .execute().getItems().get(0).getAuditDetails().getCopyrightStrikesGoodStanding() ?
-                                Switch.ENABLE : Switch.DISABLE;
-
-                        String url = location.url.toString();
-                        if (locationUrlToSwitch.get(url) == null || locationUrlToSwitch.get(url) != newSwitch) {
-                            locationConfigSolverQueue.offer(new ImmutableTriple<>(newSwitch, account, location));
-                            locationUrlToSwitch.put(url, newSwitch);
-                        }
-
-                    } else {
+//                    if (location instanceof YoutubeLocation) {
+//                        YouTube youTube = YoutubeApi
+//                                .fetchYouTube(account, (YoutubeLocation) location,
+//                                        YoutubeDesignation.LOCATION_SWITCHER);
+//
+//                        Switch newSwitch = youTube.channels()
+//                                .list("auditDetails")
+//                                .setMine(true)
+//                                .execute().getItems().get(0).getAuditDetails().getCopyrightStrikesGoodStanding() ?
+//                                Switch.ENABLE : Switch.DISABLE;
+//
+//                        String url = location.url.toString();
+//                        if (locationUrlToSwitch.get(url) == null || locationUrlToSwitch.get(url) != newSwitch) {
+//                            locationConfigSolverQueue.offer(new ImmutableTriple<>(newSwitch, account, location));
+//                            locationUrlToSwitch.put(url, newSwitch);
+//                        }
+//
+//                    } else {
                         Switch newSwitch = Switch.ENABLE;
                         locationConfigSolverQueue.offer(new ImmutableTriple<>(newSwitch, account, location));
                         locationUrlToSwitch.put(location.url.toString(), newSwitch);
-                    }
+//                    }
                 }
             }
         }

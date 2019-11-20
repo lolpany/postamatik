@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.util.UUID;
 
+import static java.lang.String.join;
 import static lol.lolpany.postamatik.Postamatik.POSTAMATIK_HOME;
 import static lol.lolpany.postamatik.Postamatik.YOUTUBE_DL;
 
@@ -31,7 +32,7 @@ public class YoutubeDlInputStream implements SourceInputStream {
 
     @Override
     public Content read() throws Exception {
-        String fileName = UUID.randomUUID().toString();
+        String fileName = join("_", content.tags).replaceAll(" ", "_") + "_" +UUID.randomUUID().toString();
 
         content.name = new ProcessExecutor().readOutput(true).command(
                 YOUTUBE_DL,

@@ -95,15 +95,15 @@ public class Postamatik {
                 AccountsConfig.class);
 
         PostsTimeline postsTimeline;
-//        if (new File(POSTS_TIMELINE).exists()) {
-//            postsTimeline =
-//                    gson.fromJson(
-//                            new FileReader(POSTS_TIMELINE),
-//                            PostsTimeline.class
-//                    );
-//        } else {
+        if (new File(POSTS_TIMELINE).exists()) {
+            postsTimeline =
+                    gson.fromJson(
+                            new FileReader(POSTS_TIMELINE),
+                            PostsTimeline.class
+                    );
+        } else {
         postsTimeline = new PostsTimeline(accountsConfig);
-//        }
+        }
 
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             try {

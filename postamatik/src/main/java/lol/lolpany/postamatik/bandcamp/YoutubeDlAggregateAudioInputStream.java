@@ -12,6 +12,7 @@ import java.nio.file.Paths;
 import java.util.Objects;
 import java.util.UUID;
 
+import static java.lang.String.join;
 import static lol.lolpany.postamatik.Postamatik.FFMPEG;
 import static lol.lolpany.postamatik.Postamatik.YOUTUBE_DL;
 
@@ -34,7 +35,7 @@ public class YoutubeDlAggregateAudioInputStream implements SourceInputStream {
 
     @Override
     public Content read() throws Exception {
-        String folderName = UUID.randomUUID().toString();
+        String folderName = join("_", content.tags).replaceAll(" ", "_") + "_" + UUID.randomUUID().toString();
 
         String folder = videoCache + File.separator + folderName;
         Files.createDirectories(Paths.get(folder));
@@ -58,9 +59,10 @@ public class YoutubeDlAggregateAudioInputStream implements SourceInputStream {
 
         String videoFileName = UUID.randomUUID().toString() + ".mp4";
 
-        new ProcessExecutor().command(FFMPEG, "-i", concatOption.toString(),
-                "-loop", "1", "-r", "1", "-i",
+        new ProcessExecutor().command(FFMPEG, "-i",
+                concatOption.toString(), "-loop", "1", "-r", "1", "-i",
                 folder + File.separator + thumb, "-c", "copy", "-shortest", "-vcodec", "libx264",
+                "-metadata", "title=" + content.name,
                 folder + File.separator + videoFileName).execute();
 
         content.file = root.listFiles((directory, filename) -> filename.endsWith(videoFileName))[0];

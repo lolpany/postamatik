@@ -7,12 +7,9 @@ import org.zeroturnaround.exec.ProcessExecutor;
 
 import java.io.File;
 import java.io.FilenameFilter;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.Objects;
 import java.util.UUID;
 
-import static lol.lolpany.postamatik.Postamatik.FFMPEG;
+import static java.lang.String.join;
 import static lol.lolpany.postamatik.Postamatik.YOUTUBE_DL;
 
 public class YoutubeDlInputStream implements SourceInputStream {
@@ -34,7 +31,7 @@ public class YoutubeDlInputStream implements SourceInputStream {
 
     @Override
     public Content read() throws Exception {
-        String fileName = UUID.randomUUID().toString() + ".mp4";
+        String fileName = join("_", content.tags).replaceAll(" ", "_") + "_" + UUID.randomUUID().toString() + ".mp4";
 
         content.name = new ProcessExecutor().readOutput(true).command(
                 YOUTUBE_DL,
