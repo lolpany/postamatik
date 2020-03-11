@@ -25,10 +25,10 @@ public class TestUtils {
     static {
         try {
             testYoutubeLocation = new YoutubeLocation(
-                    new URL("https://www.youtube.com/channel/UCC2VdQa8i5_4GiW446zhPug"),
-                    new LocationConfig("https://www.youtube.com/channel/UCC2VdQa8i5_4GiW446zhPug",
+                    new URL("https://www.youtube.com/channel/UCa7JW9WDzT-WMolvdr5SUsg"),
+                    new LocationConfig("https://www.youtube.com/channel/UCa7JW9WDzT-WMolvdr5SUsg",
                             singleton("test"), 1, 0.01, 3,
-                            singletonList(ContentLength.SHORT)), "Test Testovich");
+                            singletonList(ContentLength.SHORT)), "electromusic");
             testPornhubLocation = new PornhubLocation(
                     new URL("https://www.pornhub.com/users/girlcentral"),
                     new LocationConfig("https://www.pornhub.com/users/girlcentral",
@@ -39,9 +39,9 @@ public class TestUtils {
         }
     }
 
-    public static final Account TEST_ACCOUNT = new Account("testtestovich12345678@gmail.com",
-            "testtestovich12345678@gmail.com", "A_123456",
-            Collections.singletonList(testPornhubLocation));
+    public static final Account TEST_ACCOUNT = new Account("funnymeatworld@gmail.com",
+            "funnymeatworld@gmail.com", "asdf3f2f23@#F#@",
+            Collections.singletonList(testYoutubeLocation));
 
     public static final Account TEST_PORNHUB_ACCOUNT = new Account("asdfasdfds222@gmail.com",
             "asdfasdfds222@gmail.com", "swdf@F#@F#@f23f",

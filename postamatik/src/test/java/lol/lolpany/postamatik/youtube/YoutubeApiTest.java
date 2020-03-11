@@ -18,7 +18,7 @@ import static lol.lolpany.postamatik.TestUtils.TEST_ACCOUNT;
 import static lol.lolpany.postamatik.TestUtils.testYoutubeLocation;
 
 public class YoutubeApiTest {
-    private static final String POP_VIDEOS_FILE_LOCATION = "D:\\buffer\\youtube-top.txt";
+    private static final String POP_VIDEOS_FILE_LOCATION = "R:\\youtube-top.txt";
     private static final String TEST_ACCOUNTS_CONFIG =
             "D:\\storage\\info\\buffer\\postamatik-test\\accounts-config\\accounts-config.json";
 
@@ -30,8 +30,9 @@ public class YoutubeApiTest {
         int pageCount = 100;
         int pageSize = 50;
         for (int i = 0; i < pageCount; i++) {
-            SearchListResponse search = youtube.search().list("id").setOrder("viewCount")
-                    .setPageToken(pageToken).setType("video").setMaxResults((long) pageSize).setQ("music").execute();
+            SearchListResponse search = youtube.search().list("id").setOrder("viewCount").setMaxResults(50L)
+                    .setSafeSearch("none")
+                    .setPageToken(pageToken).setType("video").setMaxResults((long) pageSize).setQ("").execute();
             ids.addAll(
                     search.getItems().stream().map((video) -> video.getId().getVideoId()).collect(Collectors.toList()));
             pageToken = search.getNextPageToken();
