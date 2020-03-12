@@ -23,6 +23,7 @@ public class Postamatik {
     public static final boolean HEADLESS = true;
 
     public static final String CLIENT_ID = "1059174167186-g08vc81kulft2qs4dq9ndokcjl297469.apps.googleusercontent.com";
+    public static final String TEST_CLIENT_ID = "718851251848-esnfeglm7kbjvej8hm52hcrq7qlsrlll.apps.googleusercontent.com";
     private static final String AUTHORIZATION_SERVER_ENCODED_URL = "https://accounts.google.com/o/oauth2/v2/auth";
 
     final static int CONTENT_STREAMER_MAXIMUM_PARALLER_STREAMS = 5;
@@ -58,7 +59,9 @@ public class Postamatik {
     public static final String FFMPEG = FFMPEG_DIR + "ffmpeg.exe";
     public final static String VIDEO_CACHE = "R:\\postamatik-cache\\";
     public static final String CREDENTIAL_STORAGE = "C:\\all\\info\\buffer\\postamatik\\access-token";
+    public static final String TEST_CREDENTIAL_STORAGE = "C:\\all\\info\\buffer\\postamatik\\access-token";
     public static final File CLIENT_SECRET = new File("C:\\all\\info\\buffer\\postamatik\\clientSecret.txt");
+    public static final File TEST_CLIENT_SECRET = new File("C:\\all\\info\\buffer\\postamatik\\clientSecret.txt");
 
 
     public static void main(String[] args) throws Exception {
