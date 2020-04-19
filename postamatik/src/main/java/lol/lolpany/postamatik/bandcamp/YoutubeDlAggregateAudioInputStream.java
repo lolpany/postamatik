@@ -75,6 +75,9 @@ public class YoutubeDlAggregateAudioInputStream implements SourceInputStream {
         if (result.length == 0) {
             result = root.listFiles((dir, name) -> name.endsWith(".aiff"));
         }
+        if (result.length == 0) {
+            result = root.listFiles((dir, name) -> name.endsWith(".wav"));
+        }
         return result;
     }
 }
