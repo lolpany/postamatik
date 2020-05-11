@@ -3,10 +3,10 @@ package lol.lolpany.postamatik.youtube;
 import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.PlaylistItem;
 import com.google.api.services.youtube.model.PlaylistItemListResponse;
+import com.google.api.services.youtube.model.Video;
 import lol.lolpany.Account;
 import lol.lolpany.Location;
 import lol.lolpany.postamatik.*;
-import org.openqa.selenium.WebDriver;
 
 import java.io.IOException;
 import java.net.URL;
@@ -14,7 +14,9 @@ import java.security.GeneralSecurityException;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static java.util.Collections.emptyList;
 import static java.util.Collections.singletonList;
@@ -70,8 +72,12 @@ public class YoutubeContentSearch implements ContentSearch {
             PlaylistItemListResponse response = youTube.playlistItems().list("snippet,contentDetails")
                     .setPlaylistId(uploadsPlaylistId).setMaxResults((long) FETCH_SIZE).setPageToken(nextPageToken)
                     .execute();
+            Map<String, Video> idToVideo = youTube.videos().list("contentDetails").setId(response.getItems().stream()
+                    .map(playlistItem -> playlistItem.getContentDetails().getVideoId())
+                    .collect(Collectors.joining(",")))
+                    .execute().getItems().stream().collect(Collectors.toMap(Video::getId, v -> v));
             for (PlaylistItem playlistItem : response.getItems()) {
-                if (isContentLengthSuitable(youTube, playlistItem.getContentDetails().getVideoId(),
+                if (isContentLengthSuitable(idToVideo.get(playlistItem.getContentDetails().getVideoId()),
                         youtubeLocation.locationConfig.contentLengths)) {
                     Content content = new Content(tags,
                             singletonList(VIDEO_PREFIX + playlistItem.getContentDetails().getVideoId()), emptyList());
@@ -88,10 +94,8 @@ public class YoutubeContentSearch implements ContentSearch {
         return null;
     }
 
-    private boolean isContentLengthSuitable(YouTube youTube, String videoId, List<ContentLength> locationContentLength)
-            throws IOException {
+    private boolean isContentLengthSuitable(Video video, List<ContentLength> locationContentLength) {
         return locationContentLength.contains(ContentLength.fromMinutes(Duration.parse(
-                youTube.videos().list("contentDetails").setId(videoId).execute().getItems().get(0).getContentDetails()
-                        .getDuration()).toMinutes()));
+                video.getContentDetails().getDuration() ).toMinutes()));
     }
 }
