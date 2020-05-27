@@ -247,7 +247,9 @@ public class BandcampContentSearch implements ContentSearch {
         return new URI(uri.getScheme(),
                 uri.getAuthority(),
                 uri.getPath(),
-                "tab=all_releases&s=date",
+                uri.getQuery()
+                        + (!uri.getQuery().contains("tab=all_releases") ? "&tab=all_releases" : "")
+                        + (!uri.getQuery().contains("s=date") ? "&s=date" : ""),
                 uri.getFragment()).toString();
     }
 }

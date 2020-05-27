@@ -39,7 +39,7 @@ public class ContentStreamer implements Runnable {
         try {
             post.content = sourceInputStream.read();
             if (post.content != null && !postsTimeline.isAlreadyUploadedOrPosted(locationUrl, post.content)) {
-                post.setAction(locationOutputStream.write(post.content));
+//                post.setAction(locationOutputStream.write(post.content));
                 posterQueue.put(post);
             } else {
                 post.setPosted();
@@ -51,25 +51,25 @@ public class ContentStreamer implements Runnable {
             e.printStackTrace();
         } finally {
             streamsLimitingSemaphore.release();
-            if (post.content != null) {
-                try {
-                    if (post.content.file != null && !Files.isSameFile(post.content.file.toPath(), VIDEO_CACHE_PATH)) {
-                        try {
-                            FileUtils.deleteDirectory(post.content.file.getParentFile());
-                        } catch (IOException e) {
-                            // ignore
-                        }
-                    } else if (post.content.file != null) {
-                        try {
-                            deleteIfExists(post.content.file.toPath());
-                        } catch (IOException e) {
-
-                        }
-                    }
-                } catch (IOException e) {
-
-                }
-            }
+//            if (post.content != null) {
+//                try {
+//                    if (post.content.file != null && !Files.isSameFile(post.content.file.toPath(), VIDEO_CACHE_PATH)) {
+//                        try {
+//                            FileUtils.deleteDirectory(post.content.file.getParentFile());
+//                        } catch (IOException e) {
+//                            // ignore
+//                        }
+//                    } else if (post.content.file != null) {
+//                        try {
+//                            deleteIfExists(post.content.file.toPath());
+//                        } catch (IOException e) {
+//
+//                        }
+//                    }
+//                } catch (IOException e) {
+//
+//                }
+//            }
         }
     }
 }

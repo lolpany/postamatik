@@ -49,7 +49,6 @@ public class Postamatik {
     public final static String CHROME_DRIVER_LOCATION = "R:\\chromedriver.exe";
     public static final String CONFIG_DIR = "C:\\all\\info\\buffer\\postamatik\\accounts-config";
 //    public static final String CONFIG_DIR = "C:\\all\\info\\buffer\\postamatik-test\\accounts-config";
-//    public static final String PUBLIC_CONFIG_DIR = "C:\\Users\\user\\Dropbox\\projects\\postamatik-public-config\\content-repository\\";
     public static final String PUBLIC_CONFIG_DIR = "C:\\Users\\user\\Dropbox\\projects\\postamatik-public-config\\content-repository\\";
     public static final String ACCOUNTS_CONFIG = CONFIG_DIR + "\\accounts-config.json";
     public static final String POSTS_TIMELINE = POSTAMATIK_HOME + "posts-timeline.json";
