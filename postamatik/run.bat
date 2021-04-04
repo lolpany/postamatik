@@ -1,0 +1,1 @@
+java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:8888 -jar C:\all\apps\postamatik\postamatik-1.0-jar-with-dependencies.jar
