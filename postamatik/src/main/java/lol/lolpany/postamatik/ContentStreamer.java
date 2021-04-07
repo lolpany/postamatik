@@ -3,6 +3,7 @@ package lol.lolpany.postamatik;
 import lol.lolpany.ComponentConnection;
 import org.apache.commons.io.FileUtils;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.concurrent.Semaphore;
@@ -51,25 +52,28 @@ public class ContentStreamer implements Runnable {
             e.printStackTrace();
         } finally {
             streamsLimitingSemaphore.release();
-//            if (post.content != null) {
-//                try {
-//                    if (post.content.file != null && !Files.isSameFile(post.content.file.toPath(), VIDEO_CACHE_PATH)) {
-//                        try {
-//                            FileUtils.deleteDirectory(post.content.file.getParentFile());
-//                        } catch (IOException e) {
-//                            // ignore
-//                        }
-//                    } else if (post.content.file != null) {
-//                        try {
-//                            deleteIfExists(post.content.file.toPath());
-//                        } catch (IOException e) {
-//
-//                        }
-//                    }
-//                } catch (IOException e) {
-//
-//                }
-//            }
+            if (post.content != null) {
+                try {
+                    if (post.content.file != null && !Files.isSameFile(post.content.file.toPath(), VIDEO_CACHE_PATH)) {
+                        try {
+                            File contentDownDir = post.content.file.getParentFile();
+                            FileUtils.moveFile(post.content.file, new File(VIDEO_CACHE_PATH + File.separator
+                                    + post.content.file.getName()));
+                            FileUtils.deleteDirectory(contentDownDir);
+                        } catch (IOException e) {
+                            // ignore
+                        }
+                    } else if (post.content.file != null) {
+                        try {
+                            deleteIfExists(post.content.file.toPath());
+                        } catch (IOException e) {
+
+                        }
+                    }
+                } catch (IOException e) {
+
+                }
+            }
         }
     }
 }
