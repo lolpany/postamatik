@@ -37,12 +37,12 @@ public class PostsTimeline implements AutoCloseable {
 
     public PostsTimeline(AccountsConfig<LocationConfig> accountsConfig) {
         this.timeline = new ConcurrentHashMap<>();
-        for (Account<LocationConfig> account : accountsConfig.accountsConfig) {
-            for (Location<LocationConfig> location : account.locations) {
-                timeline.put(location.url.toString(), LOCATION_TIMELINES_FACTORIES.get(location.url.getHost()).
-                        create().read(account, location));
-            }
-        }
+//        for (Account<LocationConfig> account : accountsConfig.accountsConfig) {
+//            for (Location<LocationConfig> location : account.locations) {
+//                timeline.put(location.url.toString(), LOCATION_TIMELINES_FACTORIES.get(location.url.getHost()).
+//                        create().read(account, location));
+//            }
+//        }
     }
 
     void addPost(String location, Post post) {
