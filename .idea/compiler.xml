@@ -10,9 +10,5 @@
         <module name="postamatik" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="commons" target="1.8" />
-      <module name="postamatik" target="11" />
-    </bytecodeTargetLevel>
   </component>
 </project>

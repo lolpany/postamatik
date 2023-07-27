@@ -8,6 +8,7 @@ import org.zeroturnaround.exec.ProcessExecutor;
 
 import java.io.File;
 import java.io.FileReader;
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -51,6 +52,7 @@ public class FfmpegUtils {
         if (result.length == 0) {
             result = root.listFiles((dir, name) -> name.endsWith(".wav"));
         }
+        Arrays.sort(result);
         return result;
     }
 }
